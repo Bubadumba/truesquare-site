@@ -1,7 +1,7 @@
 /* TrueSquare Remodel: shared script for every page.
    SETTINGS live here only. Change a value, push to GitHub, Cloudflare redeploys. */
 var PREVIEW = false;          // true = shows preview-only blocks and fakes form success
-var WEBHOOK_URL = "";         // GHL Inbound Webhook URL (from the "CRM + tech" chat)
+var WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/H42lV2iiJ2m872quvLqA/webhook-trigger/0c2edfc6-f5c4-468b-8362-84c3d005ff83";         // GHL Inbound Webhook URL (from the "CRM + tech" chat)
 var META_PIXEL_ID = "843066468533246";
 var GTM_ID = "GTM-TNQM47NC";  // GA4 G-97XK2QM2FG loads inside GTM
 
