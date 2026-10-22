@@ -163,7 +163,7 @@ def biz_node(full=False):
     n = {"@type": "HomeAndConstructionBusiness", "@id": BIZ_ID, "name": "TrueSquare Remodel LLC",
          "url": SITE + "/", "telephone": "+1-206-222-2328"}
     if full:
-        n.update({"email": "info@truesquareremodel.com", "logo": SITE + "/img/logo.svg", "image": SITE + "/img/serhii.jpg",
+        n.update({"email": "info@truesquareremodel.com", "logo": SITE + "/img/logo.svg", "image": SITE + "/img/serhii-measure.jpg",
                   "description": "Bathroom remodeling in the Seattle area: full bathroom remodels, tub to walk-in shower conversions and shower remodels. Also kitchen remodeling and tile installation.",
                   "founder": {"@type": "Person", "name": "Serhii Tomilov"},
                   "areaServed": [{"@type": "City", "name": c + ", WA"} for c in CITIES],
@@ -737,7 +737,7 @@ PAGES["about.html"] = page(
 </div></section>
 """ + book(tiles=["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Kitchen or tile"]),
     ld_extra=[{"@type": "AboutPage", "@id": SITE + "/about#about", "url": SITE + "/about", "about": {"@id": BIZ_ID}},
-              {"@type": "Person", "name": "Serhii Tomilov", "jobTitle": "Owner", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg"}],
+              {"@type": "Person", "name": "Serhii Tomilov", "jobTitle": "Owner", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii-measure.jpg"}],
     crumbs=crumb, page_id="about", og_image="/img/serhii.jpg")
 
 # ---------------------------------------------------------------- REVIEWS
