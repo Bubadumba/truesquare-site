@@ -71,6 +71,25 @@ if(sticky&&heroCta&&book){
   addEventListener('scroll',onScroll,{passive:true});onScroll();
 }
 
+
+/* service area map: loads Leaflet only when the map scrolls near */
+var am=$('areaMap');
+if(am){
+  var initMap=function(){
+    var poly=JSON.parse(am.getAttribute('data-poly'));
+    var map=L.map(am,{scrollWheelZoom:false,dragging:!L.Browser.mobile,tap:false,zoomControl:true,attributionControl:true});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:15,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+    var shape=L.polygon(poly,{color:'#C64237',weight:2.5,fillColor:'#F47A61',fillOpacity:.22}).addTo(map);
+    map.fitBounds(shape.getBounds(),{padding:[18,18]});
+  };
+  var loadLeaflet=function(){
+    if(window.L){initMap();return;}
+    var c=d.createElement('link');c.rel='stylesheet';c.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';d.head.appendChild(c);
+    var s=d.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';s.onload=initMap;d.head.appendChild(s);
+  };
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();loadLeaflet();}},{rootMargin:'400px'});io.observe(am);}else loadLeaflet();
+}
+
 /* form */
 var form=$('bookForm'); if(!form) return;
 var def=form.getAttribute('data-default'); if(def) pick(def);

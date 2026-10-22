@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "3"  # bump to bust browser cache of css/js
+ASSET_V = "4"  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -163,7 +163,7 @@ def biz_node(full=False):
     n = {"@type": "HomeAndConstructionBusiness", "@id": BIZ_ID, "name": "TrueSquare Remodel LLC",
          "url": SITE + "/", "telephone": "+1-206-222-2328"}
     if full:
-        n.update({"email": "info@truesquareremodel.com", "logo": SITE + "/img/logo.svg", "image": SITE + "/img/serhii-measure.jpg",
+        n.update({"email": "info@truesquareremodel.com", "logo": SITE + "/img/logo.svg", "image": SITE + "/img/serhii.jpg",
                   "description": "Bathroom remodeling in the Seattle area: full bathroom remodels, tub to walk-in shower conversions and shower remodels. Also kitchen remodeling and tile installation.",
                   "founder": {"@type": "Person", "name": "Serhii Tomilov"},
                   "areaServed": [{"@type": "City", "name": c + ", WA"} for c in CITIES],
@@ -333,6 +333,26 @@ def svc_ld(name, path, desc, stype):
             "url": SITE + path, "provider": {"@id": BIZ_ID},
             "areaServed": [{"@type": "City", "name": c + ", WA"} for c in CITIES]}
 
+SERVICE_POLY = [[47.777,-122.382],[47.777,-122.29],[47.79,-122.21],[47.785,-122.10],[47.72,-122.02],[47.63,-121.98],
+                [47.55,-121.98],[47.50,-122.02],[47.46,-122.10],[47.43,-122.18],[47.46,-122.25],[47.495,-122.30],
+                [47.50,-122.40],[47.58,-122.42],[47.66,-122.43],[47.72,-122.39]]
+
+def areas_section(alt=False, sid="service-areas"):
+    chips = '<ul class="cities">' + "".join(f"<li>{c}</li>" for c in CITIES) + "</ul>"
+    poly = json.dumps(SERVICE_POLY)
+    return f"""<section class="{'alt' if alt else ''}" id="{sid}"><div class="wrap areas-grid">
+  <div class="areas-text">
+    <p class="kicker">Service area</p>
+    <h2>Serving Seattle <span class="grad-text">and the Eastside.</span></h2>
+    <p class="lead">We remodel bathrooms in Seattle and nearby cities, from Shoreline and Bothell down to Renton, and east to Redmond, Sammamish and Issaquah.</p>
+    {chips}
+  </div>
+  <figure class="areamap" style="margin:0">
+    <div id="areaMap" data-poly='{poly}' role="img" aria-label="Map of the TrueSquare Remodel service area around Seattle"></div>
+    <figcaption>Map shows an approximate service area. Call or text <a href="tel:{PHONE_T}">{PHONE}</a> to confirm your address.</figcaption>
+  </figure>
+</div></section>"""
+
 PAGES = {}
 
 # ---------------------------------------------------------------- HOME
@@ -340,7 +360,7 @@ home_main = read("home.main.html")
 PAGES["index.html"] = page(
     "/", "Bathroom Remodeling in Seattle, WA | TrueSquare Remodel",
     "Seattle-area bathroom remodeling by TrueSquare Remodel. Owner Serhii measures your bathroom and provides a written price within 5 hours. Free on-site visit.",
-    home_main + book(), full_biz=True)
+    home_main.replace("<!--AREAS-->", areas_section()) + book(), full_biz=True)
 
 # ---------------------------------------------------------------- FULL BATHROOM
 faq_bath = [
@@ -731,13 +751,10 @@ PAGES["about.html"] = page(
   </div>
 </div></section>
 
-<section class="alt" id="service-areas"><div class="wrap">
-  <div class="head"><p class="kicker">Service areas</p><h2>Where we work.</h2><p class="lead">We remodel homes in Seattle and nearby cities on the Eastside and north of the city.</p></div>
-  {cities_html}
-</div></section>
+{areas_section(alt=True)}
 """ + book(tiles=["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Kitchen or tile"]),
     ld_extra=[{"@type": "AboutPage", "@id": SITE + "/about#about", "url": SITE + "/about", "about": {"@id": BIZ_ID}},
-              {"@type": "Person", "name": "Serhii Tomilov", "jobTitle": "Owner", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii-measure.jpg"}],
+              {"@type": "Person", "name": "Serhii Tomilov", "jobTitle": "Owner", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg"}],
     crumbs=crumb, page_id="about", og_image="/img/serhii.jpg")
 
 # ---------------------------------------------------------------- REVIEWS
