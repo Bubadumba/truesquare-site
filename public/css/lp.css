@@ -1,0 +1,53 @@
+/* Landing pages only (/bathroom-remodel-*). Loaded after site.css. Do not import on other pages. */
+.lp header.top .hbar{min-height:60px}
+.lp .lp-call{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--grad);color:var(--ink);font:700 15px var(--f-body);text-decoration:none;white-space:nowrap}
+.lp .lp-call svg{width:15px;height:15px}
+.lp .lp-call .num{display:none}
+@media (min-width:520px){.lp .lp-call .num{display:inline}.lp .lp-call .word{display:none}}
+.lp .hero h1{font-size:clamp(31px,8.2vw,56px);line-height:1.05}
+.lp .hero .htext{padding-block:22px 20px;gap:14px}
+.lp .scope{display:inline-flex;align-items:center;gap:8px;width:fit-content;font:600 13px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--peach);border:1px solid rgba(246,154,114,.35);padding:6px 10px;border-radius:999px}
+.lp .under{font-size:15px;color:var(--on-ink);text-align:center}
+.lp .under a{color:#fff}
+@media (min-width:960px){.lp .under{text-align:left}.lp .hero .htext{padding:0;gap:18px}}
+.lp .hphoto .in{aspect-ratio:4/3}
+@media (min-width:960px){.lp .hphoto .in{aspect-ratio:4/5}}
+.lp .hphoto img{object-position:50% 50%}
+/* three factors */
+.lp .factors{display:grid;gap:12px}
+@media (min-width:960px){.lp .factors{grid-template-columns:repeat(3,1fr);gap:18px}}
+.lp .factor{padding:22px;border-radius:var(--r);background:var(--white);border:1px solid var(--line);display:grid;gap:8px;align-content:start}
+.lp .factor .n{width:40px;height:40px;border-radius:10px;background:var(--grad);display:grid;place-items:center;font:800 19px/1 var(--f-head);font-variation-settings:"opsz" 96}
+.lp .factor p{color:var(--text);font-size:16px}
+.lp .rangebox{margin-top:18px;padding:20px 22px;border-radius:var(--r);background:var(--ink);color:#fff;position:relative;overflow:hidden;display:grid;gap:6px}
+.lp .rangebox::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
+.lp .rangebox b{font:800 clamp(22px,5vw,30px)/1.15 var(--f-head);font-variation-settings:"opsz" 96}
+.lp .rangebox .tax{color:var(--peach);font-weight:700}
+.lp .rangebox small{color:var(--on-ink);font-size:14px}
+/* gallery without captions */
+.lp .gal .ph::after{display:none}
+/* written price panel */
+.lp .wp{display:grid;gap:26px}
+@media (min-width:960px){.lp .wp{grid-template-columns:1fr 1fr;gap:64px;align-items:center}}
+.lp .wp .total{margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--grey);font-weight:700}
+/* owner */
+.lp .owner .ophoto img{aspect-ratio:4/5;object-position:50% 20%}
+.lp .owner .note{margin-top:12px;color:var(--on-ink)}
+/* form extras */
+.lp .why{font-size:13px;color:var(--text)}
+.lp .formlic{margin-top:14px;font-size:13.5px;color:var(--on-ink)}
+.lp .formlic b{color:#fff;font-weight:600}
+/* final cta */
+.lp .final{text-align:center}
+.lp .final .wrap{display:grid;gap:16px;justify-items:center}
+.lp .final .or{color:var(--text)}
+.lp .final .or a{color:var(--ink);font-weight:700}
+/* footer */
+.lp footer .lpf{display:grid;gap:8px;padding-block:30px calc(30px + 70px);font-size:14px}
+.lp footer .lpf b{color:#fff;font-weight:600}
+.lp footer .lpf a{color:#D6D8DB}
+.lp footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
+@media (min-width:960px){.lp footer .lpf{padding-bottom:30px}}
+/* terms page */
+.lp .terms{max-width:760px}
+.lp .terms ol{padding-left:22px;display:grid;gap:10px;color:var(--text)}
