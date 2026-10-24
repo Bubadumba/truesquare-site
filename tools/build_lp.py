@@ -28,8 +28,22 @@ SVG_DEFS = """<svg width="0" height="0" style="position:absolute" aria-hidden="t
 <symbol id="chk" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#121314" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </defs></svg>"""
 
+FONTS = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;600;700&family=Caveat:wght@600&display=swap"
+
+def css_inline():
+    # read-only use of the shared site.css; landing extras from lp.css
+    import re
+    out = []
+    for f in ("site.css", "lp.css"):
+        with open(os.path.join(PUB, "css", f), encoding="utf-8") as fh:
+            c = fh.read()
+        c = re.sub(r"/\*.*?\*/", "", c, flags=re.S)
+        c = re.sub(r"\s*\n\s*", "", c)
+        out.append(c)
+    return "".join(out)
+
 def shell(path, title, desc, angle, body, preload=None):
-    pre = f'<link rel="preload" as="image" href="{preload}" fetchpriority="high">\n' if preload else ""
+    CSS = css_inline()
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -43,11 +57,11 @@ def shell(path, title, desc, angle, body, preload=None):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{SITE}/img/lp-hero.jpg">
-{pre}<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=4">
-<link rel="stylesheet" href="/css/lp.css?v={V}">
+<link rel="preload" as="style" href="{FONTS}" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{FONTS}"></noscript>
+<style>{CSS}</style>
 </head>
 <body class="lp" data-page="lp-{angle}" data-angle="{angle}">
 {SVG_DEFS}
@@ -74,8 +88,11 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
 
-<script src="/js/site.js?v=4" defer></script>
-<script src="/js/lp.js?v={V}" defer></script>
+<script>
+/* analytics + shared behavior load after the page has painted (keeps LCP fast) */
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=4';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+if(document.readyState==='complete')go();else addEventListener('load',go);}})();
+</script>
 </body>
 </html>
 """
