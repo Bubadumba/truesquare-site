@@ -10,7 +10,7 @@
 .lp .under{font-size:15px;color:var(--on-ink);text-align:center}
 .lp .under a{color:#fff}
 @media (min-width:960px){.lp .under{text-align:left}.lp .hero .htext{padding:0;gap:18px}}
-.lp .hphoto .in{aspect-ratio:4/3}
+.lp .hphoto .in{aspect-ratio:16/10}
 @media (min-width:960px){.lp .hphoto .in{aspect-ratio:4/5}}
 .lp .hphoto img{object-position:50% 50%}
 /* three factors */
