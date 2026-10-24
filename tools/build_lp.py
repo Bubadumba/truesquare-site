@@ -57,6 +57,7 @@ def shell(path, title, desc, angle, body, preload=None):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{SITE}/img/lp-hero.jpg">
+<link rel="preload" as="image" href="/img/lp-hero.jpg" imagesrcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" imagesizes="(min-width:960px) 520px, 92vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="{FONTS}" onload="this.onload=null;this.rel='stylesheet'">
@@ -120,7 +121,7 @@ def hero(sub, under):
       <p class="lic-line">WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</p>
     </div>
     <figure class="hphoto">
-      <div class="in"><img src="/img/lp-hero.jpg" alt="Finished bathroom remodel with a glass walk-in shower" width="675" height="844" fetchpriority="high"></div>
+      <div class="in"><img src="/img/lp-hero.jpg" srcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" sizes="(min-width:960px) 520px, 92vw" alt="Finished bathroom remodel with a glass walk-in shower" width="675" height="844" fetchpriority="high" decoding="async"></div>
     </figure>
   </div>
 </section>"""
