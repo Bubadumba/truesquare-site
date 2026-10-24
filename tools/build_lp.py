@@ -60,7 +60,7 @@ def shell(path, title, desc, angle, body, preload=None):
 <meta property="og:image" content="{SITE}/img/lp-hero.jpg">
 {PRE}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="{FONTS}" onload="this.onload=null;this.rel='stylesheet'">
+
 <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
 <style>{CSS}</style>
 </head>
@@ -92,7 +92,8 @@ def shell(path, title, desc, angle, body, preload=None):
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
 (function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=4';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
-if(document.readyState==='complete')go();else addEventListener('load',go);}})();
+function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
+if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
 </body>
 </html>
