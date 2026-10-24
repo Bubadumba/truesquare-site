@@ -406,7 +406,7 @@ PAGES["bathroom-remodeling.html"] = page(
       ("b10.jpg", "Double vanity with a large mirror and glass shower behind it", "Full bathroom remodel"),
       ("b14.jpg", "Vanity with vessel sink and large-format wall tile", "Full bathroom remodel"),
       ("b07.jpg", "Bathroom with skylight, glass shower and patterned tile", "Full bathroom remodel"),
-      ("b19.jpg", "Green subway tile tub surround with a niche", "Full bathroom remodel"),
+      ("b01.jpg", "Bathroom with floating vanity, black mirror, toilet and light floor tile", "Full bathroom remodel"),
       ("b18.jpg", "Floating vanity with a vessel sink and black mirror", "Full bathroom remodel"),
   ])}
   <p style="margin-top:16px"><a class="tlink" href="/portfolio">See all projects →</a></p>
