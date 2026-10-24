@@ -16,7 +16,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "1"  # cache version for lp.css / lp.js
+V = "2"  # cache version for lp.css / lp.js
 RANGE = "$17,000–$28,500"
 
 def esc(s): return html.escape(s, quote=True)
@@ -168,12 +168,12 @@ def form_section():
       </fieldset>
       <div class="fields">
         <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name"></label>
-        <label class="f" for="fPhone">Mobile phone<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"><span class="why">We'll call only to set up your visit.</span></label>
+        <label class="f" for="fPhone">Mobile phone<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"><span class="why">We'll call or text only about your visit.</span></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
-        <label class="consent" for="fSms"><input type="checkbox" id="fSms" name="sms_consent"><span id="smsText">I agree to receive text messages from TrueSquare Remodel about my request and appointment. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not required to request a visit. See <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/terms" target="_blank">Terms</a>.</span></label>
-        <p class="err" id="fErr" hidden></p>
+                <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">Request My Free Visit</span> <span class="arr">→</span></button>
         <p class="next">No payment. No obligation.</p>
+        <p class="legal-mini" id="smsText">By tapping Request My Free Visit, you agree that TrueSquare Remodel may call and text you at this number about your request and visit. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
       </div>
     </div>
     <div class="done" id="formDone" hidden>
