@@ -44,7 +44,7 @@ def css_inline():
 
 def shell(path, title, desc, angle, body, preload=None):
     CSS = css_inline()
-    PRE = ('<link rel="preload" as="image" href="/img/lp-hero.jpg" imagesrcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" imagesizes="(min-width:960px) 520px, 92vw" fetchpriority="high">\n' if "lp-hero" in body else "")
+    PRE = ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
