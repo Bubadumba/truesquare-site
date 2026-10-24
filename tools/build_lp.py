@@ -16,7 +16,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "2"  # cache version for lp.css / lp.js
+V = "3"  # cache version for lp.css / lp.js
 RANGE = "$17,000–$28,500"
 
 def esc(s): return html.escape(s, quote=True)
@@ -172,8 +172,9 @@ def form_section():
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
                 <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">Request My Free Visit</span> <span class="arr">→</span></button>
+        <p class="legal-mini" id="consentText">By tapping Request My Free Visit, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">No payment. No obligation.</p>
-        <p class="legal-mini" id="smsText">By tapping Request My Free Visit, you agree that TrueSquare Remodel may call and text you at this number about your request and visit. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
+        
       </div>
     </div>
     <div class="done" id="formDone" hidden>

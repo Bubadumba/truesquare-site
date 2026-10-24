@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "4"  # bump to bust browser cache of css/js
+ASSET_V = "5"  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -144,9 +144,10 @@ def book(tiles=BATH_TILES, default="", title='Get your price <span class="grad-t
         <label class="f" for="fName">Your name<input class="t" id="fName" name="full_name" autocomplete="name"></label>
         <label class="f" for="fPhone">Phone <small>(so Serhii can call you back)</small><input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
-        <label class="consent" for="fSms"><input type="checkbox" id="fSms" name="sms_consent"><span id="smsText">I agree to receive text messages from TrueSquare Remodel about my request and appointment. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not required to request a visit. See <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/terms" target="_blank">Terms</a>.</span></label>
+        <label class="consent" for="fMkt"><input type="checkbox" id="fMkt" name="marketing_consent"><span id="mktText">Also send me occasional bathroom tips and offers by text (optional).</span></label>
         <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit"><span id="fLabel">Request my free visit</span> <span class="arr">→</span></button>
+        <p class="legal-mini" id="consentText">By tapping Request my free visit, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">Serhii will call to arrange a time. No obligation.</p>
       </div>
     </div>
