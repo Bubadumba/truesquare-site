@@ -157,7 +157,7 @@ def form_section():
     <p class="kicker">Free visit</p>
     <h2 style="margin-top:10px">Get Your <span class="grad-text">Written Price</span></h2>
     <p class="lead" style="margin-top:10px">Tell us what you're planning. Serhii will call to set up your free visit.</p>
-    <p class="callline">Prefer to talk? Call or text <a href="tel:{PHONE_T}">{PHONE}</a></p>
+    <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
     <p class="formlic">WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</p>
   </div>
   <form class="form" id="lpForm" novalidate>
@@ -234,7 +234,7 @@ FAQ_ITEMS = [
     ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE} + tax, scope dependent. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
     ("What if you find damage behind the walls?", "We stop, send you photos and a written price for the repair. No extra work happens without your written OK."),
     ("Who does the work?", "Our crew does the remodeling work. Serhii leads every project and is your one point of contact."),
-    ("How do payments work?", "You pay a deposit when you sign the contract. The rest is paid in stages as the work gets done. The visit and the written price are free."),
+    ("How do payments work?", "You pay a deposit when you sign the contract, the next payment after the rough-in inspection passes, and the final payment after our walkthrough together. The visit and the written price are free."),
     ("Do you do small repairs?", "We focus on full bathroom and shower remodels. Small repairs only when our schedule allows."),
 ]
 FAQ = """<section id="faq"><div class="wrap">
