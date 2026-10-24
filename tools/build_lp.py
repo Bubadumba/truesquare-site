@@ -44,6 +44,7 @@ def css_inline():
 
 def shell(path, title, desc, angle, body, preload=None):
     CSS = css_inline()
+    PRE = ('<link rel="preload" as="image" href="/img/lp-hero.jpg" imagesrcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" imagesizes="(min-width:960px) 520px, 92vw" fetchpriority="high">\n' if "lp-hero" in body else "")
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -57,8 +58,7 @@ def shell(path, title, desc, angle, body, preload=None):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{SITE}/img/lp-hero.jpg">
-<link rel="preload" as="image" href="/img/lp-hero.jpg" imagesrcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" imagesizes="(min-width:960px) 520px, 92vw" fetchpriority="high">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+{PRE}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="{FONTS}" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
