@@ -403,3 +403,6 @@ nav.desk>a[aria-current="page"]{background:var(--grey)}
 .alt .areamap figcaption{background:var(--grey)}
 .areamap figcaption a{color:inherit;font-weight:600}
 .leaflet-container a{color:var(--ink)}
+/* consent line under form buttons (decision 23.10) */
+.legal-mini{font-size:12.5px;line-height:1.45;color:var(--muted);text-align:center}
+.legal-mini a{color:inherit}

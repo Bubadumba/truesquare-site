@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap">
-<link rel="stylesheet" href="/css/site.css?v=4">
+<link rel="stylesheet" href="/css/site.css?v=5">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HomeAndConstructionBusiness","@id":"https://truesquareremodel.com/#business","name":"TrueSquare Remodel LLC","url":"https://truesquareremodel.com/","telephone":"+1-206-222-2328"},{"@type":"WebSite","@id":"https://truesquareremodel.com/#website","url":"https://truesquareremodel.com/","name":"TrueSquare Remodel","publisher":{"@id":"https://truesquareremodel.com/#business"}},{"@type":"WebPage","@id":"https://truesquareremodel.com/tile-flooring#webpage","url":"https://truesquareremodel.com/tile-flooring","name":"Tile Installation in Seattle: Floors, Showers, Backsplashes | TrueSquare","description":"Tile installation in the Seattle area: bathroom floors, shower walls, tub surrounds, backsplashes and fireplace surrounds. Free visit and a written price.","isPartOf":{"@id":"https://truesquareremodel.com/#website"},"about":{"@id":"https://truesquareremodel.com/#business"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://truesquareremodel.com/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://truesquareremodel.com/services"},{"@type":"ListItem","position":3,"name":"Tile Installation","item":"https://truesquareremodel.com/tile-flooring"}]},{"@type":"Service","@id":"https://truesquareremodel.com/tile-flooring#service","name":"Tile Installation","serviceType":"Tile installation","description":"Tile installation in the Seattle area: bathroom and laundry floors, shower walls and floors, tub surrounds, kitchen backsplashes and fireplace surrounds.","url":"https://truesquareremodel.com/tile-flooring","provider":{"@id":"https://truesquareremodel.com/#business"},"areaServed":[{"@type":"City","name":"Seattle, WA"},{"@type":"City","name":"Bellevue, WA"},{"@type":"City","name":"Kirkland, WA"},{"@type":"City","name":"Redmond, WA"},{"@type":"City","name":"Sammamish, WA"},{"@type":"City","name":"Issaquah, WA"},{"@type":"City","name":"Mercer Island, WA"},{"@type":"City","name":"Renton, WA"},{"@type":"City","name":"Bothell, WA"},{"@type":"City","name":"Woodinville, WA"},{"@type":"City","name":"Newcastle, WA"},{"@type":"City","name":"Shoreline, WA"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What kind of tile work do you do?","acceptedAnswer":{"@type":"Answer","text":"Bathroom floors, shower walls and floors, tub surrounds, niches, kitchen backsplashes and fireplace surrounds."}},{"@type":"Question","name":"Do you work with large-format tile?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our photos show large-format porcelain set with a leveling system."}},{"@type":"Question","name":"Are materials included in the price?","acceptedAnswer":{"@type":"Answer","text":"Your written price lists which materials are included, so you know before work starts."}},{"@type":"Question","name":"What if the floor under the old tile is damaged?","acceptedAnswer":{"@type":"Answer","text":"We stop, send you photos and a written price for the fix. Nothing moves forward without your OK."}}]}]}</script>
 </head>
 <body data-page="tile-flooring">
@@ -176,9 +176,10 @@
         <label class="f" for="fName">Your name<input class="t" id="fName" name="full_name" autocomplete="name"></label>
         <label class="f" for="fPhone">Phone <small>(so Serhii can call you back)</small><input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
-        <label class="consent" for="fSms"><input type="checkbox" id="fSms" name="sms_consent"><span id="smsText">I agree to receive text messages from TrueSquare Remodel about my request and appointment. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. Consent is not required to request a visit. See <a href="/privacy" target="_blank">Privacy Policy</a> and <a href="/terms" target="_blank">Terms</a>.</span></label>
+        <label class="consent" for="fMkt"><input type="checkbox" id="fMkt" name="marketing_consent"><span id="mktText">Also send me occasional bathroom tips and offers by text (optional).</span></label>
         <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit"><span id="fLabel">Request my free visit</span> <span class="arr">→</span></button>
+        <p class="legal-mini" id="consentText">By tapping Request my free visit, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">Serhii will call to arrange a time. No obligation.</p>
       </div>
     </div>
@@ -219,6 +220,6 @@
 
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
 
-<script src="/js/site.js?v=4" defer></script>
+<script src="/js/site.js?v=5" defer></script>
 </body>
 </html>

@@ -23,10 +23,10 @@ form.addEventListener('submit',function(e){
   else if(!/^\d{5}$/.test(zip.value))msg='Please enter a 5-digit ZIP code.';
   if(msg){err.textContent=msg;err.hidden=false;return;}
   err.hidden=true; sending=true;
-  var parts=name.split(/\s+/),sms=true; /* landings: consent = submitting the form with the disclosure under the button (decision 23.10) */
+  var parts=name.split(/\s+/),ctext=$('consentText').textContent.trim(); /* landings: no checkbox; consent = submitting with the line under the button (decision 23.10) */
   var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
   var p={full_name:name,first_name:parts[0],last_name:parts.slice(1).join(' '),phone:'+1'+ph,zip:zip.value,project_type:project,
-    sms_consent:sms?'yes':'no',sms_consent_text:$('smsText').textContent.trim(),
+    sms_consent:'yes',sms_consent_text:ctext,consent_text:ctext,marketing_consent:'no',
     lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,cta:cta||'form',
     utm_source:Q.get('utm_source')||'',utm_medium:Q.get('utm_medium')||'',utm_campaign:Q.get('utm_campaign')||'',utm_content:Q.get('utm_content')||'',utm_term:Q.get('utm_term')||'',
     fbclid:Q.get('fbclid')||'',page_url:location.href.split('#')[0],event_id:id,submitted_at:new Date().toISOString()};
