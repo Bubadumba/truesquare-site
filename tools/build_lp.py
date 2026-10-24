@@ -17,7 +17,7 @@ LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
 V = "3"  # cache version for lp.css / lp.js
-RANGE = "$17,000–$28,500"
+RANGE = "$16,000–$28,500"
 
 def esc(s): return html.escape(s, quote=True)
 
@@ -107,8 +107,8 @@ def hero(sub, under):
   <div class="wrap hgrid">
     <div class="htext">
       <p class="kicker">Seattle-area bathroom remodeling</p>
-      <h1>Full Bathroom Remodels: <span class="grad-text">{RANGE}</span> + WA Sales Tax.</h1>
-      <span class="scope">Scope dependent</span>
+      <h1>Full Bathroom Remodels: <span class="grad-text">{RANGE}</span></h1>
+      <span class="scope">plus WA sales tax · scope dependent</span>
       <p class="sub">{sub}</p>
       <div class="hcta">
         <a class="btn" href="#book" data-cta="hero">Request My Free Bathroom Visit <span class="arr">→</span></a>
@@ -135,8 +135,8 @@ FACTORS = f"""<section class="alt"><div class="wrap">
     <div class="factor"><span class="n">3</span><h3>What's behind the old walls</h3><p>Old leaks or rot show up after demo. If we find any, we stop, send you photos and a written price. Nothing extra happens without your written OK.</p></div>
   </div>
   <div class="rangebox">
-    <b>Full bathroom remodel: {RANGE} <span class="tax">+ WA sales tax</span></b>
-    <small>Scope dependent. This is our current price range, not a quote. Your exact price comes in writing after we see the room.</small>
+    <b>Full bathroom remodel: {RANGE}</b>
+    <small><span class="tax">plus WA sales tax · scope dependent.</span> This is our current price range, not a quote. Your exact price comes in writing after we see the room.</small>
   </div>
 </div></section>"""
 
@@ -232,7 +232,7 @@ STEPS = """<section class="alt" id="process"><div class="wrap">
 </div></section>"""
 
 FAQ_ITEMS = [
-    ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE} + tax, scope dependent. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
+    ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}, plus WA sales tax, scope dependent. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
     ("What if you find damage behind the walls?", "We stop, send you photos and a written price for the repair. No extra work happens without your written OK."),
     ("Who does the work?", "Our crew does the remodeling work. Serhii leads every project and is your one point of contact."),
     ("How do payments work?", "You pay a deposit when you sign the contract, the next payment after the rough-in inspection passes, and the final payment after our walkthrough together. The visit and the written price are free."),
@@ -253,14 +253,14 @@ FINAL = f"""<section class="alt final"><div class="wrap">
 
 def landing(path, angle, sub, under, title):
     body = "\n".join([hero(sub, under), FACTORS, WORK, form_section(), WRITTEN, OWNER, STEPS, FAQ, FINAL])
-    return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE} + WA sales tax, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
+    return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
 
 PAGES = {
     "bathroom-remodel-cost.html": landing(
         "/bathroom-remodel-cost", "m0-v1",
         "Know exactly what's included. Get an itemized written scope &amp; price within 5 hours after your free on-site visit.",
         "No decision required at the visit.",
-        "Full Bathroom Remodels in Seattle: $17,000–$28,500 + Tax | TrueSquare"),
+        "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare"),
     "bathroom-remodel-guarantee.html": landing(
         "/bathroom-remodel-guarantee", "m1-v1",
         "Get an itemized written scope &amp; price within 5 hours after your free on-site visit — or we pay you $200.",
