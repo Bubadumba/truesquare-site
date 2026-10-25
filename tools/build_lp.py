@@ -16,7 +16,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "3"  # cache version for lp.css / lp.js
+V = "4"  # cache version for lp.css / lp.js
 RANGE = "$16,000–$28,500"
 
 def esc(s): return html.escape(s, quote=True)
@@ -77,7 +77,7 @@ def shell(path, title, desc, angle, body, preload=None):
 </main>
 
 <footer><div class="wrap lpf">
-  <span><b>TrueSquare Remodel LLC</b> · WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</span>
+  <span><b>TrueSquare Remodel LLC</b> · WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></span>
   <span><a href="tel:{PHONE_T}">{PHONE}</a> · info@truesquareremodel.com · Seattle, WA</span>
   <span class="links"><a href="/">About TrueSquare</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></span>
 </div></footer>
@@ -91,7 +91,7 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=4';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=6';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
 if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
@@ -108,7 +108,7 @@ def hero(sub, under):
     <div class="htext">
       <p class="kicker">Seattle-area bathroom remodeling</p>
       <h1>Full Bathroom Remodels: <span class="grad-text">{RANGE}</span></h1>
-      <span class="scope">plus WA sales tax · scope dependent</span>
+      <span class="scope">Smaller bathrooms fall at the lower end. Price depends on scope. Plus WA sales tax.</span>
       <p class="sub">{sub}</p>
       <div class="hcta">
         <a class="btn" href="#book" data-cta="hero">Request My Free Bathroom Visit <span class="arr">→</span></a>
@@ -119,7 +119,7 @@ def hero(sub, under):
         <span class="sep" aria-hidden="true"></span>
         <a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> on Thumbtack <small>↗</small></a>
       </div>
-      <p class="lic-line">WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</p>
+      <p class="lic-line">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
     </div>
     <figure class="hphoto">
       <div class="in"><img src="/img/lp-hero.jpg" srcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" sizes="(min-width:960px) 520px, 92vw" alt="Finished bathroom remodel with a glass walk-in shower" width="675" height="844" fetchpriority="high" decoding="async"></div>
@@ -136,16 +136,16 @@ FACTORS = f"""<section class="alt"><div class="wrap">
   </div>
   <div class="rangebox">
     <b>Full bathroom remodel: {RANGE}</b>
-    <small><span class="tax">plus WA sales tax · scope dependent.</span> This is our current price range, not a quote. Your exact price comes in writing after we see the room.</small>
+    <small><span class="tax">Smaller bathrooms fall at the lower end. Price depends on scope. Plus WA sales tax.</span> Larger or more complex projects may exceed this range. This is our current price range, not a quote. Your exact price comes in writing after we see the room.</small>
   </div>
 </div></section>"""
 
 WORK = """<section id="work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Real Bathrooms, Before and After</h2></div>
   <div class="gal">
-    <button class="ph main" type="button" data-full="/img/p/ba01.jpg"><img src="/img/p/ba01.jpg" alt="Before and after: old tub replaced with a tiled walk-in shower" loading="lazy" width="960" height="1200" style="object-position:50% 42%"></button>
-    <button class="ph s" type="button" data-full="/img/p/ba02.jpg"><img src="/img/p/ba02.jpg" alt="Before and after: shower rebuilt with blue tile and a niche" loading="lazy" width="1200" height="800"></button>
-    <button class="ph s" type="button" data-full="/img/p/b23.jpg"><img src="/img/p/b23.jpg" alt="Finished walk-in shower with a sliding glass door" loading="lazy" width="900" height="1200"></button>
+    <button class="ph main" type="button" data-full="/img/p/b06.jpg"><img src="/img/p/b06.jpg" alt="Full bathroom remodel: new vanity, toilet, mirror, lighting and floor tile" loading="lazy" width="675" height="1200" style="object-position:50% 72%"></button>
+    <button class="ph s" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Full bathroom remodel: double vanity, lit mirror and large-format tile" loading="lazy" width="900" height="1200"></button>
+    <button class="ph s" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18.jpg" alt="Full bathroom remodel: floating vanity, vessel sink, toilet and new lighting" loading="lazy" width="900" height="1200"></button>
   </div>
 </div></section>"""
 
@@ -158,7 +158,7 @@ def form_section():
     <h2 style="margin-top:10px">Get Your <span class="grad-text">Written Price</span></h2>
     <p class="lead" style="margin-top:10px">Tell us what you're planning. Serhii will call to set up your free visit.</p>
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
-    <p class="formlic">WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</p>
+    <p class="formlic">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
   </div>
   <form class="form" id="lpForm" novalidate>
     <div id="formBody">
@@ -228,12 +228,14 @@ STEPS = """<section class="alt" id="process"><div class="wrap">
     <div class="step"><span class="n">2</span><div><h3>Free visit</h3><p>Serhii measures the room and talks through what you want.</p></div></div>
     <div class="step"><span class="n">3</span><div><h3>Your price in writing</h3><p>Within 5 hours after the visit. Take your time to decide.</p></div></div>
   </div>
-  <p class="after-steps"><i></i>Our bathroom projects are planned for 1–3 weeks of work, depending on scope.</p>
+  <p class="after-steps"><i></i>Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing.</p>
 </div></section>"""
 
 FAQ_ITEMS = [
-    ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}, plus WA sales tax, scope dependent. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
-    ("What if you find damage behind the walls?", "We stop, send you photos and a written price for the repair. No extra work happens without your written OK."),
+    ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}. Smaller bathrooms fall at the lower end. Larger or more complex projects may exceed this range. Price depends on scope. Plus WA sales tax. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
+    ("What if you find damage behind the wall?", "We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
+    ("How long does it take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+    ("Is there a warranty?", "Yes. 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
     ("Who does the work?", "Our crew does the remodeling work. Serhii leads every project and is your one point of contact."),
     ("How do payments work?", "You pay a deposit when you sign the contract, the next payment after the rough-in inspection passes, and the final payment after our walkthrough together. The visit and the written price are free."),
     ("Do you do small repairs?", "We focus on full bathroom and shower remodels. Small repairs only when our schedule allows."),

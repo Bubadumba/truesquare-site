@@ -6,7 +6,7 @@
 @media (min-width:520px){.lp .lp-call .num{display:inline}.lp .lp-call .word{display:none}}
 .lp .hero h1{font-size:clamp(31px,8.2vw,56px);line-height:1.05}
 .lp .hero .htext{padding-block:22px 20px;gap:14px}
-.lp .scope{display:inline-flex;align-items:center;gap:8px;width:fit-content;font:600 13px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--peach);border:1px solid rgba(246,154,114,.35);padding:6px 10px;border-radius:999px}
+.lp .scope{display:block;max-width:34em;font:500 14px/1.45 var(--f-body);color:var(--peach);margin-top:-4px}
 .lp .under{font-size:15px;color:var(--on-ink);text-align:center}
 .lp .under a{color:#fff}
 @media (min-width:960px){.lp .under{text-align:left}.lp .hero .htext{padding:0;gap:18px}}

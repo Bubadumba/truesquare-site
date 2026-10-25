@@ -23,7 +23,7 @@ if(META_PIXEL_ID){!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.
 var Q=new URLSearchParams(location.search);
 var SUBS={tub:"Still stepping over that tub wall? We turn old tubs into tiled walk-in showers. Serhii measures himself. Price in writing within 5 hours after the visit.",
 hidden:"Worried about what's behind the old tile? If we find damage, you get photos and a written price first. Serhii measures himself.",
-license:"Licensed, bonded & insured. WA L&I TRUESRL759QK. Serhii measures himself. Price in writing within 5 hours after the visit.",
+license:"WA Registered Contractor · TRUESRL759QK · Owner-led. Serhii measures himself. Price in writing within 5 hours after the visit.",
 owner:"I'm Serhii, the owner. I measure your bathroom myself. Price in writing within 5 hours after the visit."};
 var ANGLE=(Q.get('h')||'').toLowerCase();
 if(!SUBS[ANGLE]){var ad=((Q.get('utm_content')||'')+' '+(Q.get('utm_campaign')||'')).toUpperCase();ANGLE=/TUB/.test(ad)?'tub':/HIDDEN/.test(ad)?'hidden':/LICENSE/.test(ad)?'license':/OWNER/.test(ad)?'owner':'';}
