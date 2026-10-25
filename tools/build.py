@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "5"  # bump to bust browser cache of css/js
+ASSET_V = "6"  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -103,8 +103,7 @@ def footer():
       <h4 style="margin:0 0 4px;font:700 12.5px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:#fff">Contact</h4>
       <span>Call <a href="tel:{PHONE_T}"><b>{PHONE}</b></a></span>
       <span>info@truesquareremodel.com</span>
-      <span>Licensed, bonded &amp; insured</span>
-      <span>WA L&amp;I Registration: <b>{LNI}</b></span>
+      <span>WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></span>
       <a href="{LNI_URL}" target="_blank" rel="noopener">Verify registration →</a>
     </div>
   </div>
@@ -257,7 +256,7 @@ def phero(crumb_trail, kicker, h1, sub, img=None, img_alt="", cta_label="Request
         <a class="btn" href="#book" data-cta="hero">{cta_label} <span class="arr">→</span></a>
         <a class="btn outline" href="tel:{PHONE_T}">Call {PHONE}</a>
       </div>
-      <p class="lic-line">Licensed, bonded &amp; insured · <b>WA L&amp;I {LNI}</b></p>
+      <p class="lic-line">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
     </div>
     {pic}
   </div>
@@ -301,7 +300,7 @@ def price_block(h2='Your price, in writing. <span class="uline">Within 5 hours.<
     return PRICE_BLOCK.format(h2=h2, lead=lead)
 
 def steps(last="Within 5 hours after the visit, you receive your price in writing. No obligation.",
-          note="Most bathrooms are completed in 1–3 weeks once work starts."):
+          note="Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."):
     n = f'<p class="after-steps"><i></i>{note}</p>' if note else ""
     return f"""<section class="alt" id="process"><div class="wrap">
   <div class="head"><p class="kicker">What happens next</p><h2>Three steps. No guessing.</h2></div>
@@ -365,7 +364,7 @@ PAGES["index.html"] = page(
 
 # ---------------------------------------------------------------- FULL BATHROOM
 faq_bath = [
-    ("How long does a full bathroom remodel take?", "Most bathrooms are completed in 1–3 weeks once work starts. The exact start date is in your written agreement before you sign."),
+    ("How long does a full bathroom remodel take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Can I keep my layout?", "Yes. You decide. Keeping the toilet, tub or shower where they are is usually the simpler option. Moving plumbing is possible and is done with a permit."),
     ("What if you find damage behind the old tile?", "We stop, send you photos and a written price for the fix. Nothing moves forward without your OK. The rest of your price stays the same."),
     ("Do you pull permits?", "Yes. When your remodel includes plumbing or electrical work, we do it with a permit and handle the paperwork."),
@@ -419,7 +418,7 @@ PAGES["bathroom-remodeling.html"] = page(
 
 # ---------------------------------------------------------------- TUB TO SHOWER
 faq_tub = [
-    ("How long does a tub to shower conversion take?", "Most bathroom projects are completed in 1–3 weeks once work starts. Your start date is in writing before you sign."),
+    ("How long does a tub to shower conversion take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Can you keep the rest of my bathroom as it is?", "Yes. We can change only the tub area, or remodel the whole bathroom. You decide, and the written scope shows exactly what is included."),
     ("What about the plumbing?", "The drain and shower valve usually need to change for a walk-in shower. Plumbing work is done with a permit."),
     ("What if there is damage under the old tub?", "We stop, send you photos and a written price for the fix. Nothing moves forward without your OK."),
@@ -474,7 +473,7 @@ PAGES["tub-to-walk-in-shower.html"] = page(
 # ---------------------------------------------------------------- SHOWER
 faq_shower = [
     ("Can you remodel just the shower?", "Yes. We can rebuild only the shower, or the whole bathroom. Your written scope shows exactly what is included."),
-    ("How long does a shower remodel take?", "Most bathroom projects are completed in 1–3 weeks once work starts. Your start date is in writing before you sign."),
+    ("How long does a shower remodel take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("My shower leaks behind the tile. Can you fix that?", "We open it up, show you what we find with photos, and give you a written price for the fix before we continue."),
     ("Do you replace the shower valve?", "Yes, when your project needs it. Plumbing work is done with a permit."),
 ]
@@ -712,7 +711,7 @@ crumb = [("Home", "/"), ("About", "/about")]
 cities_html = '<ul class="cities">' + "".join(f"<li>{c}</li>" for c in CITIES) + "</ul>"
 PAGES["about.html"] = page(
     "/about", "About TrueSquare Remodel | Owner-Led Remodeling in Seattle",
-    "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. Licensed, bonded and insured, WA L&I TRUESRL759QK.",
+    "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. WA Registered Contractor TRUESRL759QK.",
     phero(crumb, "About TrueSquare", 'One owner. <span class="grad-text">One price.</span> One person to call.',
           "TrueSquare Remodel is a Seattle remodeling company run by its owner, Serhii. He measures your project, writes your price and stays your point of contact.",
           "/img/serhii.jpg", "Serhii, owner of TrueSquare Remodel, in a finished bathroom", cta_label="Meet Serhii at your home") +
@@ -726,12 +725,12 @@ PAGES["about.html"] = page(
     <p>The price in your agreement is the price you pay. It only changes if you choose an upgrade or we find hidden damage, and you see that change in writing and approve it first.</p>
   </div>
   <div class="facts">
-    <div class="fact"><b>Licensed</b><span>WA L&amp;I {LNI}</span></div>
-    <div class="fact"><b>Bonded &amp; insured</b><span>Washington contractor</span></div>
+    <div class="fact"><b>WA Registered Contractor</b><span>{LNI}</span></div>
+    <div class="fact"><b>Owner-led</b><span>Serhii measures and leads every project</span></div>
     <div class="fact"><b>1-year</b><span>workmanship warranty + manufacturer warranties</span></div>
     <div class="fact"><b>Permits</b><span>for plumbing and electrical work</span></div>
     <div class="fact"><b>Written price</b><span>within 5 hours after a bathroom visit</span></div>
-    <div class="fact"><b>1–3 weeks</b><span>for most bathrooms once work starts</span></div>
+    <div class="fact"><b>Typically 2–4 weeks</b><span>of construction, depending on scope</span></div>
     <div class="fact"><b>Daily photos</b><span>of the progress, if you want them</span></div>
     <div class="fact"><b>Deposit at signing</b><span>final payment after the walk-through</span></div>
   </div>
