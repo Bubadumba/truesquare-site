@@ -714,7 +714,7 @@ PAGES["about.html"] = page(
     "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. WA Registered Contractor TRUESRL759QK.",
     phero(crumb, "About TrueSquare", 'One owner. <span class="grad-text">One price.</span> One person to call.',
           "TrueSquare Remodel is a Seattle remodeling company run by its owner, Serhii. He measures your project, writes your price and stays your point of contact.",
-          "/img/serhii.jpg", "Serhii, owner of TrueSquare Remodel, in a finished bathroom", cta_label="Meet Serhii at your home") +
+          "/img/serhii.jpg?v=3", "Serhii, owner of TrueSquare Remodel", cta_label="Meet Serhii at your home") +
     f"""
 <section><div class="wrap two">
   <div class="prose">
