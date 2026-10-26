@@ -21,7 +21,14 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "7"  # bump to bust browser cache of css/js
+ASSET_V = "7"
+def _site_css():
+    # speed pass 26.10: site.css is inlined into every page (no render-blocking request), same rules
+    import re as _re
+    c = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public", "css", "site.css"), encoding="utf-8").read()
+    c = _re.sub(r"/\*.*?\*/", "", c, flags=_re.S)
+    return _re.sub(r"\s*\n\s*", "", c)
+SITE_CSS = _site_css()  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -220,7 +227,7 @@ def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robo
 <link rel="preload" href="/fonts/bricolage-700-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-400-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{{font-family:"Bricolage Grotesque";font-style:normal;font-weight:700 800;font-display:swap;src:url(/fonts/bricolage-700-800.woff2) format("woff2")}}@font-face{{font-family:"Inter";font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/inter-400-700.woff2) format("woff2")}}@font-face{{font-family:"Caveat";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/caveat-600.woff2) format("woff2")}}</style>
-<link rel="stylesheet" href="/css/site.css?v={ASSET_V}">
+<style>{SITE_CSS}</style>
 <script type="application/ld+json">{ld}</script>
 </head>
 <body data-page="{page_id}">
