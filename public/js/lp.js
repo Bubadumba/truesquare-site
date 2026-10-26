@@ -2,6 +2,8 @@
    site.js loads GTM + Pixel PageView, the sticky bar and the lightbox; this file runs the landing form. */
 (function(){
 var d=document,$=function(id){return d.getElementById(id);};
+/* lp2: hide sticky bar while the final CTA or footer is on screen (board spec D9) */
+if(d.body.classList.contains('lp2')&&'IntersectionObserver' in window){var st=$('sticky'),seen=new Set();var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?seen.add(e.target):seen.delete(e.target);});if(st)st.classList.toggle('away',seen.size>0);});[].forEach.call(d.querySelectorAll('.final,footer'),function(el){io.observe(el);});}
 var form=$('lpForm'); if(!form) return;
 var ANGLE=d.body.getAttribute('data-angle')||'lp';
 var Q=new URLSearchParams(location.search);

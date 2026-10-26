@@ -16,7 +16,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "5"  # cache version for lp.css / lp.js
+V = "7"  # cache version for lp.css / lp.js
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -48,7 +48,7 @@ def css_inline():
         out.append(c)
     return "".join(out)
 
-def shell(path, title, desc, angle, body, preload=None):
+def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_label="Get My Price", footer_html=None):
     CSS = css_inline()
     PRE = ""
     return f"""<!doctype html>
@@ -70,7 +70,7 @@ def shell(path, title, desc, angle, body, preload=None):
 <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
 <style>{CSS}</style>
 </head>
-<body class="lp" data-page="lp-{angle}" data-angle="{angle}">
+<body class="{body_class}" data-page="lp-{angle}" data-angle="{angle}">
 {SVG_DEFS}
 
 <header class="top"><div class="wrap hbar">
@@ -90,7 +90,7 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <div class="sticky" id="sticky" aria-hidden="true">
   <a class="s2" href="tel:{PHONE_T}" data-cta="sticky-call">Call</a>
-  <a class="s1" href="#book" data-cta="sticky">Get My Price</a>
+  <a class="s1" href="#book" data-cta="sticky">{sticky_label}</a>
 </div>
 
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
@@ -187,14 +187,14 @@ WORK = f"""<section id="work"><div class="wrap">
   </div>
 </div></section>"""
 
-def form_section():
+def form_section(h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra=""):
     tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v}</button>' for v in
                     ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"])
     return f"""<section class="book on-ink" id="book"><div class="wrap bgrid">
   <div>
     <p class="kicker">Free visit</p>
-    <h2 style="margin-top:10px">Get Your <span class="grad-text">Written Price</span></h2>
-    <p class="lead" style="margin-top:10px">Tell us what you're planning. Serhii will call to set up your free visit.</p>
+    <h2 style="margin-top:10px">{h2}</h2>
+    <p class="lead" style="margin-top:10px">{lead}</p>{extra}
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
     <p class="formlic">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
   </div>
@@ -295,7 +295,100 @@ def landing(path, angle, sub, under, title, hero_html=None):
     body = "\n".join([hero_html or hero(sub, under), FACTORS, WORK, form_section(), WRITTEN, OWNER, STEPS, FAQ, FINAL])
     return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
 
+# ---------------------------------------------------------------- V2 TEST LANDING (board review 26.10, love-v2)
+V2_CAP_ONE = "Our subcontractor crew completed this bathroom before working with TrueSquare Remodel LLC."
+V2_CAP_MANY = "Our subcontractor crew completed these bathrooms before working with TrueSquare Remodel LLC."
+
+def v2_page():
+    def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
+    hero = f"""<section class="hero on-ink v2hero">
+  <div class="wrap">
+    <p class="kicker">Seattle-area bathroom remodels</p>
+    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <p class="hrange">Full Bathroom Remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope.</small></p>
+    <ul class="hlist">
+      {li("Itemized written scope and price within 5 hours after your visit")}
+      {li("One phone/text contact throughout your project")}
+      {li("Your written OK before extra work")}
+    </ul>
+    <div class="hcta"><a class="btn block" href="#book" data-cta="hero">Request My Free Visit <span class="arr">→</span></a></div>
+    <p class="under">No decision required at the visit.</p>
+  </div>
+</section>"""
+    trust = f"""<section class="v2trust"><div class="wrap">
+  <div class="tline rates">
+    <a href="{GOOGLE}" target="_blank" rel="noopener"><i>{stars()}<b>5.0</b> Google</i><span>12 reviews</span></a>
+    <a href="{THUMBTACK}" target="_blank" rel="noopener"><i>{stars()}<b>5.0</b> Thumbtack</i><span>24 reviews</span></a>
+  </div>
+  <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
+  <figure class="v2photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="900" height="1200" decoding="async"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button>
+    <figcaption>{V2_CAP_ONE}</figcaption></figure>
+</div></section>"""
+    form = form_section(h2='Request Your <span class="grad-text">Free Bathroom Visit</span>',
+                        lead="We'll call to schedule your free visit. Your itemized written scope and price follow within 5 hours after the visit.")
+    work = f"""<section class="v2work"><div class="wrap">
+  <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Subcontractor Crew</h2></div>
+  <div class="v2gal">
+    <button class="ph" type="button" data-full="/img/lp-hero.jpg"><img src="/img/lp-hero-460.jpg" alt="Finished walk-in shower with glass door, vanity and toilet" loading="lazy" width="460" height="575"></button>
+    <button class="ph" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18.jpg" alt="Floating vanity with vessel sink, black mirror and toilet" loading="lazy" width="900" height="1200"></button>
+  </div>
+  <p class="v2cap">{V2_CAP_MANY}</p>
+</div></section>"""
+    written = f"""<section class="alt v2written"><div class="wrap">
+  <div class="head"><p class="kicker">On paper</p><h2>What You Get in Writing</h2><p class="lead">Your itemized scope lists the planned work, materials and total price before you decide.</p></div>
+  <div class="panel">
+    <div class="ph-head"><img src="/img/logo.svg" alt="TrueSquare" width="105" height="26" loading="lazy"><b>Your written price</b></div>
+    <ul class="checks">
+      {chk("Demolition and haul-away")}
+      {chk("Waterproofing")}
+      {chk("Plumbing and electrical, with permits where required")}
+      {chk("Tile, vanity, fixtures and glass")}
+      {chk("Cleanup")}
+      {chk("1-year written workmanship warranty")}
+      {chk("WA sales tax shown separately")}
+    </ul>
+  </div>
+</div></section>"""
+    owner = """<section class="owner on-ink v2owner"><div class="wrap">
+  <div class="v2own">
+    <img src="/img/serhii.jpg?v=2" alt="Serhii, owner of TrueSquare Remodel" loading="lazy" width="1024" height="1536">
+    <div>
+      <p class="kicker">Your contact</p>
+      <h2>One Person to Call, <span class="grad-text">Start to Finish</span></h2>
+    </div>
+  </div>
+  <p class="lead">Serhii, the owner, visits to measure your bathroom and stays your contact by phone or text throughout the project. He coordinates the work with our subcontractor crew, who handle the construction.</p>
+  <ol class="v2steps">
+    <li><span class="n">1</span>Request your free visit</li>
+    <li><span class="n">2</span>Discuss and measure your bathroom</li>
+    <li><span class="n">3</span>Get your written price within 5 hours after the visit</li>
+  </ol>
+</div></section>"""
+    faq_items = [
+        ("Can I get an exact price before the visit?", f"The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your itemized written price follows within 5 hours after the free visit."),
+        ("What happens if you find hidden damage?", "We'll explain the issue and give you a price for extra work in writing. Nothing extra starts without your written OK."),
+        ("Who does the remodeling work?", "Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
+        ("How do payments work?", "You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
+        ("How long does construction take, and what is the warranty?", "Construction typically takes 2–4 weeks, depending on scope. There's a 1-year written workmanship warranty."),
+    ]
+    faq = """<section id="faq" class="v2faq"><div class="wrap">
+  <div class="head"><p class="kicker">Your price</p><h2>What Changes Your Bathroom Remodel Price?</h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
+  <div class="faq">
+""" + "\n".join(f"    <details><summary>{q}</summary><p>{a}</p></details>" for q, a in faq_items) + """
+  </div>
+</div></section>"""
+    final = f"""<section class="alt final"><div class="wrap">
+  <h2>Ready for Your Written Price?</h2>
+  <a class="btn" href="#book" data-cta="final">Request My Free Visit <span class="arr">→</span></a>
+  <p class="or">or call <a href="tel:{PHONE_T}">{PHONE}</a></p>
+</div></section>"""
+    body = "\n".join([hero, trust, form, work, written, owner, faq, final])
+    return shell("/bathroom-remodel-cost-v2", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
+                 f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, itemized written price within 5 hours.",
+                 "love-v2", body, body_class="lp lp2", sticky_label="Free Visit")
+
 PAGES = {
+    "bathroom-remodel-cost-v2.html": v2_page(),
     "bathroom-remodel-cost.html": landing(
         "/bathroom-remodel-cost", "love-v1", "", "",
         "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare", hero_html=hero_love()),

@@ -66,3 +66,85 @@
 .lp .hphoto .in{position:relative}
 .lp .cap-over{position:absolute;left:0;right:0;bottom:0;padding:18px 12px 8px;font-size:11.5px;line-height:1.35;color:#fff;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.62))}
 @media (min-width:960px){.lp .trust .lic-line{text-align:left}}
+/* ===== love-v2 test landing (board review 26.10, spec D1-D10) — scoped to .lp2 ===== */
+.lp2 .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+@media (max-width:340px){.lp2 .wrap{padding-left:16px;padding-right:16px}}
+@media (min-width:420px){.lp2 .wrap{padding-left:24px;padding-right:24px}}
+.lp2 section{padding-block:46px}
+.lp2 h2{font-size:28px;line-height:32px}
+.lp2 .head{margin-bottom:20px}.lp2 .head .lead{margin-top:12px;font-size:16px;line-height:24px}
+/* D1 hero */
+.lp2 .v2hero{padding:0}
+.lp2 .v2hero .wrap{display:block;padding-block:24px 28px;position:relative}
+.lp2 .v2hero h1{font-size:34px;line-height:37px;margin-top:12px}
+.lp2 .v2hero h1 span{display:block}
+.lp2 .v2hero .hrange{margin-top:14px;font:600 18px/23px var(--f-body)}
+.lp2 .v2hero .hrange b{font:800 18px/23px var(--f-body);color:var(--peach)}
+.lp2 .v2hero .hrange small{margin-top:8px;font-size:13.5px;line-height:19px}
+.lp2 .v2hero .hlist{margin-top:18px;gap:10px}
+.lp2 .v2hero .hlist li{grid-template-columns:18px 1fr;gap:10px;font-size:15px;line-height:22px}
+.lp2 .v2hero .hlist .tick{width:18px;height:18px;margin-top:2px}
+.lp2 .v2hero .hlist .tick svg{width:10px;height:10px}
+.lp2 .v2hero .hcta{margin-top:18px}
+.lp2 .v2hero .btn{min-height:56px}
+.lp2 .v2hero .under{margin-top:10px;font-size:14.5px}
+/* D2 trust */
+.lp2 .v2trust{padding-block:22px 30px;background:var(--white)}
+.lp2 .tline.rates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lp2 .tline.rates a{min-height:48px;flex-direction:column;justify-content:center;gap:1px;border:1px solid var(--line);border-radius:12px;padding:5px 8px;white-space:nowrap;font:600 13px/18px var(--f-body);color:var(--ink);text-decoration:none;display:flex;align-items:center}
+.lp2 .tline.rates i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+.lp2 .tline.rates b{font:800 14px/18px var(--f-body)}
+.lp2 .tline.rates span{color:var(--muted);font-weight:500;font-size:12px}
+.lp2 .tline.rates .st{display:inline-flex}.lp2 .tline.rates .st svg{width:14px;height:14px;fill:url(#g)}
+.lp2 .tline.facts{display:grid;grid-template-columns:1fr;gap:2px;margin-top:10px;font-size:13px;line-height:19px;color:var(--text);text-align:center}
+.lp2 .tline.facts b{color:var(--ink)}
+.lp2 .v2photo{margin:14px 0 0;position:relative}
+.lp2 .v2photo .ph{display:block;width:100%;aspect-ratio:3/2;border-radius:12px}
+.lp2 .v2photo .ph img{object-position:50% 43%}
+.lp2 .v2photo .zoom{position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:50%;background:rgba(18,19,20,.62);display:grid;place-items:center;pointer-events:none}
+.lp2 .v2photo .zoom svg{width:16px;height:16px}
+.lp2 .v2photo figcaption,.lp2 .v2cap{margin-top:8px;font-size:13px;line-height:18px;color:var(--muted);text-align:center}
+.lp2 .v2cap{margin-top:10px}
+/* D3 form */
+.lp2 .book h2{font-size:28px;line-height:32px}
+.lp2 .book .lead{font-size:16px;line-height:24px}
+.lp2 .form{border-radius:14px;padding:19px 16px 16px}
+.lp2 .form::before{height:3px}
+.lp2 .tile{min-height:64px;font-size:14px;line-height:18px}
+.lp2 .f{font-size:14px;line-height:20px}
+.lp2 .t{min-height:52px}
+.lp2 .fields{gap:12px}
+.lp2 .form .btn{min-height:56px}
+.lp2 .legal-mini{font-size:12.5px;line-height:18px}
+.lp2 .next{font-size:13px;line-height:19px}
+/* D4 crew work */
+.lp2 .v2work{background:var(--white)}
+.lp2 .v2gal{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lp2 .v2gal .ph{aspect-ratio:4/5;border-radius:10px}
+.lp2 .v2gal .ph:first-child img{object-position:50% 49%}
+/* D5 written scope */
+.lp2 .v2written .panel{border-radius:12px;padding:19px 16px 12px}
+.lp2 .v2written .checks li{min-height:36px;padding:8px 0;font-size:15px;line-height:21px}
+.lp2 .v2written .tick{width:22px;height:22px}.lp2 .v2written .checks li{grid-template-columns:26px 1fr}
+/* D6 owner */
+.lp2 .v2own{display:block;margin-bottom:0}
+.lp2 .v2own img{display:block;width:100%;height:auto;aspect-ratio:350/192;border-radius:12px;object-fit:cover;object-position:50% 16%;border:0;background:none}
+.lp2 .v2own .kicker{margin-top:20px}
+.lp2 .v2own h2{font-size:28px;line-height:32px;margin-top:8px}
+.lp2 .v2owner .lead{margin-top:12px;font-size:16px;line-height:24px}
+.lp2 .v2steps{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:8px}
+.lp2 .v2steps .n{width:36px;height:36px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:var(--ink);font:800 17px/1 var(--f-head)}
+.lp2 .v2steps li{display:grid;align-items:center;gap:12px;color:#fff;font-weight:600;min-height:52px;grid-template-columns:36px 1fr;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.06);font-size:15.5px;line-height:21px}
+/* D7 FAQ */
+.lp2 .v2faq{background:var(--white)}
+.lp2 .faq{gap:8px}
+.lp2 .faq details{border-radius:10px}
+.lp2 .faq summary{min-height:64px;padding:16px 56px 16px 16px;font-size:16px;line-height:22px;font-weight:600}
+.lp2 .faq details p{font-size:15px;line-height:23px}
+/* D8 widths */
+.lp2 .head,.lp2 .lead,.lp2 .faq{max-width:620px}
+/* D9 sticky */
+.lp2 .sticky{grid-template-columns:2fr 3fr;padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(255,255,255,.12)}
+.lp2 .sticky a{min-height:48px}
+.lp2 .sticky.away{transform:translateY(110%)!important}
+@media (min-width:960px){.lp2 .v2hero .wrap,.lp2 .v2trust .wrap,.lp2 .v2work .wrap,.lp2 .v2written .wrap,.lp2 .v2owner .wrap,.lp2 .v2faq .wrap{max-width:680px}.lp2 .v2hero h1{font-size:52px;line-height:56px}}
