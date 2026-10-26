@@ -18,7 +18,7 @@ GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
 V = "5"  # cache version for lp.css / lp.js
 RANGE = "$16,000–$28,500"
-CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
+CAPTION = os.environ.get("TSR_CAP", "b")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
     "a": "Past work completed by our subcontractor's crew before TrueSquare Remodel LLC.",
     "b": "Real bathroom remodel by the subcontractor crew that works on TrueSquare projects.",
