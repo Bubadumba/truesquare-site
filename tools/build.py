@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "6"  # bump to bust browser cache of css/js
+ASSET_V = "7"  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:

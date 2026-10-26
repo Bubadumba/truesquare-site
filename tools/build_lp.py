@@ -91,7 +91,7 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=6';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=7';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
 if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
