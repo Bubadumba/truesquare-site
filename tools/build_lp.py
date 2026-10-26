@@ -187,7 +187,7 @@ WORK = f"""<section id="work"><div class="wrap">
   </div>
 </div></section>"""
 
-def form_section(h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra=""):
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra=""):
     tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v}</button>' for v in
                     ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"])
     return f"""<section class="book on-ink" id="book"><div class="wrap bgrid">
@@ -196,7 +196,7 @@ def form_section(h2='Get Your <span class="grad-text">Written Price</span>', lea
     <h2 style="margin-top:10px">{h2}</h2>
     <p class="lead" style="margin-top:10px">{lead}</p>{extra}
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
-    <p class="formlic">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
+    {'<p class="formlic">WA Registered Contractor · <b>' + LNI + '</b> · <span class="nw">Owner-led</span></p>' if show_lic else ''}
   </div>
   <form class="form" id="lpForm" novalidate>
     <div id="formBody">
@@ -296,8 +296,8 @@ def landing(path, angle, sub, under, title, hero_html=None):
     return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
 
 # ---------------------------------------------------------------- V2 TEST LANDING (board review 26.10, love-v2)
-V2_CAP_ONE = "Our subcontractor crew completed this bathroom before working with TrueSquare Remodel LLC."
-V2_CAP_MANY = "Our subcontractor crew completed these bathrooms before working with TrueSquare Remodel LLC."
+V2_CAP_ONE = "The subcontractor crew we work with completed this bathroom."  # [ЖДЁТ РЕШЕНИЯ Сергея: подтвердить]
+V2_CAP_MANY = "The subcontractor crew we work with completed these bathrooms."
 
 def v2_page():
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
@@ -324,7 +324,7 @@ def v2_page():
   <figure class="v2photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="900" height="1200" decoding="async"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button>
     <figcaption>{V2_CAP_ONE}</figcaption></figure>
 </div></section>"""
-    form = form_section(h2='Request Your <span class="grad-text">Free Bathroom Visit</span>',
+    form = form_section(show_lic=False, h2='Request Your <span class="grad-text">Free Bathroom Visit</span>',
                         lead="We'll call to schedule your free visit. Your itemized written scope and price follow within 5 hours after the visit.")
     work = f"""<section class="v2work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Subcontractor Crew</h2></div>
@@ -337,7 +337,7 @@ def v2_page():
     written = f"""<section class="alt v2written"><div class="wrap">
   <div class="head"><p class="kicker">On paper</p><h2>What You Get in Writing</h2><p class="lead">Your itemized scope lists the planned work, materials and total price before you decide.</p></div>
   <div class="panel">
-    <div class="ph-head"><img src="/img/logo.svg" alt="TrueSquare" width="105" height="26" loading="lazy"><b>Your written price</b></div>
+    <div class="ph-head"><img src="/img/logo.svg" alt="TrueSquare" width="105" height="26" loading="lazy"><b>Example Written Scope</b></div>
     <ul class="checks">
       {chk("Demolition and haul-away")}
       {chk("Waterproofing")}
@@ -347,6 +347,7 @@ def v2_page():
       {chk("1-year written workmanship warranty")}
       {chk("WA sales tax shown separately")}
     </ul>
+    <p class="exnote">Example only. Your itemized price follows the free visit.</p>
   </div>
 </div></section>"""
     owner = """<section class="owner on-ink v2owner"><div class="wrap">
