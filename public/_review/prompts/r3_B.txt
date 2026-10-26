@@ -1,0 +1,39 @@
+ROUND 3 — live V3 draft + boldness. You are Council B (ChatGPT). Same 6 members, same rules and facts as before. Argue hard, attack by name, change position only when convinced.
+
+ROUND 2 RESULTS ACROSS ALL THREE COUNCILS (A = Claude, B = ChatGPT, C = Gemini):
+- CTA: A "Get My Written Price" (5-1) | B "Request My Free Visit" (4-2) | C "Get My Written Price". Result 2-1.
+- Line under CTA: A "Starts with a free visit. No decision at the visit. No pressure." | B "We'll call to schedule. No decision required at the visit." | C "No decision at the visit. Zero sales pressure. The written price is yours to keep."
+- Subline under H1: A "Keep the house. Change the bathroom." | B "Let's fix that." | C "Let's fix that." Result 2-1, Council A accepts.
+- Kicker: A ratings (4-2) | B "SEATTLE-AREA FULL BATHROOM REMODELS" (5-1) | C ratings. Result 2-1 ratings.
+- Real photo band ~180-200px under the CTA: 3-0.
+- Form tiles: A keep (6-0) | B remove (4-2) | C keep. Result 2-1 keep.
+- Real review quotes: 3-0 yes, verbatim and verified only (placement split: A before form, B after form, C above the owner block). BLOCKED until the owner confirms each reviewer and the exact text. None on V3 yet.
+- Serhii's photo in the form header: A and C yes.
+- Killed by 2+ councils: "Why Do Most Bathroom Remodels Go Over Budget?" (unprovable), "Zero sales pressure" (absolute promise), hero background fading into the photo (contrast).
+
+WHAT THE MODERATOR BUILT: V3 DRAFT (synthesis of the majorities)
+- Kicker: "5.0 Google (12 reviews)" and "5.0 Thumbtack (24 reviews)" with stars, two short lines on a phone.
+- B's locality moved into the range line: "Seattle-area full bathroom remodels: $16,000-$28,500 + WA sales tax", small print unchanged.
+- H1 unchanged. Subline "Let's fix that." large white.
+- Same 3 bullets. CTA "Get My Written Price". Under it: "Starts with a free visit. We'll call to set a time. No decision at the visit." (merges A's visit-first, B's scheduling, and the shared "no decision").
+- 190px real photo band (b13 double vanity) right after the hero; its top is visible in the 390x844 first viewport. Caption, then "WA Registered Contractor TRUESRL759QK" and "1-year written workmanship warranty".
+- Form: H2 "Get Your Written Price", lead "It starts with a free visit. Your itemized written scope and price follow within 5 hours after the visit." Then Serhii's round photo: "Serhii will call you to set a time. Owner. Your phone/text contact." Tiles kept. Submit "Get My Written Price" (consent text matches the button).
+- Everything below the form = V2. Final CTA "Get My Written Price". Sticky bar: Call / Written Price.
+- Page 5,190px. Form starts at 1,000px (V2: ~1,360px).
+
+V3 draft live: https://love-v3-preview.truesquareremodel.pages.dev/bathroom-remodel-cost-v3
+Real 390px screenshots (iPhone, 2x):
+First viewport 390x844: https://council-shots.truesquareremodel.pages.dev/_review/big/v3_fold.png
+Full page, top to bottom: https://council-shots.truesquareremodel.pages.dev/_review/big/v3_part1.jpg ... v3_part2.jpg ... v3_part3.jpg ... v3_part4.jpg (same folder)
+(The "Call / Written Price" bar in the middle of a full-page image is a capture artifact: on a phone it floats at the bottom.)
+
+TASKS
+T1. Every member scores the V3 draft /100 and says the one reason (V2 baseline = your Round 1 score).
+T2. The 2-vs-1 splits. A losing side may only fight back with a NEW argument; repeating Round 2 does not count. Otherwise accept and say so.
+  T2a. CTA "Get My Written Price" + the line under it. Does the under-CTA line remove B's objection that the button hides the visit? Exact final text if you change it.
+  T2b. Ratings kicker + "Seattle-area" inside the range line. Accept or exact alternative.
+  T2c. Tiles. Moderator synthesis that answers B's mismatch point and keeps the easy first tap: retitle the 4 tiles to the advertised job: "Full remodel, same layout" / "Full remodel, new layout" / "Tub to walk-in shower" / "Not sure yet". Better than the current tiles (Full bathroom remodel / Tub to walk-in shower / Shower remodel / Not sure yet)? Vote.
+T3. BOLDNESS. The owner says it is still too polite. He wants it a little cheeky, attention-grabbing, and pushing people to send a request. Every member proposes ONE bold but honest move: exact text and exact place (or one visual move). Rules: no claims about other contractors or "most remodels" that we cannot prove, no fake urgency or scarcity, no insulting the reader, no new facts. Possible places: under the H1, the form H2, the "What You Get in Writing" title, the owner block title, the FAQ title, the final CTA title, the sticky bar label. Then the council attacks the proposals and keeps the TOP 3 by vote (show the counts).
+T4. The single thing on V3 that is worse than V2 and must be fixed.
+
+English, compact. End with === SUMMARY B R3 === ... === END === (max 1,500 characters, plain text).
