@@ -389,7 +389,7 @@ def v2_page():
                  "love-v2", body, body_class="lp lp2", sticky_label="Free Visit")
 
 # ===== love-v3: final 3-council summit (26.10). Preview only, not in ads. =====
-V3_CAP = V2_CAP_ONE  # [ЖДЁТ РЕШЕНИЯ] same caption question as v2
+# 26.10 Serhii: no "subcontractor" caption under V3 photos ("they are members of our team")
 def v3_page():
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
     hero = f"""<section class="hero on-ink v2hero v3hero">
@@ -408,26 +408,24 @@ def v3_page():
   </div>
 </section>"""
     band = f"""<section class="v3band"><div class="wrap">
-  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="900" height="1200" decoding="async"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button>
-    <figcaption>{V3_CAP}</figcaption></figure>
+  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="900" height="1200" decoding="async"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
   <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
 </div></section>"""
     who = """
     <div class="v3who"><img src="/img/serhii-avatar.jpg" alt="Serhii, owner of TrueSquare Remodel" width="56" height="56"><p><b>Serhii will call you to set a time.</b><span>Owner. Your phone/text contact.</span></p></div>"""
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
-                        lead="It starts with a free visit. Your itemized written scope and price follow within 5 hours after the visit.",
+                        lead="It starts with a free visit. Your detailed written scope and price follow within 5 hours after the visit.",
                         submit="Get My Written Price", who=who,
                         tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC")
     work = f"""<section class="v2work"><div class="wrap">
-  <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Subcontractor Crew</h2></div>
+  <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Crew</h2></div>
   <div class="v2gal">
     <button class="ph" type="button" data-full="/img/lp-hero.jpg"><img src="/img/lp-hero-460.jpg" alt="Finished walk-in shower with glass door, vanity and toilet" loading="lazy" width="460" height="575"></button>
     <button class="ph" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18.jpg" alt="Floating vanity with vessel sink, black mirror and toilet" loading="lazy" width="900" height="1200"></button>
   </div>
-  <p class="v2cap">{V2_CAP_MANY}</p>
 </div></section>"""
     written = f"""<section class="alt v2written"><div class="wrap">
-  <div class="head"><p class="kicker">On paper</p><h2>Don't Guess. <span class="grad-text">Get It in Writing.</span></h2><p class="lead">Within 5 hours after your visit: an itemized written scope and price, with material allowances listed by category. Extra work needs your written OK.</p></div>
+  <div class="head"><p class="kicker">On paper</p><h2>Don't Guess. <span class="grad-text">Get It in Writing.</span></h2><p class="lead">Within 5 hours after your visit: everything included, spelled out in writing, with one total price. Extra work needs your written OK.</p></div>
   <div class="panel">
     <div class="ph-head"><img src="/img/logo.svg" alt="TrueSquare" width="105" height="26" loading="lazy"><b>Example Written Scope</b></div>
     <ul class="checks">
@@ -435,12 +433,11 @@ def v3_page():
       {chk("Waterproofing")}
       {chk("Plumbing and electrical, with permits where required")}
       {chk("Tile, vanity, fixtures and glass")}
-      {chk("Material allowances listed by category")}
       {chk("Cleanup")}
       {chk("1-year written workmanship warranty")}
       {chk("WA sales tax shown separately")}
     </ul>
-    <p class="exnote">Example only. Your itemized price follows the free visit.</p>
+    <p class="exnote">Example only. Your written price follows the free visit.</p>
   </div>
 </div></section>"""
     owner = """<section class="owner on-ink v2owner"><div class="wrap">
@@ -459,7 +456,7 @@ def v3_page():
   </ol>
 </div></section>"""
     faq_items = [
-        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your itemized written price follows within 5 hours after the free visit."),
+        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
         ("Will the price jump once the walls are open?", "Only if we find hidden damage or you change the scope. We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
         ("Are you the one swinging the hammer?", "No. Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
         ("Do I pay everything up front?", "No. You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
@@ -480,7 +477,7 @@ def v3_page():
 </div></section>"""
     body = "\n".join([hero, band, form, work, written, owner, faq, final])
     return shell("/bathroom-remodel-cost-v3", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
-                 f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, itemized written price within 5 hours.",
+                 f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, written price within 5 hours.",
                  "love-v3", body, body_class="lp lp2 lp3", sticky_label="Get My Price")
 
 PAGES = {
