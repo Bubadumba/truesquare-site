@@ -1,0 +1,29 @@
+ROUND 4 — copy lock. You are Council B (ChatGPT). Same 6 members, same rules. Argue hard, attack by name, change position only when convinced.
+
+ROUND 3 RESULTS (all three councils):
+COUNCIL A (Claude): V3 avg 81.5 (V2 78.0). Keep "Get My Written Price" 6-0. Under-CTA as two deliberate lines: "Starts with a free visit. We'll call to set a time." / "No decision at the visit." Ratings kicker on two lines, keep the word "reviews". Tiles retitle 5-1 ("Full remodel, same layout" / "Full remodel, new layout" / "Tub to walk-in shower" / "Not sure yet"). Boldness TOP 3: final CTA H2 "Your Bathroom Won't Fix Itself." 6-0; written-scope H2 "Every Line in Writing. Within 5 Hours." 5-1; FAQ H2 "Ask Us the Awkward Questions." 4-2. Killed: "Not a Call Center" (automatic CRM texts exist), "Done Hating Your Bathroom?", "No Napkin Math". Worse than V2: ratings lost their card look.
+COUNCIL B (ChatGPT): V3 avg 85.2 (V2 82.3). Accepts "Get My Written Price" 4-2 (changed stance: the visit-first line is visible in the first viewport). Line "Free on-site visit first. We'll call to schedule. No decision at the visit." Ratings kicker 5-1 but ONE line "5.0 Google (12) · 5.0 Thumbtack (24)". Tiles "Full remodel, same layout" / "Full remodel, new layout" / "Full remodel + tub-to-shower" / "Not sure yet" + helper "Choose the closest fit." Boldness: "Don't Guess. Get It in Writing." 6/6 (written-scope H2); "That Bathroom Isn't Going to Remodel Itself." 5/6 (final CTA H2); "Who Does the Work? Who Answers Your Texts?" 4/6 (owner H2). Must fix: "Serhii will call you to set a time." unconfirmed. Sticky "Free Visit + Price", and a visit-first reminder next to the final CTA.
+COUNCIL C (Gemini): V3 avg 85.5. Under-CTA line looks like a legal disclaimer; wants "Starts with a free visit. No decision required. The written price is yours to keep." Tiles retitle yes. Boldness: owner H2 "No Salesmen. Just Serhii." 6 votes; under "What You Get in Writing": "No vague allowances. No surprise bills." 5 votes; sticky "Get My Written Price (Not an Estimate)" 4 votes. C5 dissent: "Let's fix that." sounds like unclogging a toilet. Worse than V2: sticky label "Written Price" is a noun, not an action.
+
+MODERATOR FACT CHECK (from the owner's own records, use these):
+F1. "Serhii will call": the owner's lead script starts "Hi [Name], this is Serhii with TrueSquare Remodel..." and the owner-approved form confirmation already says "Serhii will call you shortly to set up your free visit." The promise is backed. B's must-fix is answered.
+F2. "Not an Estimate": the owner's written document is titled "Preliminary Estimate". The claim is false. Killed.
+F3. "No vague allowances": the owner decided (24.10) that the written scope lists material allowances as dollar amounts per category. The exact dollar figures are not set yet, so this line needs the owner's OK before launch.
+F4. "No salesmen": the brand core says "the owner works with the client, not a salesperson". True as a statement about our staffing. Still needs the owner's OK. Note: "salesmen" is gendered; "sales reps" is the precise term.
+F5. "No surprise bills": backed by the rule "nothing extra without your written OK".
+
+LOCKED 3-0 (do not reopen): H1 = ad. "Let's fix that." (C5 dissent recorded). CTA "Get My Written Price" with a visit-first line under it. Ratings as kicker, "Seattle-area" in the range line. 190px real photo band under the hero. Serhii's round photo in the form header. Tiles retitled to the advertised full remodel (wording open). No review quotes until the owner verifies each one. The sticky label must be an action.
+
+ROUND 4 — COPY LOCK. For EACH slot below: members who care argue in one line (attack the strongest rival option by council), then your council votes and gives ONE exact final text (pick an option or write a better merge). Remember the owner's brief: a little bold and cheeky, attention-grabbing, trust-building, pushing people to send the request. Mobile 390px: long lines cost height.
+S1 Line under the hero CTA: A "Starts with a free visit. We'll call to set a time." + "No decision at the visit." | B "Free on-site visit first. We'll call to schedule. No decision at the visit." | C "Starts with a free visit. No decision required. The written price is yours to keep."
+S2 Ratings kicker: one line "5.0 Google (12) · 5.0 Thumbtack (24)" (B) | two lines with "(12 reviews)" (A, current).
+S3 Tiles: A/C wording | B wording + helper line.
+S4 Form header next to Serhii's photo: "Serhii will call you to set a time." + "Owner. Your phone/text contact." (current, see F1) | B "Meet Serhii, the owner. Your phone/text contact throughout the project."
+S5 Written-scope H2: "Don't Guess. Get It in Writing." (B) | "Every Line in Writing. Within 5 Hours." (A) | current "What You Get in Writing". Plus the lead under it: C "No vague allowances. No surprise bills." (see F3, F5) | current lead.
+S6 Owner block H2: "No Sales Reps. Just Serhii." (C, corrected per F4) | "Who Does the Work? Who Answers Your Texts?" (B) | current "One Person to Call, Start to Finish".
+S7 FAQ H2: "Ask Us the Awkward Questions." (A) | current "What Changes Your Bathroom Remodel Price?"
+S8 Final CTA H2: "Your Bathroom Won't Fix Itself." (A, echoes "Let's fix that.") | "That Bathroom Isn't Going to Remodel Itself." (B). Plus a short visit-first line next to the final button (B): exact text.
+S9 Sticky button label (about 16 characters max): "Get My Price" | "Free Visit + Price" (B) | "Get Written Price" | better.
+Then: FINAL COPY LIST S1-S9 (exact text only).
+
+English, compact. End with === SUMMARY B R4 === (the final S1-S9 texts + vote counts) === END === (max 1,500 characters, plain text).
