@@ -1,0 +1,50 @@
+{
+  "/": {
+    "sha256": "4cef2cf2ecf25d25f77ce98b576b6a1eeaee825ebad12fafd57a0c87d60951d8",
+    "lastmod": "2026-10-26"
+  },
+  "/about": {
+    "sha256": "6ecd02bc278d24e74d032ea059bb4e342cb0057a48e48d7f7ceaf545ed983751",
+    "lastmod": "2026-10-26"
+  },
+  "/bathroom-remodeling": {
+    "sha256": "cd817037abbfa50de84ccd6b7275a9a08afb47f5e1a04bf5fec224fa656db1ed",
+    "lastmod": "2026-10-26"
+  },
+  "/kitchen-renovations": {
+    "sha256": "7a7da178f45a204dadce7835773a4dc4029e7bead7073173905027a114f823ef",
+    "lastmod": "2026-10-26"
+  },
+  "/portfolio": {
+    "sha256": "ff7582bf2003a19bb560914e702a6eda91d37a7293878af13a4581399be22e21",
+    "lastmod": "2026-10-26"
+  },
+  "/privacy": {
+    "sha256": "2d1100db9840fa2dff3765b5fe781cab8fb37af8aced093a3f3bcdcb11bcd00f",
+    "lastmod": "2026-10-26"
+  },
+  "/reviews": {
+    "sha256": "16c5931cbae94704e01221c65dda766df3ef90cd1489483675bce356bac09931",
+    "lastmod": "2026-10-26"
+  },
+  "/services": {
+    "sha256": "16f17b5633561c197c17a0abd1a5e0861d649b2ffc227ee73572aea3c6c86193",
+    "lastmod": "2026-10-26"
+  },
+  "/shower-remodeling": {
+    "sha256": "e93ffe2a2842bda936a27755e3187471d406c30a4136081190c86309b6e24762",
+    "lastmod": "2026-10-26"
+  },
+  "/terms": {
+    "sha256": "e65019e97ed6ce89fdf195ae75f150fff92cdf1eee653c0187e204f1154e0745",
+    "lastmod": "2026-10-26"
+  },
+  "/tile-flooring": {
+    "sha256": "950b23fc8141d0c869f36fc9775deb2cb4bfffd6ed056325dc8df8a418f30990",
+    "lastmod": "2026-10-26"
+  },
+  "/tub-to-walk-in-shower": {
+    "sha256": "a9d6767ed59697aeaec133a5d46ae4a8375c5c9405c85734372322fbaa3932c4",
+    "lastmod": "2026-10-26"
+  }
+}
