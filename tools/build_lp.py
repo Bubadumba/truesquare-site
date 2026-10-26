@@ -187,14 +187,14 @@ WORK = f"""<section id="work"><div class="wrap">
   </div>
 </div></section>"""
 
-def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra=""):
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who=""):
     tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v}</button>' for v in
                     ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"])
     return f"""<section class="book on-ink" id="book"><div class="wrap bgrid">
   <div>
     <p class="kicker">Free visit</p>
     <h2 style="margin-top:10px">{h2}</h2>
-    <p class="lead" style="margin-top:10px">{lead}</p>{extra}
+    <p class="lead" style="margin-top:10px">{lead}</p>{extra}{who}
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
     {'<p class="formlic">WA Registered Contractor · <b>' + LNI + '</b> · <span class="nw">Owner-led</span></p>' if show_lic else ''}
   </div>
@@ -209,8 +209,8 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
         <label class="f" for="fPhone">Mobile phone<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"><span class="why">We'll call or text only about your visit.</span></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
                 <p class="err" id="fErr" hidden></p>
-        <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">Request My Free Visit</span> <span class="arr">→</span></button>
-        <p class="legal-mini" id="consentText">By tapping Request My Free Visit, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
+        <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
+        <p class="legal-mini" id="consentText">By tapping {submit}, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">No payment. No obligation.</p>
         
       </div>
@@ -388,7 +388,99 @@ def v2_page():
                  f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, itemized written price within 5 hours.",
                  "love-v2", body, body_class="lp lp2", sticky_label="Free Visit")
 
+# ===== love-v3: final 3-council summit (26.10). Preview only, not in ads. =====
+V3_CAP = V2_CAP_ONE  # [ЖДЁТ РЕШЕНИЯ] same caption question as v2
+def v3_page():
+    def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
+    hero = f"""<section class="hero on-ink v2hero v3hero">
+  <div class="wrap">
+    <p class="v3rate"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12 reviews)</span></a><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24 reviews)</span></a></p>
+    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <p class="v3sub">Let's fix that.</p>
+    <p class="hrange">Seattle-area full bathroom remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope.</small></p>
+    <ul class="hlist">
+      {li("Itemized written scope and price within 5 hours after your visit")}
+      {li("One phone/text contact throughout your project")}
+      {li("Your written OK before extra work")}
+    </ul>
+    <div class="hcta"><a class="btn block" href="#book" data-cta="hero">Get My Written Price <span class="arr">→</span></a></div>
+    <p class="under">Starts with a free visit. We'll call to set a time. No decision at the visit.</p>
+  </div>
+</section>"""
+    band = f"""<section class="v3band"><div class="wrap">
+  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="900" height="1200" decoding="async"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button>
+    <figcaption>{V3_CAP}</figcaption></figure>
+  <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
+</div></section>"""
+    who = """
+    <div class="v3who"><img src="/img/serhii-avatar.jpg" alt="Serhii, owner of TrueSquare Remodel" width="56" height="56"><p><b>Serhii will call you to set a time.</b><span>Owner. Your phone/text contact.</span></p></div>"""
+    form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
+                        lead="It starts with a free visit. Your itemized written scope and price follow within 5 hours after the visit.",
+                        submit="Get My Written Price", who=who)
+    work = f"""<section class="v2work"><div class="wrap">
+  <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Subcontractor Crew</h2></div>
+  <div class="v2gal">
+    <button class="ph" type="button" data-full="/img/lp-hero.jpg"><img src="/img/lp-hero-460.jpg" alt="Finished walk-in shower with glass door, vanity and toilet" loading="lazy" width="460" height="575"></button>
+    <button class="ph" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18.jpg" alt="Floating vanity with vessel sink, black mirror and toilet" loading="lazy" width="900" height="1200"></button>
+  </div>
+  <p class="v2cap">{V2_CAP_MANY}</p>
+</div></section>"""
+    written = f"""<section class="alt v2written"><div class="wrap">
+  <div class="head"><p class="kicker">On paper</p><h2>What You Get in Writing</h2><p class="lead">Your itemized scope lists the planned work, materials and total price before you decide.</p></div>
+  <div class="panel">
+    <div class="ph-head"><img src="/img/logo.svg" alt="TrueSquare" width="105" height="26" loading="lazy"><b>Example Written Scope</b></div>
+    <ul class="checks">
+      {chk("Demolition and haul-away")}
+      {chk("Waterproofing")}
+      {chk("Plumbing and electrical, with permits where required")}
+      {chk("Tile, vanity, fixtures and glass")}
+      {chk("Cleanup")}
+      {chk("1-year written workmanship warranty")}
+      {chk("WA sales tax shown separately")}
+    </ul>
+    <p class="exnote">Example only. Your itemized price follows the free visit.</p>
+  </div>
+</div></section>"""
+    owner = """<section class="owner on-ink v2owner"><div class="wrap">
+  <div class="v2own">
+    <img src="/img/serhii-ts.jpg" alt="Serhii, owner of TrueSquare Remodel" loading="eager" width="1024" height="1536">
+    <div>
+      <p class="kicker">Your contact</p>
+      <h2>One Person to Call, <span class="grad-text">Start to Finish</span></h2>
+    </div>
+  </div>
+  <p class="lead">Serhii, the owner, visits to measure your bathroom and stays your contact by phone or text throughout the project. He coordinates the work with our subcontractor crew, who handle the construction.</p>
+  <ol class="v2steps">
+    <li><span class="n">1</span>Request your free visit</li>
+    <li><span class="n">2</span>Discuss and measure your bathroom</li>
+    <li><span class="n">3</span>Get your written price within 5 hours after the visit</li>
+  </ol>
+</div></section>"""
+    faq_items = [
+        ("Can I get an exact price before the visit?", f"The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your itemized written price follows within 5 hours after the free visit."),
+        ("What happens if you find hidden damage?", "We'll explain the issue and give you a price for extra work in writing. Nothing extra starts without your written OK."),
+        ("Who does the remodeling work?", "Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
+        ("How do payments work?", "You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
+        ("How long does construction take, and what is the warranty?", "Construction typically takes 2–4 weeks, depending on scope. There's a 1-year written workmanship warranty."),
+    ]
+    faq = """<section id="faq" class="v2faq"><div class="wrap">
+  <div class="head"><p class="kicker">Your price</p><h2>What Changes Your Bathroom Remodel Price?</h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
+  <div class="faq">
+""" + "\n".join(f"    <details><summary>{q}</summary><p>{a}</p></details>" for q, a in faq_items) + """
+  </div>
+</div></section>"""
+    final = f"""<section class="alt final"><div class="wrap">
+  <h2>Ready for Your Written Price?</h2>
+  <a class="btn" href="#book" data-cta="final">Get My Written Price <span class="arr">→</span></a>
+  <p class="or">or call <a href="tel:{PHONE_T}">{PHONE}</a></p>
+</div></section>"""
+    body = "\n".join([hero, band, form, work, written, owner, faq, final])
+    return shell("/bathroom-remodel-cost-v3", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
+                 f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, itemized written price within 5 hours.",
+                 "love-v3", body, body_class="lp lp2 lp3", sticky_label="Written Price")
+
 PAGES = {
+    "bathroom-remodel-cost-v3.html": v3_page(),
     "bathroom-remodel-cost-v2.html": v2_page(),
     "bathroom-remodel-cost.html": landing(
         "/bathroom-remodel-cost", "love-v1", "", "",
