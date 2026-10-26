@@ -38,6 +38,9 @@ SVG_DEFS = """<svg width="0" height="0" style="position:absolute" aria-hidden="t
 
 FONTS = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;600;700&family=Caveat:wght@600&display=swap"
 
+FONT_FACES = ('@font-face{font-family:"Bricolage Grotesque";font-style:normal;font-weight:700 800;font-display:swap;src:url(/fonts/bricolage-700-800.woff2) format("woff2")}'
+              '@font-face{font-family:"Inter";font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/inter-400-700.woff2) format("woff2")}')
+
 def css_inline():
     # read-only use of the shared site.css; landing extras from lp.css
     import re
@@ -66,11 +69,9 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{SITE}/img/lp-hero.jpg">
-{PRE}<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<noscript><link rel="stylesheet" href="{FONTS}"></noscript>
-<style>{CSS}</style>
+{PRE}<link rel="preload" href="/fonts/bricolage-700-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/inter-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>{FONT_FACES}{CSS}</style>
 </head>
 <body class="{body_class}" data-page="lp-{angle}" data-angle="{angle}">
 {SVG_DEFS}
@@ -100,8 +101,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
 (function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=6';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
-function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
-if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
+if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
 </script>
 </body>
 </html>
@@ -410,7 +410,7 @@ def v3_page():
   </div>
 </section>"""
     band = f"""<section class="v3band"><div class="wrap">
-  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="900" height="1200" decoding="async"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
+  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13-band.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="760" height="388" fetchpriority="high"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
   <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
 </div></section>"""
     who = """
@@ -422,8 +422,8 @@ def v3_page():
     work = f"""<section class="v2work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Crew</h2></div>
   <div class="v2gal">
-    <button class="ph" type="button" data-full="/img/lp-hero.jpg"><img src="/img/lp-hero-460.jpg" alt="Finished walk-in shower with glass door, vanity and toilet" loading="lazy" width="460" height="575"></button>
-    <button class="ph" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18.jpg" alt="Floating vanity with vessel sink, black mirror and toilet" loading="lazy" width="900" height="1200"></button>
+    <button class="ph" type="button" data-full="/img/lp-hero.jpg"><img src="/img/lp-hero-sq.jpg" alt="Finished walk-in shower with glass door, vanity and toilet" loading="lazy" width="360" height="360"></button>
+    <button class="ph" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18-sq.jpg" alt="Floating vanity with vessel sink, black mirror and toilet" loading="lazy" width="360" height="360"></button>
   </div>
 </div></section>"""
     written = f"""<section class="alt v2written"><div class="wrap">
@@ -444,7 +444,7 @@ def v3_page():
 </div></section>"""
     owner = """<section class="owner on-ink v2owner"><div class="wrap">
   <div class="v2own">
-    <img src="/img/serhii-ts.jpg" alt="Serhii, owner of TrueSquare Remodel" loading="eager" width="1024" height="1536">
+    <img src="/img/serhii-ts-wide.jpg" alt="Serhii, owner of TrueSquare Remodel" loading="lazy" width="744" height="408">
     <div>
       <p class="kicker">Your contact</p>
       <h2>No Sales Reps. <span class="grad-text">Just Serhii.</span></h2>

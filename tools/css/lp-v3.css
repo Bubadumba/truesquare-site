@@ -163,7 +163,7 @@
 .lp3 .v3band{padding-block:14px 26px;background:var(--white)}
 .lp3 .v3photo{margin:0}
 .lp3 .v3photo .ph{height:190px}
-.lp3 .v3photo .ph img{object-position:50% 66%}
+.lp3 .v3photo .ph img{object-position:50% 50%}
 .lp3 .v3band .tline.facts{margin-top:12px}
 .lp3 .v3who{display:flex;align-items:center;gap:12px;margin-top:16px}
 .lp3 .v3who img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--peach);flex:none}
@@ -179,3 +179,7 @@
 /* from site.css on love branches (not yet on main) */
 .faq small.fine{display:block;margin-top:8px;font-size:13.5px;line-height:1.45;color:var(--muted)}
 .nw{white-space:nowrap}
+/* speed/a11y pass 26.10: hidden sticky bar is not focusable; kicker contrast on grey sections */
+.lp3 .sticky{visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
+.lp3 .sticky.show{visibility:visible;transition:transform .25s ease,visibility 0s}
+.lp3 .alt .kicker{color:#B83A30}
