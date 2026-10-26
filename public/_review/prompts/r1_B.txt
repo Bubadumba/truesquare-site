@@ -1,0 +1,49 @@
+FINAL LANDING PAGE SUMMIT. Three marketing councils debate ONE ad landing page that goes live in Meta ads next. Council A = Claude's council. Council B = ChatGPT's council. Council C = Gemini's council. You are Council B, ChatGPT's council (YOU). Each council has 6 members with fixed, opposing views. Members must argue hard, attack weak arguments by name (including members of other councils once you see them), and change their mind only when convinced. No politeness, no consensus for its own sake. The page may change a lot.
+
+YOUR COUNCIL B (fixed worldviews):
+B1 BRAND STRATEGIST - distinctiveness and memorability; a local brand people remember beats a generic contractor page.
+B2 DIRECT-RESPONSE COPY CHIEF - Ogilvy/Halbert school; the headline does 80% of the work; specificity sells; every line must earn its place.
+B3 BEHAVIORAL SCIENTIST - loss aversion, social proof, cognitive load, friction, choice architecture.
+B4 META PERFORMANCE MEDIA BUYER - ad-to-page continuity, scroll-stopping, lead quality vs CPL, what actually works for home services on Facebook in 2026.
+B5 VISUAL / UI DESIGNER - hierarchy, typography, imagery, polish; premium feel for a $16k-$28k purchase.
+B6 DEVIL'S ADVOCATE - attacks whatever the majority wants and argues the opposite with real reasons.
+
+THE OWNER'S GOAL (quote): be a little bold/cheeky, grab attention, build trust, and provoke people to leave a request and start working with us. Goal metric: booked and kept free on-site visits, not just form fills.
+
+TWO VERSIONS TO JUDGE (both mobile-first; study them VISUALLY):
+V1 = current ad landing: https://love-preview.truesquareremodel.pages.dev/bathroom-remodel-cost
+V2 = improved test copy from the previous review: https://love-v2-preview.truesquareremodel.pages.dev/bathroom-remodel-cost-v2
+Real full-page screenshots at 390px (iPhone, 2x), top to bottom:
+V1: https://council-shots.truesquareremodel.pages.dev/_review/big/v1_part1.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v1_part2.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v1_part3.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v1_part4.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v1_part5.jpg
+V2: https://council-shots.truesquareremodel.pages.dev/_review/big/v2_part1.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v2_part2.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v2_part3.jpg
+https://council-shots.truesquareremodel.pages.dev/_review/big/v2_part4.jpg
+(The Call / Free Visit bar visible mid-image is a full-page-capture artifact: on a phone it floats at the bottom of the screen.)
+
+FACTS (use only these, invent nothing):
+- TrueSquare Remodel LLC, Seattle area / King County. WA Registered Contractor TRUESRL759QK. Phone (206) 222-2328. Full bathroom remodels.
+- Traffic: cold Meta (Facebook/Instagram) ads, 90%+ mobile. Homeowners 35-65+, mainly people planning a capital remodel (layout, function, comparing quotes) and people who just bought or are selling a house.
+- The ad they clicked: image headline "LOVE THE HOUSE. NOT THE BATHROOM?" Ad headline "A Better Bathroom. A Written Price." Text: Full Bathroom Remodels $16,000-$28,500 + WA sales tax. Free visit. Itemized written scope and price within 5 hours after the visit, yours to keep. One phone/text contact throughout. Your written OK before extra work. No decision at the visit.
+- Proof that exists: 5.0 on Google (12 reviews), 5.0 on Thumbtack (24 reviews), real photos of finished bathrooms done by the subcontractor crew we work with (exact caption wording still to be confirmed by the owner), a real photo of the owner Serhii, 1-year written workmanship warranty, typical construction 2-4 weeks, payments: deposit at signing, next payment after the rough-in inspection, final after the walkthrough.
+- Roles: Serhii (owner) visits and measures, is the client's single phone/text contact for the whole project and coordinates the crew. A subcontractor crew does the physical work. Serhii does NOT do the work himself.
+- Price range $16,000-$28,500 + WA sales tax for a full remodel. Small print: "Smaller bathrooms fall at the lower end. Price depends on scope." Larger or complex projects may exceed it.
+
+HARD RULES (ideas that break them are rejected):
+- No invented reviews, quotes, numbers, awards, guarantees, deadlines, fake urgency or scarcity. No stock photos presented as our work.
+- Never "bonded and insured" (WA law RCW 18.27.100). Never financing, credit, loan, APR, $0 down. Never "in-house" or "no subcontractors". Never claim the owner does the work.
+- WA Registered Contractor TRUESRL759QK and the phone stay on the page. The price range stays on the first screen. Same offer as the ad (message match).
+- Colors and fonts: owner likes the current ones (dark ink, coral/peach gradient, Bricolage Grotesque + Inter). Change only with a strong argument.
+
+
+ROUND 1 - independent review. Answer in ENGLISH, compact (tables, short lines, max ~1,100 words).
+1. Each member, 3 lines max: what you saw (name specific blocks to prove you looked), score V1 and V2 /100, the 2 changes you demand (concrete: where, what, exact text).
+2. Council B joint position: (a) which base to build the final page on, V1 or V2, and why; (b) 3 non-negotiables; (c) your boldest honest FIRST SCREEN: exact kicker, H1, subline, 3 bullets or none, CTA text, line under CTA, what image; (d) dissent: who disagrees and why.
+3. End with a block exactly like this, max 1,400 characters, plain text, no tables, for me to forward to the other councils:
+=== SUMMARY B ===
+...
+=== END ===
