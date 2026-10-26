@@ -16,8 +16,14 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "4"  # cache version for lp.css / lp.js
+V = "5"  # cache version for lp.css / lp.js
 RANGE = "$16,000–$28,500"
+CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
+CAPTIONS = {
+    "a": "Past work completed by our subcontractor's crew before TrueSquare Remodel LLC.",
+    "b": "Real bathroom remodel by the subcontractor crew that works on TrueSquare projects.",
+}
+CAP = CAPTIONS[CAPTION]
 
 def esc(s): return html.escape(s, quote=True)
 
@@ -127,6 +133,38 @@ def hero(sub, under):
   </div>
 </section>"""
 
+def hero_love():
+    def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
+    return f"""<section class="hero on-ink">
+  <div class="wrap hgrid">
+    <div class="htext">
+      <p class="kicker">Seattle-area bathroom remodeling</p>
+      <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+      <p class="hrange">Full Bathroom Remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope.</small></p>
+      <ul class="hlist">
+        {li("Itemized written scope and price within 5 hours after your visit — yours to keep")}
+        {li("One phone/text contact from first visit to final walkthrough")}
+        {li("Your written OK before any extra work")}
+      </ul>
+      <div class="hcta">
+        <a class="btn" href="#book" data-cta="hero">Request My Free Bathroom Visit <span class="arr">→</span></a>
+      </div>
+      <p class="under">No decision required at the visit.</p>
+      <div class="trust" aria-label="Why homeowners trust us">
+        <div class="rate">
+          <a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google (12 reviews) <small>↗</small></a>
+          <span class="sep" aria-hidden="true"></span>
+          <a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack (24 reviews) <small>↗</small></a>
+        </div>
+        <p class="lic-line">WA Registered Contractor · <b>{LNI}</b><br>1-year written workmanship warranty</p>
+      </div>
+    </div>
+    <figure class="hphoto">
+      <div class="in"><img src="/img/lp-hero.jpg" srcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" sizes="(min-width:960px) 520px, 92vw" alt="Finished full bathroom remodel: glass walk-in shower, vanity and new tile" width="675" height="844" fetchpriority="high" decoding="async"><figcaption class="cap-over">{CAP}</figcaption></div>
+    </figure>
+  </div>
+</section>"""
+
 FACTORS = f"""<section class="alt"><div class="wrap">
   <div class="head"><p class="kicker">Your price</p><h2>Three Things Decide Your Price</h2></div>
   <div class="factors">
@@ -140,8 +178,8 @@ FACTORS = f"""<section class="alt"><div class="wrap">
   </div>
 </div></section>"""
 
-WORK = """<section id="work"><div class="wrap">
-  <div class="head"><p class="kicker">Real work</p><h2>Real Bathrooms, Before and After</h2></div>
+WORK = f"""<section id="work"><div class="wrap">
+  <div class="head"><p class="kicker">Real work</p><h2>Real Bathrooms, Before and After</h2><p class="cap-note">{CAP}</p></div>
   <div class="gal">
     <button class="ph main" type="button" data-full="/img/p/b06.jpg"><img src="/img/p/b06.jpg" alt="Full bathroom remodel: new vanity, toilet, mirror, lighting and floor tile" loading="lazy" width="675" height="1200" style="object-position:50% 72%"></button>
     <button class="ph s" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13.jpg" alt="Full bathroom remodel: double vanity, lit mirror and large-format tile" loading="lazy" width="900" height="1200"></button>
@@ -236,7 +274,7 @@ FAQ_ITEMS = [
     ("What if you find damage behind the wall?", "We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
     ("How long does it take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Is there a warranty?", "Yes. 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
-    ("Who does the work?", "Our crew does the remodeling work. Serhii leads every project and is your one point of contact."),
+    ("Who will I deal with?", "Serhii is your phone/text contact from the first visit to the final walkthrough. Our subcontractor crew does the work. Any extra work needs your written OK first."),
     ("How do payments work?", "You pay a deposit when you sign the contract, the next payment after the rough-in inspection passes, and the final payment after our walkthrough together. The visit and the written price are free."),
     ("Do you do small repairs?", "We focus on full bathroom and shower remodels. Small repairs only when our schedule allows."),
 ]
@@ -253,16 +291,14 @@ FINAL = f"""<section class="alt final"><div class="wrap">
   <p class="or">or call <a href="tel:{PHONE_T}">{PHONE}</a></p>
 </div></section>"""
 
-def landing(path, angle, sub, under, title):
-    body = "\n".join([hero(sub, under), FACTORS, WORK, form_section(), WRITTEN, OWNER, STEPS, FAQ, FINAL])
+def landing(path, angle, sub, under, title, hero_html=None):
+    body = "\n".join([hero_html or hero(sub, under), FACTORS, WORK, form_section(), WRITTEN, OWNER, STEPS, FAQ, FINAL])
     return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
 
 PAGES = {
     "bathroom-remodel-cost.html": landing(
-        "/bathroom-remodel-cost", "m0-v1",
-        "Know exactly what's included. Get an itemized written scope &amp; price within 5 hours after your free on-site visit.",
-        "No decision required at the visit.",
-        "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare"),
+        "/bathroom-remodel-cost", "love-v1", "", "",
+        "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare", hero_html=hero_love()),
     "bathroom-remodel-guarantee.html": landing(
         "/bathroom-remodel-guarantee", "m1-v1",
         "Get an itemized written scope &amp; price within 5 hours after your free on-site visit — or we pay you $200.",
