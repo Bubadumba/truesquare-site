@@ -83,7 +83,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 </main>
 
 <footer><div class="wrap lpf">
-  <span><b>TrueSquare Remodel LLC</b> · WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></span>
+  <span><b>TrueSquare Remodel LLC</b> · WA Registered Contractor · <b>{LNI}</b>{'' if 'lp2' in body_class else ' · <span class="nw">Owner-led</span>'}</span>
   <span><a href="tel:{PHONE_T}">{PHONE}</a> · info@truesquareremodel.com · Seattle, WA</span>
   <span class="links"><a href="/">About TrueSquare</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></span>
 </div></footer>
