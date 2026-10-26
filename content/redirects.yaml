@@ -1,0 +1,4 @@
+# 301 redirects written to public/_redirects (Cloudflare Pages format) by tools/build_blog.py.
+# Add one entry when two posts are merged, so the old URL keeps working:
+# - { from: "/blog/old-slug/", to: "/blog/new-slug/", status: 301 }
+[]

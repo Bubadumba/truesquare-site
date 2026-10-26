@@ -1,0 +1,19 @@
+# Hub pages the articles link to. `hub` in a post's frontmatter must be one of these keys.
+# Every article links exactly once to its hub (the money page) with a descriptive anchor.
+bathroom: /bathroom-remodeling
+bathroom_remodeling: /bathroom-remodeling
+tub_to_shower: /tub-to-walk-in-shower
+shower_remodeling: /shower-remodeling
+kitchen: /kitchen-renovations
+tile: /tile-flooring
+services: /services
+projects: /portfolio
+about: /about
+reviews: /reviews
+faq: /#faq
+process: /#process
+pricing: /#pricing
+permits: /bathroom-remodeling      # no permit page exists yet; permit articles send readers to the bathroom service page
+trust: /about
+estimate_url: /#book
+cta_phone: "+1 206-222-2328"

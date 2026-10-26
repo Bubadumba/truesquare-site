@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "5"  # bump to bust browser cache of css/js
+ASSET_V = "6"  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -97,7 +97,7 @@ def footer():
     <div class="fbrand"><img src="/img/logo-reverse.svg" alt="TrueSquare Bathroom Remodeling" width="242" height="60" loading="lazy"><p>TrueSquare Remodel LLC. Bathroom remodeling in the Seattle area.</p></div>
     <div class="fcols">
       <div class="fcol"><h4>Services</h4>{svc}<a href="/services">All services</a></div>
-      <div class="fcol"><h4>Explore</h4><a href="/portfolio">Projects</a><a href="/about">About TrueSquare</a><a href="/reviews">Reviews</a><a href="/#process">How It Works</a><a href="/#faq">FAQ</a><a href="#book">Contact</a></div>
+      <div class="fcol"><h4>Explore</h4><a href="/portfolio">Projects</a><a href="/blog/">Blog</a><a href="/about">About TrueSquare</a><a href="/reviews">Reviews</a><a href="/#process">How It Works</a><a href="/#faq">FAQ</a><a href="#book">Contact</a></div>
     </div>
     <div class="fcontact">
       <h4 style="margin:0 0 4px;font:700 12.5px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:#fff">Contact</h4>
@@ -759,7 +759,7 @@ PAGES["about.html"] = page(
 {areas_section(alt=True)}
 """ + book(tiles=["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Kitchen or tile"]),
     ld_extra=[{"@type": "AboutPage", "@id": SITE + "/about#about", "url": SITE + "/about", "about": {"@id": BIZ_ID}},
-              {"@type": "Person", "name": "Serhii Tomilov", "jobTitle": "Owner", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg"}],
+              {"@type": "Person", "@id": SITE + "/about#person", "name": "Serhii Tomilov", "jobTitle": "Owner", "url": SITE + "/about", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg", "sameAs": [GOOGLE, THUMBTACK]}],
     crumbs=crumb, page_id="about", og_image="/img/serhii.jpg")
 
 # ---------------------------------------------------------------- REVIEWS

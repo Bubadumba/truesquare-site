@@ -406,3 +406,42 @@ nav.desk>a[aria-current="page"]{background:var(--grey)}
 /* consent line under form buttons (decision 23.10) */
 .legal-mini{font-size:12.5px;line-height:1.45;color:var(--muted);text-align:center}
 .legal-mini a{color:inherit}
+/* blog */
+.blogpost{max-width:72ch;margin:0 auto;padding-block:8px 20px}
+.blogpost p,.blogpost li{line-height:1.65}
+.blogpost h2{margin-top:18px}
+.blogpost a{color:var(--coral-dk)}
+.blogpost ul,.blogpost ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.blogpost table{border-collapse:collapse;width:100%;font-size:15.5px}
+.blogpost th,.blogpost td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.blogpost th{background:var(--grey);color:var(--ink);font-weight:700}
+.blogpost figure{margin:6px 0}
+.blogpost figcaption{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+.bhero img{width:100%;height:auto;max-height:560px;object-fit:cover;border-radius:var(--r)}
+.bphoto img{width:100%;height:auto;border-radius:var(--r)}
+@media (min-width:760px){.bphoto.half{max-width:50%}}
+.costtable{overflow-x:auto;padding:14px 16px 12px;border-radius:14px;background:var(--grey);position:relative}
+.costtable::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad);border-radius:14px 14px 0 0}
+.costtable caption{caption-side:top;text-align:left;font:800 18px var(--f-head);color:var(--ink);padding:4px 0 10px}
+.costtable th{background:var(--white)}
+.costtable figcaption p{margin:0}
+.costtable .updated{color:var(--ink);font-weight:600}
+.callout{padding:16px 18px;border-radius:14px;background:var(--grey);border-left:4px solid var(--coral);display:grid;gap:8px}
+.callout.warning{border-left-color:var(--coral-dk)}
+.callout.owner{background:var(--grad-soft);border-left-color:var(--ink)}
+.callout .clabel{font:700 12.5px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--coral-dk);margin:0}
+.callout.owner .clabel{color:var(--ink)}
+.callout p{margin:0}
+.bcta{display:grid;gap:10px}
+.bcta .kicker{margin:0}
+.bcta-actions{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 0}
+.bcta-actions .btn.outline{color:var(--ink)}
+.bfaq{display:grid;gap:6px;margin-top:10px}
+.bfaq h3{margin-top:12px}
+.reviewed{display:grid;gap:6px}
+.reviewed p{margin:0}
+.reviewed a{color:var(--coral-dk);font-weight:600}
+.bindex .rcard img{aspect-ratio:16/10}
+.bindex .go{color:var(--muted);font-size:14px}
+.pager{display:flex;gap:10px;justify-content:center;margin-top:22px}
+.pager .btn.outline{color:var(--ink)}

@@ -1,0 +1,106 @@
+# One regular expression per line, matched case-insensitively against the article body (Markdown).
+# A hit fails tools/validate_content.py. Lines starting with # are comments.
+# --- claims the company never makes
+\bfinancing\b
+\bfinancing available\b
+\bcredit\b
+\bloan\b
+\bAPR\b
+subject to credit approval
+0% interest
+\bin-house\b
+\bin house\b
+\bguarantee\b
+\bguaranteed\b
+lifetime warranty
+best in Seattle
+(^|\s)#1\b
+\bnumber one\b
+\btop-rated\b
+\baward-winning\b
+\b5-star\b
+\bfive-star\b
+\bADA-certified\b
+\bCAPS certified\b
+\bRRP certified\b
+\bEPA certified\b
+according to our data
+\bour statistics\b
+\bour customers say\b
+hundreds of happy
+\bthousands of\b
+# --- AI-isms: vocabulary
+\bdelve\b
+\bleverage\b
+\bseamless(ly)?\b
+\btapestry\b
+\btestament\b
+\blandscape\b
+\brobust\b
+\bpivotal\b
+\bcrucial\b
+\bvibrant\b
+\bmeticulous(ly)?\b
+\bunderscores?\b
+\bshowcases?\b
+\bboasts\b
+\bfosters?\b
+\bgarner\b
+\belevate\b
+\bunlock\b
+\bgame[- ]changer\b
+\bjourney\b
+\bnavigate the\b
+\brealm\b
+\bin today's\b
+\bfast-paced\b
+\bever-evolving\b
+\bin conclusion\b
+^overall,
+^additionally,
+^furthermore,
+^moreover,
+it'?s important to note
+it is important to note
+\blet'?s dive\b
+\bdive in\b
+\bwhether you'?re\b
+\blook no further\b
+we'?ve got you covered
+\bpicture this\b
+\bin the heart of\b
+\bnestled\b
+\bnot just\b
+\bnot only\b
+\bstands as\b
+\bserves as\b
+\bindustry experts\b
+\bexperts agree\b
+\bstudies show\b
+\bmany homeowners find\b
+\bas an AI\b
+I hope this helps
+certainly!
+absolutely!
+# --- AI-isms: assistant voice and marketing filler
+it'?s worth noting
+\bkeep in mind that\b
+\bwhen it comes to\b
+\bat the end of the day\b
+\bin order to\b
+\ba wide range of\b
+\bstate-of-the-art\b
+\bcutting-edge\b
+\btop-notch\b
+\bhassle-free\b
+\bpeace of mind\b
+\btransform your\b
+\bdream bathroom\b
+\boasis\b
+\bsanctuary\b
+\bretreat\b
+\belevate your\b
+\bbreathe new life\b
+\bstand the test of time\b
+\bwe understand that\b
+\brest assured\b
