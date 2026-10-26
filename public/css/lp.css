@@ -169,3 +169,8 @@
 .lp3 .v3who img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--peach);flex:none}
 .lp3 .v3who p{margin:0;display:flex;flex-direction:column;gap:2px;font-size:15px;line-height:20px;color:#fff}
 .lp3 .v3who span{font-size:13px;line-height:18px;color:rgba(255,255,255,.66)}
+.lp3 .v3rate{flex-wrap:nowrap;gap:8px}
+.lp3 .v3rate a{border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:3px 10px 3px 8px;min-height:28px}
+.lp3 .final .v3first{margin-top:10px;font-size:14.5px;color:var(--muted)}
+.lp3 .thelp{margin:-4px 0 10px;font-size:13px;line-height:18px;color:var(--muted)}
+.lp3 .v3hero .under{text-wrap:balance}

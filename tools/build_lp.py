@@ -187,9 +187,9 @@ WORK = f"""<section id="work"><div class="wrap">
   </div>
 </div></section>"""
 
-def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who=""):
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help=""):
     tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v}</button>' for v in
-                    ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"])
+                    (tile_opts or ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"]))
     return f"""<section class="book on-ink" id="book"><div class="wrap bgrid">
   <div>
     <p class="kicker">Free visit</p>
@@ -201,7 +201,7 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
   <form class="form" id="lpForm" novalidate>
     <div id="formBody">
       <fieldset>
-        <legend>What are you planning?</legend>
+        <legend>What are you planning?</legend>{('<p class="thelp">' + tile_help + '</p>') if tile_help else ''}
         <div class="tiles" id="tiles">{tiles}</div>
       </fieldset>
       <div class="fields">
@@ -394,7 +394,7 @@ def v3_page():
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
     hero = f"""<section class="hero on-ink v2hero v3hero">
   <div class="wrap">
-    <p class="v3rate"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12 reviews)</span></a><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24 reviews)</span></a></p>
+    <p class="v3rate"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
     <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <p class="v3sub">Let's fix that.</p>
     <p class="hrange">Seattle-area full bathroom remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope.</small></p>
@@ -404,7 +404,7 @@ def v3_page():
       {li("Your written OK before extra work")}
     </ul>
     <div class="hcta"><a class="btn block" href="#book" data-cta="hero">Get My Written Price <span class="arr">→</span></a></div>
-    <p class="under">Starts with a free visit. We'll call to set a time. No decision at the visit.</p>
+    <p class="under v3under">Starts with a free visit. We'll call to set a time.<br>No decision at the visit.</p>
   </div>
 </section>"""
     band = f"""<section class="v3band"><div class="wrap">
@@ -416,7 +416,9 @@ def v3_page():
     <div class="v3who"><img src="/img/serhii-avatar.jpg" alt="Serhii, owner of TrueSquare Remodel" width="56" height="56"><p><b>Serhii will call you to set a time.</b><span>Owner. Your phone/text contact.</span></p></div>"""
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
                         lead="It starts with a free visit. Your itemized written scope and price follow within 5 hours after the visit.",
-                        submit="Get My Written Price", who=who)
+                        submit="Get My Written Price", who=who,
+                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"],
+                        tile_help="Choose the closest fit.")
     work = f"""<section class="v2work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Subcontractor Crew</h2></div>
   <div class="v2gal">
@@ -426,7 +428,7 @@ def v3_page():
   <p class="v2cap">{V2_CAP_MANY}</p>
 </div></section>"""
     written = f"""<section class="alt v2written"><div class="wrap">
-  <div class="head"><p class="kicker">On paper</p><h2>What You Get in Writing</h2><p class="lead">Your itemized scope lists the planned work, materials and total price before you decide.</p></div>
+  <div class="head"><p class="kicker">On paper</p><h2>Don't Guess. <span class="grad-text">Get It in Writing.</span></h2><p class="lead">Within 5 hours after your visit: an itemized written scope and price, with material allowances listed by category. Extra work needs your written OK.</p></div>
   <div class="panel">
     <div class="ph-head"><img src="/img/logo.svg" alt="TrueSquare" width="105" height="26" loading="lazy"><b>Example Written Scope</b></div>
     <ul class="checks">
@@ -446,7 +448,7 @@ def v3_page():
     <img src="/img/serhii-ts.jpg" alt="Serhii, owner of TrueSquare Remodel" loading="eager" width="1024" height="1536">
     <div>
       <p class="kicker">Your contact</p>
-      <h2>One Person to Call, <span class="grad-text">Start to Finish</span></h2>
+      <h2>No Sales Reps. <span class="grad-text">Just Serhii.</span></h2>
     </div>
   </div>
   <p class="lead">Serhii, the owner, visits to measure your bathroom and stays your contact by phone or text throughout the project. He coordinates the work with our subcontractor crew, who handle the construction.</p>
@@ -464,20 +466,21 @@ def v3_page():
         ("How long does construction take, and what is the warranty?", "Construction typically takes 2–4 weeks, depending on scope. There's a 1-year written workmanship warranty."),
     ]
     faq = """<section id="faq" class="v2faq"><div class="wrap">
-  <div class="head"><p class="kicker">Your price</p><h2>What Changes Your Bathroom Remodel Price?</h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
+  <div class="head"><p class="kicker">Straight answers</p><h2>Ask Us the <span class="grad-text">Awkward Questions.</span></h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
   <div class="faq">
 """ + "\n".join(f"    <details><summary>{q}</summary><p>{a}</p></details>" for q, a in faq_items) + """
   </div>
 </div></section>"""
     final = f"""<section class="alt final"><div class="wrap">
-  <h2>Ready for Your Written Price?</h2>
+  <h2>Your Bathroom Won't <span class="grad-text">Fix Itself.</span></h2>
   <a class="btn" href="#book" data-cta="final">Get My Written Price <span class="arr">→</span></a>
+  <p class="v3first">Starts with a free visit.</p>
   <p class="or">or call <a href="tel:{PHONE_T}">{PHONE}</a></p>
 </div></section>"""
     body = "\n".join([hero, band, form, work, written, owner, faq, final])
     return shell("/bathroom-remodel-cost-v3", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
                  f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, itemized written price within 5 hours.",
-                 "love-v3", body, body_class="lp lp2 lp3", sticky_label="Written Price")
+                 "love-v3", body, body_class="lp lp2 lp3", sticky_label="Get My Price")
 
 PAGES = {
     "bathroom-remodel-cost-v3.html": v3_page(),
