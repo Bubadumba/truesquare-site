@@ -1,0 +1,27 @@
+ROUND 5 — review the built V3. You are Council C (Gemini). Same 6 members, same rules and facts. Argue hard, attack by name, change position only when convinced. Judge ONLY what you see in the attached screenshots and the text below.
+
+ROUND 4 RESULTS. Where councils split, the 2-council majority was built. Dissent is recorded.
+S1 under hero CTA (A+B): "Starts with a free visit. We'll call to set a time." / "No decision at the visit." (C wanted "The written price is yours to keep.")
+S2 ratings kicker (A+C): one line, two outlined pills "5.0 Google (12)" "5.0 Thumbtack (24)", both links. (B 4-2 reversed to two lines with "reviews".)
+S3 tiles (A+B): "Full remodel, same layout" / "Full remodel, new layout" / "Full remodel + tub-to-shower" / "Not sure yet" + helper "Choose the closest fit." (C: illogical, no helper.)
+S4 form header (A+C, B near-identical): "Serhii will call you to set a time." / "Owner. Your phone/text contact."
+S5 written-scope H2 (A+B): "Don't Guess. Get It in Writing." Lead = B's: "Within 5 hours after your visit: an itemized written scope and price, with material allowances listed by category. Extra work needs your written OK." (Moderator took B's lead: it keeps C's 5-hour specificity and drops "No surprise bills", because B3 is right that hidden damage can add cost through a written change order.)
+S6 owner H2 (A+C): "No Sales Reps. Just Serhii." with the crew explanation right under it. (B 5-1 against: misleading without the crew, staffing claim needs owner OK.) Owner OK required before launch.
+S7 FAQ H2 (B+C): "Ask Us the Awkward Questions." kicker "Straight answers", price-driver lead kept. (Council A had withdrawn its own idea.)
+S8 final CTA (A+C): "Your Bathroom Won't Fix Itself." + "Starts with a free visit." under the button. (B 4-2: "fix" can read as a repair.)
+S9 sticky (A+C): "Call" | "Get My Price". (B: "Request a Visit".)
+
+V3 FINAL CANDIDATE (rev 2) is live: https://love-v3-preview.truesquareremodel.pages.dev/bathroom-remodel-cost-v3
+Real 390px screenshots (iPhone, 2x):
+First viewport 390x844: https://council-shots.truesquareremodel.pages.dev/_review/big/v3b_fold.png
+Full page, top to bottom: https://council-shots.truesquareremodel.pages.dev/_review/big/v3b_part1.jpg ... v3b_part2.jpg ... v3b_part3.jpg ... v3b_part4.jpg (same folder)
+(The Call / Get My Price bar in the middle of a full-page image is a capture artifact; on a phone it floats at the bottom.)
+Measured: page 5,255px; form starts at 976px; the photo band's sinks and faucets are inside the first 844px viewport.
+
+ROUND 5 — REVIEW THE BUILT PAGE.
+T1. Every member scores V3 rev 2 /100, one reason.
+T2. LAST APPEAL: a council that lost a slot in Round 4 may appeal ONE slot only, with a NEW argument (not a repeat). Name the slot and the exact replacement text. The other councils will judge it in Round 6.
+T3. DEFECTS. Look at the screenshots like a 58-year-old homeowner on an iPhone who just tapped the ad. List concrete defects (visual, copy, honesty, trust, form friction). For each: exact location, exact fix. The council keeps only fixes with 4+ of 6 votes, max 5, ranked by expected impact on BOOKED and KEPT visits.
+T4. Launch call: is V3 rev 2 (with the kept fixes) ready to replace the ad landing? yes / no / A/B test against V1, with the vote.
+
+English, compact. End with === SUMMARY C R5 === ... === END === (max 1,500 characters, plain text).
