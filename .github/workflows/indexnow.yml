@@ -1,0 +1,27 @@
+# After a merge that changed a blog post, wait until Cloudflare Pages has deployed main (1-2 minutes) and tell
+# IndexNow (Bing, Yandex and others; Google does not read IndexNow and uses the sitemap instead).
+# The key is public by design: content/config.yaml -> indexnow_key, served at public/<key>.txt.
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths: ["public/blog/**"]
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r tools/requirements.txt
+      - name: Ping changed posts
+        run: |
+          URLS="$(python3 tools/changed_posts.py "${{ github.event.before }}" "${{ github.sha }}")"
+          if [ -z "$URLS" ]; then echo "No blog post changed."; exit 0; fi
+          echo "$URLS"
+          python3 tools/indexnow.py $URLS
