@@ -1,0 +1,185 @@
+/* Landing pages only (/bathroom-remodel-*). Loaded after site.css. Do not import on other pages. */
+.lp header.top .hbar{min-height:60px}
+.lp .lp-call{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--grad);color:var(--ink);font:700 15px var(--f-body);text-decoration:none;white-space:nowrap}
+.lp .lp-call svg{width:15px;height:15px}
+.lp .lp-call .num{display:none}
+@media (min-width:520px){.lp .lp-call .num{display:inline}.lp .lp-call .word{display:none}}
+.lp .hero h1{font-size:clamp(31px,8.2vw,56px);line-height:1.05}
+.lp .hero .htext{padding-block:22px 20px;gap:14px}
+.lp .scope{display:block;max-width:34em;font:500 14px/1.45 var(--f-body);color:var(--peach);margin-top:-4px}
+.lp .under{font-size:15px;color:var(--on-ink);text-align:center}
+.lp .under a{color:#fff}
+@media (min-width:960px){.lp .under{text-align:left}.lp .hero .htext{padding:0;gap:18px}}
+.lp .hphoto .in{aspect-ratio:16/10}
+@media (min-width:960px){.lp .hphoto .in{aspect-ratio:4/5}}
+.lp .hphoto img{object-position:50% 50%}
+/* three factors */
+.lp .factors{display:grid;gap:12px}
+@media (min-width:960px){.lp .factors{grid-template-columns:repeat(3,1fr);gap:18px}}
+.lp .factor{padding:22px;border-radius:var(--r);background:var(--white);border:1px solid var(--line);display:grid;gap:8px;align-content:start}
+.lp .factor .n{width:40px;height:40px;border-radius:10px;background:var(--grad);display:grid;place-items:center;font:800 19px/1 var(--f-head);font-variation-settings:"opsz" 96}
+.lp .factor p{color:var(--text);font-size:16px}
+.lp .rangebox{margin-top:18px;padding:20px 22px;border-radius:var(--r);background:var(--ink);color:#fff;position:relative;overflow:hidden;display:grid;gap:6px}
+.lp .rangebox::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
+.lp .rangebox b{font:800 clamp(22px,5vw,30px)/1.15 var(--f-head);font-variation-settings:"opsz" 96}
+.lp .rangebox .tax{color:var(--peach);font-weight:700}
+.lp .rangebox small{color:var(--on-ink);font-size:14px}
+/* gallery without captions */
+.lp .gal .ph::after{display:none}
+/* written price panel */
+.lp .wp{display:grid;gap:26px}
+@media (min-width:960px){.lp .wp{grid-template-columns:1fr 1fr;gap:64px;align-items:center}}
+.lp .wp .total{margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--grey);font-weight:700}
+/* owner */
+.lp .owner .ophoto img{aspect-ratio:4/5;object-position:50% 20%}
+.lp .owner .note{margin-top:12px;color:var(--on-ink)}
+/* form extras */
+.lp .why{font-size:13px;color:var(--text)}
+.lp .formlic{margin-top:14px;font-size:13.5px;color:var(--on-ink)}
+.lp .formlic b{color:#fff;font-weight:600}
+/* final cta */
+.lp .final{text-align:center}
+.lp .final .wrap{display:grid;gap:16px;justify-items:center}
+.lp .final .or{color:var(--text)}
+.lp .final .or a{color:var(--ink);font-weight:700}
+/* footer */
+.lp footer .lpf{display:grid;gap:8px;padding-block:30px calc(30px + 70px);font-size:14px}
+.lp footer .lpf b{color:#fff;font-weight:600}
+.lp footer .lpf a{color:#D6D8DB}
+.lp footer .links{display:flex;flex-wrap:wrap;gap:8px 18px}
+@media (min-width:960px){.lp footer .lpf{padding-bottom:30px}}
+/* terms page */
+.lp .terms{max-width:760px}
+.lp .terms ol{padding-left:22px;display:grid;gap:10px;color:var(--text)}
+.lp .legal-mini{margin-top:-4px}
+.lp .legal-mini a{color:inherit}
+/* love-v1 first screen */
+.lp .hrange{font:600 17px/1.35 var(--f-body);color:#fff;margin-top:-2px}
+.lp .hrange b{font:800 22px/1.1 var(--f-head);font-variation-settings:"opsz" 96;color:var(--peach)}
+.lp .hrange small{display:block;margin-top:4px;font:500 13.5px/1.4 var(--f-body);color:var(--on-ink)}
+.lp .hlist{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.lp .hlist li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;font:500 15.5px/1.4 var(--f-body);color:#fff}
+.lp .hlist .tick{width:22px;height:22px;margin-top:1px}
+.lp .hlist .tick svg{width:12px;height:12px}
+.lp .trust{display:grid;gap:10px}
+.lp .cap-note{margin-top:8px;font-size:12.5px;line-height:1.4;color:var(--muted);text-align:center}
+.lp .hphoto .in{position:relative}
+.lp .cap-over{position:absolute;left:0;right:0;bottom:0;padding:18px 12px 8px;font-size:11.5px;line-height:1.35;color:#fff;text-align:center;background:linear-gradient(transparent,rgba(0,0,0,.62))}
+@media (min-width:960px){.lp .trust .lic-line{text-align:left}}
+/* ===== love-v2 test landing (board review 26.10, spec D1-D10) — scoped to .lp2 ===== */
+.lp2 .wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+@media (max-width:340px){.lp2 .wrap{padding-left:16px;padding-right:16px}}
+@media (min-width:420px){.lp2 .wrap{padding-left:24px;padding-right:24px}}
+.lp2 section{padding-block:46px}
+.lp2 h2{font-size:28px;line-height:32px}
+.lp2 .head{margin-bottom:20px}.lp2 .head .lead{margin-top:12px;font-size:16px;line-height:24px}
+/* D1 hero */
+.lp2 .v2hero{padding:0}
+.lp2 .v2hero .wrap{display:block;padding-block:24px 28px;position:relative}
+.lp2 .v2hero h1{font-size:34px;line-height:37px;margin-top:12px}
+.lp2 .v2hero h1 span{display:block}
+.lp2 .v2hero .hrange{margin-top:14px;font:600 18px/23px var(--f-body)}
+.lp2 .v2hero .hrange b{font:800 18px/23px var(--f-body);color:var(--peach)}
+.lp2 .v2hero .hrange small{margin-top:8px;font-size:13.5px;line-height:19px}
+.lp2 .v2hero .hlist{margin-top:18px;gap:10px}
+.lp2 .v2hero .hlist li{grid-template-columns:18px 1fr;gap:10px;font-size:15px;line-height:22px}
+.lp2 .v2hero .hlist .tick{width:18px;height:18px;margin-top:2px}
+.lp2 .v2hero .hlist .tick svg{width:10px;height:10px}
+.lp2 .v2hero .hcta{margin-top:18px}
+.lp2 .v2hero .btn{min-height:56px}
+.lp2 .v2hero .under{margin-top:10px;font-size:14.5px}
+/* D2 trust */
+.lp2 .v2trust{padding-block:22px 30px;background:var(--white)}
+.lp2 .tline.rates{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lp2 .tline.rates a{min-height:48px;flex-direction:column;justify-content:center;gap:1px;border:1px solid var(--line);border-radius:12px;padding:5px 8px;white-space:nowrap;font:600 13px/18px var(--f-body);color:var(--ink);text-decoration:none;display:flex;align-items:center}
+.lp2 .tline.rates i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+.lp2 .tline.rates b{font:800 14px/18px var(--f-body)}
+.lp2 .tline.rates span{color:var(--muted);font-weight:500;font-size:12px}
+.lp2 .tline.rates .st{display:inline-flex}.lp2 .tline.rates .st svg{width:14px;height:14px;fill:url(#g)}
+.lp2 .tline.facts{display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px;font-size:14px;line-height:20px;color:var(--text);text-align:center}
+.lp2 .tline.facts b{color:var(--ink)}
+.lp2 .v2photo{margin:14px 0 0;position:relative}
+.lp2 .v2photo .ph{display:block;width:100%;height:330px;aspect-ratio:auto;border-radius:12px}
+.lp2 .v2photo .ph img{object-position:50% 80%}
+.lp2 .v2photo .zoom{position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:50%;background:rgba(18,19,20,.62);display:grid;place-items:center;pointer-events:none}
+.lp2 .v2photo .zoom svg{width:16px;height:16px}
+.lp2 .v2photo figcaption,.lp2 .v2cap{margin-top:8px;font-size:13px;line-height:18px;color:var(--muted);text-align:center}
+.lp2 .v2cap{margin-top:10px}
+/* D3 form */
+.lp2 .book h2{font-size:28px;line-height:32px}
+.lp2 .book .lead{font-size:16px;line-height:24px}
+.lp2 .form{border-radius:14px;padding:19px 16px 16px}
+.lp2 .form::before{height:3px}
+.lp2 .tile{min-height:64px;font-size:14px;line-height:18px}
+.lp2 .f{font-size:14px;line-height:20px}
+.lp2 .t{min-height:52px}
+.lp2 .fields{gap:12px}
+.lp2 .form .btn{min-height:56px}
+.lp2 .legal-mini{font-size:13px;line-height:19px;color:#454545}
+.lp2 .next{font-size:13px;line-height:19px;color:#454545;margin-top:12px}
+/* D4 crew work */
+.lp2 .v2work{background:var(--white)}
+.lp2 .v2gal{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lp2 .v2gal .ph{aspect-ratio:1/1;border-radius:10px}
+.lp2 .v2gal .ph:first-child img{object-position:50% 25%}
+.lp2 .v2gal .ph:last-child img{object-position:50% 18%}
+/* D5 written scope */
+.lp2 .v2written .panel{border-radius:12px;padding:19px 16px 12px}
+.lp2 .v2written .checks li{min-height:36px;padding:8px 0;font-size:15px;line-height:21px}
+.lp2 .v2written .tick{width:22px;height:22px}.lp2 .v2written .checks li{grid-template-columns:26px 1fr}
+/* D6 owner */
+.lp2 .v2own{display:block;margin-bottom:0}
+.lp2 .v2own img{display:block;width:100%;height:auto;aspect-ratio:350/192;border-radius:12px;object-fit:cover;object-position:50% 16%;border:0;background:none}
+.lp2 .v2own .kicker{margin-top:20px}
+.lp2 .v2own h2{font-size:28px;line-height:32px;margin-top:8px}
+.lp2 .v2owner .lead{margin-top:12px;font-size:16px;line-height:24px}
+.lp2 .v2steps{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:8px}
+.lp2 .v2steps .n{width:36px;height:36px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:var(--ink);font:800 17px/1 var(--f-head)}
+.lp2 .v2steps li{display:grid;align-items:center;gap:12px;color:#fff;font-weight:600;min-height:52px;grid-template-columns:36px 1fr;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.06);font-size:15.5px;line-height:21px}
+/* D7 FAQ */
+.lp2 .v2faq{background:var(--white)}
+.lp2 .faq{gap:8px}
+.lp2 .faq details{border-radius:10px}
+.lp2 .faq summary{min-height:64px;padding:16px 56px 16px 16px;font-size:16px;line-height:22px;font-weight:600}
+.lp2 .faq details p{font-size:15px;line-height:23px}
+/* D8 widths */
+.lp2 .head,.lp2 .lead,.lp2 .faq{max-width:620px}
+/* D9 sticky */
+.lp2 .sticky{grid-template-columns:2fr 3fr;padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));border-top:1px solid rgba(255,255,255,.12)}
+.lp2 .sticky a{min-height:48px}
+.lp2 .sticky.away{transform:translateY(110%)!important}
+@media (min-width:960px){.lp2 .v2hero .wrap,.lp2 .v2trust .wrap,.lp2 .v2work .wrap,.lp2 .v2written .wrap,.lp2 .v2owner .wrap,.lp2 .v2faq .wrap{max-width:680px}.lp2 .v2hero h1{font-size:52px;line-height:56px}}
+.lp2 .exnote{margin-top:10px;font-size:13px;line-height:18px;color:var(--muted)}
+.lp2 .final h2{font-size:28px;line-height:32px;max-width:330px;margin:0 auto 16px}
+/* ===== love-v3 (3-council summit 26.10) — scoped to .lp3 ===== */
+.lp3 .v3rate{display:flex;flex-wrap:wrap;gap:4px 14px;margin:0;font:600 13px/18px var(--f-body);color:rgba(255,255,255,.88)}
+.lp3 .v3rate a{display:inline-flex;align-items:center;gap:5px;color:inherit;text-decoration:none;white-space:nowrap;min-height:24px}
+.lp3 .v3rate b{font-weight:800;color:#fff}
+.lp3 .v3rate span{color:rgba(255,255,255,.62);font-weight:500}
+.lp3 .v3rate .st{display:inline-flex}.lp3 .v3rate .st svg{width:13px;height:13px;fill:url(#g)}
+.lp3 .v3hero h1{margin-top:10px}
+.lp3 .v3sub{margin-top:8px;font:800 26px/30px var(--f-head);color:#fff;letter-spacing:-.01em}
+.lp3 .v3hero .hrange{margin-top:12px}
+.lp3 .v3band{padding-block:14px 26px;background:var(--white)}
+.lp3 .v3photo{margin:0}
+.lp3 .v3photo .ph{height:190px}
+.lp3 .v3photo .ph img{object-position:50% 50%}
+.lp3 .v3band .tline.facts{margin-top:12px}
+.lp3 .v3who{display:flex;align-items:center;gap:12px;margin-top:16px}
+.lp3 .v3who img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--peach);flex:none}
+.lp3 .v3who p{margin:0;display:flex;flex-direction:column;gap:2px;font-size:15px;line-height:20px;color:#fff}
+.lp3 .v3who span{font-size:13px;line-height:18px;color:rgba(255,255,255,.66)}
+.lp3 .v3rate{flex-wrap:nowrap;gap:8px}
+.lp3 .v3rate a{border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:3px 10px 3px 8px;min-height:28px}
+.lp3 .final .v3first{margin-top:10px;font-size:14.5px;color:var(--muted)}
+.lp3 .thelp{margin:-4px 0 10px;font-size:13px;line-height:18px;color:var(--muted)}
+.lp3 .v3hero .under{text-wrap:balance}
+.lp3 .v2own img{object-position:50% 27%}
+
+/* from site.css on love branches (not yet on main) */
+.faq small.fine{display:block;margin-top:8px;font-size:13.5px;line-height:1.45;color:var(--muted)}
+.nw{white-space:nowrap}
+/* speed/a11y pass 26.10: hidden sticky bar is not focusable; kicker contrast on grey sections */
+.lp3 .sticky{visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s}
+.lp3 .sticky.show{visibility:visible;transition:transform .25s ease,visibility 0s}
+.lp3 .alt .kicker{color:#B83A30}
