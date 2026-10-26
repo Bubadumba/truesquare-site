@@ -77,7 +77,7 @@ def shell(path, title, desc, angle, body, preload=None):
 </main>
 
 <footer><div class="wrap lpf">
-  <span><b>TrueSquare Remodel LLC</b> · WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</span>
+  <span><b>TrueSquare Remodel LLC</b> · WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></span>
   <span><a href="tel:{PHONE_T}">{PHONE}</a> · info@truesquareremodel.com · Seattle, WA</span>
   <span class="links"><a href="/">About TrueSquare</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></span>
 </div></footer>
@@ -91,7 +91,7 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=4';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=6';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
 if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
@@ -119,7 +119,7 @@ def hero(sub, under):
         <span class="sep" aria-hidden="true"></span>
         <a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> on Thumbtack <small>↗</small></a>
       </div>
-      <p class="lic-line">WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</p>
+      <p class="lic-line">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
     </div>
     <figure class="hphoto">
       <div class="in"><img src="/img/lp-hero.jpg" srcset="/img/lp-hero-460.jpg 460w, /img/lp-hero.jpg 675w" sizes="(min-width:960px) 520px, 92vw" alt="Finished bathroom remodel with a glass walk-in shower" width="675" height="844" fetchpriority="high" decoding="async"></div>
@@ -158,7 +158,7 @@ def form_section():
     <h2 style="margin-top:10px">Get Your <span class="grad-text">Written Price</span></h2>
     <p class="lead" style="margin-top:10px">Tell us what you're planning. Serhii will call to set up your free visit.</p>
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
-    <p class="formlic">WA Contractor Reg. <b>{LNI}</b> · Licensed, bonded &amp; insured</p>
+    <p class="formlic">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
   </div>
   <form class="form" id="lpForm" novalidate>
     <div id="formBody">

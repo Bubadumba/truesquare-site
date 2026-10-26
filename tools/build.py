@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "5"  # bump to bust browser cache of css/js
+ASSET_V = "6"  # bump to bust browser cache of css/js
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -103,8 +103,7 @@ def footer():
       <h4 style="margin:0 0 4px;font:700 12.5px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:#fff">Contact</h4>
       <span>Call <a href="tel:{PHONE_T}"><b>{PHONE}</b></a></span>
       <span>info@truesquareremodel.com</span>
-      <span>Licensed, bonded &amp; insured</span>
-      <span>WA L&amp;I Registration: <b>{LNI}</b></span>
+      <span>WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></span>
       <a href="{LNI_URL}" target="_blank" rel="noopener">Verify registration →</a>
     </div>
   </div>
@@ -257,7 +256,7 @@ def phero(crumb_trail, kicker, h1, sub, img=None, img_alt="", cta_label="Request
         <a class="btn" href="#book" data-cta="hero">{cta_label} <span class="arr">→</span></a>
         <a class="btn outline" href="tel:{PHONE_T}">Call {PHONE}</a>
       </div>
-      <p class="lic-line">Licensed, bonded &amp; insured · <b>WA L&amp;I {LNI}</b></p>
+      <p class="lic-line">WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></p>
     </div>
     {pic}
   </div>
@@ -712,7 +711,7 @@ crumb = [("Home", "/"), ("About", "/about")]
 cities_html = '<ul class="cities">' + "".join(f"<li>{c}</li>" for c in CITIES) + "</ul>"
 PAGES["about.html"] = page(
     "/about", "About TrueSquare Remodel | Owner-Led Remodeling in Seattle",
-    "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. Licensed, bonded and insured, WA L&I TRUESRL759QK.",
+    "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. WA Registered Contractor TRUESRL759QK.",
     phero(crumb, "About TrueSquare", 'One owner. <span class="grad-text">One price.</span> One person to call.',
           "TrueSquare Remodel is a Seattle remodeling company run by its owner, Serhii. He measures your project, writes your price and stays your point of contact.",
           "/img/serhii.jpg", "Serhii, owner of TrueSquare Remodel, in a finished bathroom", cta_label="Meet Serhii at your home") +
@@ -726,8 +725,8 @@ PAGES["about.html"] = page(
     <p>The price in your agreement is the price you pay. It only changes if you choose an upgrade or we find hidden damage, and you see that change in writing and approve it first.</p>
   </div>
   <div class="facts">
-    <div class="fact"><b>Licensed</b><span>WA L&amp;I {LNI}</span></div>
-    <div class="fact"><b>Bonded &amp; insured</b><span>Washington contractor</span></div>
+    <div class="fact"><b>WA Registered Contractor</b><span>{LNI}</span></div>
+    <div class="fact"><b>Owner-led</b><span>Serhii measures and leads every project</span></div>
     <div class="fact"><b>1-year</b><span>workmanship warranty + manufacturer warranties</span></div>
     <div class="fact"><b>Permits</b><span>for plumbing and electrical work</span></div>
     <div class="fact"><b>Written price</b><span>within 5 hours after a bathroom visit</span></div>
