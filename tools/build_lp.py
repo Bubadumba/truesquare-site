@@ -187,8 +187,8 @@ WORK = f"""<section id="work"><div class="wrap">
   </div>
 </div></section>"""
 
-def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help=""):
-    tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v}</button>' for v in
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel"):
+    tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v.replace("tub-to-shower", '<span class="nw">tub-to-shower</span>')}</button>' for v in
                     (tile_opts or ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"]))
     return f"""<section class="book on-ink" id="book"><div class="wrap bgrid">
   <div>
@@ -206,11 +206,11 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
       </fieldset>
       <div class="fields">
         <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name"></label>
-        <label class="f" for="fPhone">Mobile phone<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"><span class="why">We'll call or text only about your visit.</span></label>
+        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"><span class="why">We'll call or text only about your visit.</span></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
                 <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
-        <p class="legal-mini" id="consentText">By tapping {submit}, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
+        <p class="legal-mini" id="consentText">By tapping {submit}, you agree {consent_name} may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">No payment. No obligation.</p>
         
       </div>
@@ -397,7 +397,7 @@ def v3_page():
     <p class="v3rate"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
     <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <p class="v3sub">Let's fix that.</p>
-    <p class="hrange">Seattle-area full bathroom remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope.</small></p>
+    <p class="hrange">Seattle-area full bathroom remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope. Larger or more complex projects may exceed this range.</small></p>
     <ul class="hlist">
       {li("Itemized written scope and price within 5 hours after your visit")}
       {li("One phone/text contact throughout your project")}
@@ -417,8 +417,7 @@ def v3_page():
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
                         lead="It starts with a free visit. Your itemized written scope and price follow within 5 hours after the visit.",
                         submit="Get My Written Price", who=who,
-                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"],
-                        tile_help="Choose the closest fit.")
+                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC")
     work = f"""<section class="v2work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Subcontractor Crew</h2></div>
   <div class="v2gal">
@@ -436,6 +435,7 @@ def v3_page():
       {chk("Waterproofing")}
       {chk("Plumbing and electrical, with permits where required")}
       {chk("Tile, vanity, fixtures and glass")}
+      {chk("Material allowances listed by category")}
       {chk("Cleanup")}
       {chk("1-year written workmanship warranty")}
       {chk("WA sales tax shown separately")}
@@ -459,11 +459,12 @@ def v3_page():
   </ol>
 </div></section>"""
     faq_items = [
-        ("Can I get an exact price before the visit?", f"The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your itemized written price follows within 5 hours after the free visit."),
-        ("What happens if you find hidden damage?", "We'll explain the issue and give you a price for extra work in writing. Nothing extra starts without your written OK."),
-        ("Who does the remodeling work?", "Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
-        ("How do payments work?", "You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
-        ("How long does construction take, and what is the warranty?", "Construction typically takes 2–4 weeks, depending on scope. There's a 1-year written workmanship warranty."),
+        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your itemized written price follows within 5 hours after the free visit."),
+        ("Will the price jump once the walls are open?", "Only if we find hidden damage or you change the scope. We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
+        ("Are you the one swinging the hammer?", "No. Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
+        ("Do I pay everything up front?", "No. You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
+        ("How long will I be without a bathroom?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+        ("What if something fails after you leave?", "You get a 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
     ]
     faq = """<section id="faq" class="v2faq"><div class="wrap">
   <div class="head"><p class="kicker">Straight answers</p><h2>Ask Us the <span class="grad-text">Awkward Questions.</span></h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
