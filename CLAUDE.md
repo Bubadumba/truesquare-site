@@ -18,6 +18,8 @@ python3 tools/generate_image.py --help # illustrations via the OpenAI Images API
   `content/**`, `public/blog/**`, `public/img/blog/ai/**`, `public/sitemap.xml`, `public/_redirects`; the last four only
   through the build scripts. CI job `scope` fails an agent branch that touches anything else.
 - The owner edits everything else: `tools/`, `public/css`, `public/js`, main pages, workflows, `.claude/`, this file.
+  Ad landing pages come from `tools/build_lp.py` / `tools/build_lp_v3.py` (not part of CI's rebuild check). Blog-only styles
+  live in `public/css/blog.css`, inlined on blog pages by `build_blog.py`; `site.css` is inlined on every page by `build.py`.
 - Real photos: the owner adds them under `public/img/blog/` and registers them in `content/photos.json`
   (`content/photos.schema.md`). Generated illustrations go under `public/img/blog/ai/` via the script only.
 

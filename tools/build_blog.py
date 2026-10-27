@@ -18,6 +18,18 @@ import build  # noqa: E402  (the site builder: page(), book(), constants)
 import blogcore as bc  # noqa: E402
 
 BLOG_PUB = os.path.join(bc.PUB, "blog")
+
+
+def _blog_css():
+    """public/css/blog.css, minified like build.py minifies site.css, inlined only on blog pages so the
+    main pages stay byte-identical to what tools/build.py alone produces."""
+    import re as _re
+    c = open(os.path.join(bc.PUB, "css", "blog.css"), encoding="utf-8").read()
+    c = _re.sub(r"/\*.*?\*/", "", c, flags=_re.S)
+    return _re.sub(r"\s*\n\s*", "", c)
+
+
+BLOG_CSS_TAG = "<style>" + _blog_css() + "</style>"
 PER_PAGE = 10
 REVIEWED_BY = "Reviewed by Serhii Tomilov, TrueSquare Remodel LLC, WA L&amp;I # TRUESRL759QK"
 HOW_WE_WRITE = (
@@ -105,7 +117,8 @@ def render_post(post, published, photos):
 {related_posts(post, published, photos)}
 {build.book()}"""
     noindex = bool(m.get("noindex") or m.get("draft"))
-    head_extra = (f'<meta property="article:published_time" content="{bc.seattle_iso(pub)}">\n'
+    head_extra = (BLOG_CSS_TAG + '\n' +
+                  f'<meta property="article:published_time" content="{bc.seattle_iso(pub)}">\n'
                   f'<meta property="article:modified_time" content="{bc.seattle_iso(upd or pub)}">\n'
                   '<link rel="alternate" type="application/rss+xml" title="TrueSquare Remodel blog" href="/blog/rss.xml">')
     ld = {"@type": "BlogPosting", "@id": url + "#article", "headline": m["title"], "description": m["description"],
@@ -138,7 +151,7 @@ def render_index(published, photos, page_no, total_pages):
   {pager}
 </div></section>
 {build.book()}"""
-    head_extra = '<link rel="alternate" type="application/rss+xml" title="TrueSquare Remodel blog" href="/blog/rss.xml">'
+    head_extra = BLOG_CSS_TAG + '\n<link rel="alternate" type="application/rss+xml" title="TrueSquare Remodel blog" href="/blog/rss.xml">'
     if page_no > 1:
         head_extra += f'\n<link rel="prev" href="{build.SITE}{"/blog/" if page_no == 2 else f"/blog/page/{page_no - 1}/"}">'
     if page_no < total_pages:
@@ -175,7 +188,7 @@ def render_how_we_write():
 </div></section>"""
     return path, build.page(path, "How We Write These Guides | TrueSquare Remodel",
                             "How TrueSquare Remodel writes its bathroom remodeling guides: our own estimates and quotes, official permit and tax pages, and the owner's review before publishing.",
-                            body, crumbs=trail, page_id="how-we-write", body_class="blog")
+                            body, crumbs=trail, page_id="how-we-write", head_extra=BLOG_CSS_TAG, body_class="blog")
 
 
 def render_sitemap(published):
