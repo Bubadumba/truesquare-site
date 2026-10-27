@@ -53,4 +53,8 @@ a table of the Q4 2026 combined sales tax rate for each of the 12 service-area c
 - "The words \"tax included\" is not sufficient to overcome the requirement to separately state the sales tax."
 - "progress billings made against the total contract price of a job should separately state the sales tax."
 - "Retail construction services are sourced to the location where the construction takes place."
+- "construction that takes place in Seattle is sourced to Seattle (location code 1726) and taxed at Seattle's combined state and local sales tax rate." (DOR custom construction guide, "Collecting sales tax – local tax rates"; opened in the owner's browser 2026-10-27)
+- "the department presumes that a selling price quoted in any agreement between parties does not include the retail sales tax unless that tax is separately itemized (RCW 82.08.050)." (same guide, "Collecting retail sales tax"; opened 2026-10-27)
+- "Prime contractors must collect retail sales tax from the landowner on the gross contract price (without deduction of costs incurred). Billing invoices must separately state the sales tax." (same guide; opened 2026-10-27)
+- Flyer check 2026-10-27 (PDF text extracted): all 12 city rates and the 7 Non-RTA rates above match the Q4 2026 flyer; Bothell in Snohomish County .1050 confirmed on the same flyer.
 Dropped after critic review: labor/materials/permits/subcontractor list, "other states" comparison, "most homes" claim, owner facts marked CONFIRM (estimate timing, payment schedule, change orders).
