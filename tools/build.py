@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "8"
+ASSET_V = "9"
 def _site_css():
     # speed pass 26.10: site.css is inlined into every page (no render-blocking request), same rules
     import re as _re
@@ -139,7 +139,7 @@ def book(tiles=BATH_TILES, default="", title='Get your price <span class="grad-t
     <p class="lead" style="margin-top:10px">{lead}</p>
     <p class="callline">Prefer to talk? Call or text <a href="tel:{PHONE_T}">{PHONE}</a></p>
   </div>
-  <form class="form" id="bookForm" novalidate{dflt}>
+  <form class="form" id="bookForm" novalidate data-clarity-mask="True"{dflt}>
     <div id="formBody">
       <fieldset>
         <legend>What are you planning?</legend>
@@ -812,18 +812,18 @@ PAGES["reviews.html"] = page(
     crumbs=crumb, page_id="reviews", robots="noindex,follow")
 
 # ---------------------------------------------------------------- LEGAL
-def legal(slug, name, desc):
+def legal(slug, name, desc, updated=""):
     crumb = [("Home", "/"), (name, "/" + slug)]
     body = f"""<section class="phero on-ink"><div class="wrap phgrid" style="grid-template-columns:1fr">
   <div class="phtext"><nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="/">Home</a></li><li aria-current="page">{name}</li></ol></nav>
-  <p class="kicker">Legal</p><h1>{name}</h1><p class="sub">TrueSquare Remodel LLC · Effective October 21, 2026</p></div>
+  <p class="kicker">Legal</p><h1>{name}</h1><p class="sub">TrueSquare Remodel LLC · Effective October 21, 2026{(" · Updated " + updated) if updated else ""}</p></div>
 </div></section>
 <section><div class="wrap legalbody">
 {read(slug + '.body.html')}
 </div></section>"""
     return page("/" + slug, f"{name} | TrueSquare Remodel", desc, body, crumbs=crumb, page_id=slug)
 
-PAGES["privacy.html"] = legal("privacy", "Privacy Policy", "How TrueSquare Remodel LLC collects, uses and protects your information, including SMS consent.")
+PAGES["privacy.html"] = legal("privacy", "Privacy Policy", "How TrueSquare Remodel LLC collects, uses and protects your information, including SMS consent.", updated="October 26, 2026")
 PAGES["terms.html"] = legal("terms", "Terms of Service", "Terms of Service for the TrueSquare Remodel website, estimates and text messages.")
 
 # ---------------------------------------------------------------- 404

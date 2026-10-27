@@ -18,7 +18,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "10"  # cache version for lp.js (10 = two-step form, 28.10; 9 = new thank-you state, 26.10)
+V = "11"  # cache version for lp.js (11 = form_source tracking + Clarity + Conversions API, 28.10; 10 = two-step form)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -111,7 +111,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=8';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=9';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
@@ -223,7 +223,7 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
     {'<p class="formlic">WA Registered Contractor · <b>' + LNI + '</b> · <span class="nw">Owner-led</span></p>' if show_lic else ''}
   </div>
-  <form class="{fcls}" id="lpForm" novalidate>
+  <form class="{fcls}" id="lpForm" novalidate data-clarity-mask="True">
     <div id="formBody">{step1}
       <fieldset>
         <legend>What are you planning?</legend>{('<p class="thelp">' + tile_help + '</p>') if tile_help else ''}

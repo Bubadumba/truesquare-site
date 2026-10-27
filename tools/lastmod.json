@@ -1,54 +1,54 @@
 {
   "/": {
-    "sha256": "e12c652f659e7e5005c07efa9be15b7eddc1b52e38bd69e141fca37d996691a1",
-    "lastmod": "2026-10-28"
+    "sha256": "3868699ef0878a18db73af63839ace95a49c11bcf997126c1c61a165aa7b100e",
+    "lastmod": "2026-10-29"
   },
   "/about": {
-    "sha256": "8baa053872fabb4c54047e391ad662dd51bedf98696c53a11c658a41c3158e71",
-    "lastmod": "2026-10-28"
+    "sha256": "d1f2ecf141f489c8c6d4bb1dbe05140dcef7fdd3f99b114d3ff05f82adc2e18b",
+    "lastmod": "2026-10-29"
   },
   "/bathroom-remodeling": {
-    "sha256": "b89c94ffcfdca573bd9cfb40e604adb61319d61a36bfffe07de44af52fff15d3",
-    "lastmod": "2026-10-28"
+    "sha256": "5a8e0f038e8a099a5ec7b70d21ca981ca31c0c7671a0af36dab9ad0793122eaa",
+    "lastmod": "2026-10-29"
   },
   "/how-we-write/": {
     "sha256": "7a1ec410b3846d2e7f5250559c47a70519f77a209c6710b1cf98b58c60052736",
     "lastmod": "2026-10-28"
   },
   "/kitchen-renovations": {
-    "sha256": "1ba62f79a0b2f4b56fabfc33cd99e9106766b35af0b3314400fad9557e2fc7db",
-    "lastmod": "2026-10-28"
+    "sha256": "64e2611fe13db9f60b24a692d2596a1b2ae9131c3ee63a5bba57fdceef4d4406",
+    "lastmod": "2026-10-29"
   },
   "/portfolio": {
-    "sha256": "eaffe55f6e3d47971d0d4d2270a8e177be93f78732b32f46dbf7246adb740a13",
-    "lastmod": "2026-10-28"
+    "sha256": "9ffe7eeb7657808b9d59ac881cb00aae36619b6e73f997cb883954aa7d3ee899",
+    "lastmod": "2026-10-29"
   },
   "/privacy": {
-    "sha256": "3fbb56bab438d5316e542d8264e52dbdd399a19ceaa8b773740f5e8a077a7624",
-    "lastmod": "2026-10-28"
+    "sha256": "efd071d206f6be190cccc03e02cbef3fe9d357466e59fd00f2aaed5d6bbf2b05",
+    "lastmod": "2026-10-29"
   },
   "/reviews": {
-    "sha256": "2c75ff158e419eb0ba6c289ef1262b1ac162c5f37a8bc00e3c8c4fa6c1261021",
-    "lastmod": "2026-10-28"
+    "sha256": "2f33302e80cdf067c4089d61b44f4dc29d67fe03f8dc99353ef81db8cb69a7df",
+    "lastmod": "2026-10-29"
   },
   "/services": {
-    "sha256": "d2e2c2b6ddddcf445b6abfb76e38c79b6131e81bb1e16fb86bcae15aa7e1dfa9",
-    "lastmod": "2026-10-28"
+    "sha256": "4165f32b7319eafe7b428788a7341f9b9dd7e96458aa1182ecf55c2630897cd1",
+    "lastmod": "2026-10-29"
   },
   "/shower-remodeling": {
-    "sha256": "0d11f2af2d5d6192b8d5a21b8b646da7c782aa193fd4e6fcded8b412128733d1",
-    "lastmod": "2026-10-28"
+    "sha256": "270500b46252432510901a81646c4d48c91aed0b7a33442c681e901ba09ab3a4",
+    "lastmod": "2026-10-29"
   },
   "/terms": {
     "sha256": "d334faa0a709d81f1ed63da5a70fb87f432a19cb3ef0218ab8592938a2987919",
     "lastmod": "2026-10-28"
   },
   "/tile-flooring": {
-    "sha256": "4c2eb8fb887f01f5b71ac9b303d700a1be6730a5eedb42bbf1bbcc3b4070195e",
-    "lastmod": "2026-10-28"
+    "sha256": "0dd17bd9b0d78134f33a4e2785982f87093c65734194ea341780826a8aa7786a",
+    "lastmod": "2026-10-29"
   },
   "/tub-to-walk-in-shower": {
-    "sha256": "8ebb37e3f53cb55114c3b02bbe69c1f2b55463278299ab2bee378ad657a11716",
-    "lastmod": "2026-10-28"
+    "sha256": "7b71adc8ba5191aa213ae535eac6f219fd886f479fcb499cc41f0815a80ec636",
+    "lastmod": "2026-10-29"
   }
 }
