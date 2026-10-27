@@ -27,7 +27,10 @@
 .bcta{display:grid;gap:10px}
 .bcta .kicker{margin:0}
 .bcta-actions{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 0}
+.blogpost a.btn,.bcta .btn,.bcta-actions .btn{color:var(--ink)}
 .bcta-actions .btn.outline{color:var(--ink)}
+.bnote{margin:28px 0 0;color:var(--muted);font-size:15px}
+.bnote a{color:var(--coral-dk);font-weight:600}
 .bfaq{display:grid;gap:6px;margin-top:10px}
 .bfaq h3{margin-top:12px}
 .reviewed{display:grid;gap:6px}
