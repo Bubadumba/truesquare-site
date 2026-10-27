@@ -34,11 +34,24 @@ form.addEventListener('submit',function(e){
     fbclid:Q.get('fbclid')||'',page_url:location.href.split('#')[0],event_id:id,submitted_at:new Date().toISOString()};
   var lab=$('fLabel'),btn=$('fSubmit'),label=lab.textContent;btn.disabled=true;lab.textContent='Sending…';
   function reset(){sending=false;btn.disabled=false;lab.textContent=label;}
-  function done(){$('formBody').hidden=true;$('formDone').hidden=false;window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'generate_lead',project_type:project,page_angle:ANGLE,event_id:id,cta:cta||'form'});try{if(window.fbq)fbq('track','Lead',{content_name:project},{eventID:id});}catch(x){}}
+  function done(){$('formBody').hidden=true;$('formDone').hidden=false;thanks(parts[0],ph);window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'generate_lead',project_type:project,page_angle:ANGLE,event_id:id,cta:cta||'form'});try{if(window.fbq)fbq('track','Lead',{content_name:project},{eventID:id});}catch(x){}}
   var url=window.WEBHOOK_URL||'';
   if(!url){ if(window.PREVIEW){done();return;} reset();err.innerHTML='Please call <a href="tel:+12062222328" style="color:inherit;font-weight:700">(206) 222-2328</a>.';err.hidden=false;return;}
   fetch(url,{method:'POST',mode:'no-cors',body:new URLSearchParams(p),keepalive:true}).then(done).catch(function(){reset();err.textContent="That didn't go through. Please call or text (206) 222-2328.";err.hidden=false;});
 });
+/* V3 thank-you state (26.10): first name, the number we will call, and when (Seattle time; Mon-Sat 9 AM-7 PM) */
+function thanks(first,ph){
+  if(!$('doneWhen'))return;
+  if(first)$('doneHi').textContent='Thanks, '+first.charAt(0).toUpperCase()+first.slice(1)+'! Your request is in.';
+  if(ph&&ph.length===10){$('donePhone').textContent='('+ph.slice(0,3)+') '+ph.slice(3,6)+'-'+ph.slice(6);$('doneNum').hidden=false;}
+  var when='shortly';
+  try{var f=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'numeric',hourCycle:'h23'}).formatToParts(new Date()),wd='',h=12;
+    f.forEach(function(x){if(x.type==='weekday')wd=x.value;if(x.type==='hour')h=parseInt(x.value,10);});
+    if(wd==='Sun'||(wd==='Sat'&&h>=19))when='Monday morning';else if(h>=19)when='tomorrow morning';else if(h<9)when='this morning';}catch(x){}
+  $('doneWhen').textContent='Serhii will call you '+when+' to set up your free visit.';
+  var t=$('sheetTitle');if(t&&sheet&&!sheet.hidden){t.innerHTML='Request <span class="grad-text">Received</span>';var w=d.querySelector('.sheet-who');if(w)w.hidden=true;}
+  var sv=$('doneSave');if(sv&&!sv.__t){sv.__t=1;sv.addEventListener('click',function(){track('save_contact',{});});}
+}
 /* V3 pop-up form sheet (26.10): every #book button opens the same form in a sheet; it closes only with the X */
 function track(ev,o){window.dataLayer=window.dataLayer||[];var x={event:ev,page_angle:ANGLE};for(var k in o)x[k]=o[k];window.dataLayer.push(x);}
 var sheet=$('sheet');
