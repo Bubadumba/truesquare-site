@@ -1,0 +1,413 @@
+# content/topics.yaml
+# Topic queue for the TrueSquare Remodel blog. The agent writes ONLY entries with status: approved.
+# status: proposed | approved | blocked | drafted | published | merged-into:<slug> | rejected
+# intent: cost-guide | comparison | how-to | permit-explainer | project-story | seasonal | faq | trust
+# priority: 1 = write first. requires_project_city: a city that must appear under "Cities with COMPLETED projects" in business-facts.md.
+# Scores and SERP notes come from a one-day index observation on 2026-10-23 (no Google PAA capture, no search volumes).
+# The agent fills slug and drafted_on when it writes a post. Flip a status to approved to put a topic in the queue.
+
+- id: seattle-bathroom-permit
+  title: "Do you need a permit for a bathroom remodel in Seattle? Rules and 2026 fees"
+  target_query: "do I need a permit to remodel a bathroom in Seattle"
+  variants: ["bathroom remodel permit seattle", "seattle bathroom permit cost", "STFI permit bathroom"]
+  intent: permit-explainer
+  hub: permits
+  angle: "SDCI $6,000 per 6 months rule, STFI path (40% plan review, $292 base, 5% tech fee, DFI table), plumbing permit from King County Public Health ($132 + $26 per fixture), electrical from SDCI, $500/day fines; competitors cite 2017 fees and the old agency name."
+  owner_inputs: ["which permits our Seattle jobs pulled (no fee invention)", "photo of a posted permit card if any"]
+  page_type: blog-pillar
+  priority: 1
+  status: approved
+  requires_project_city: null
+  notes: "SERP: CRD 2017 post, permitmint (inconsistent), Block, Board & Vellum. Official SDCI pages do not surface. Realistic: yes."
+
+- id: permits-by-city-matrix
+  title: "Who issues what: bathroom remodel permits in Seattle, Shoreline, Renton, Bellevue and unincorporated King County"
+  target_query: "plumbing permit seattle king county"
+  variants: ["shoreline remodel permit", "renton remodel permit", "bellevue bathroom permit", "king county bathroom permit"]
+  intent: permit-explainer
+  hub: permits
+  angle: "Jurisdiction matrix no competitor publishes: Seattle = SDCI building + electrical, Public Health plumbing; Shoreline = plumbing/mechanical inside the building permit, electrical from WA L&I; Renton = four separate permits, asbestos survey at submittal, 2–3 week first review; Bellevue = like-for-like fixtures exempt; unincorporated KC = finishes exempt."
+  owner_inputs: ["which of these jurisdictions we have actually permitted in"]
+  page_type: blog-reference
+  priority: 1
+  status: approved
+  requires_project_city: null
+  notes: "SERP: official pages only, buried. Realistic: yes."
+
+- id: washington-remodel-sales-tax
+  title: "Why your Seattle bathroom estimate has a 10.55% sales tax line"
+  target_query: "sales tax on remodeling washington"
+  variants: ["do contractors charge sales tax on labor in washington", "sales tax home remodel seattle", "custom construction sales tax washington"]
+  intent: how-to
+  hub: pricing
+  angle: "DOR custom-construction rule: tax on the gross contract price, sourced to the job address, must be itemized; Q4 2026 rates for Seattle, Shoreline, Renton, Kent, Bellevue, Lynnwood with the DOR flyer as source; link to the DOR rate lookup."
+  owner_inputs: ["our estimate format showing tax as a separate line (02_ЦЕНЫ §5)"]
+  page_type: blog-plus-faq
+  priority: 1
+  status: approved
+  requires_project_city: null
+  notes: "SERP: out-of-state tax blogs, DOR guide. Realistic: yes."
+
+- id: shoreline-bathroom-project-story
+  title: "Bathroom remodel in Shoreline, WA: what we found behind the walls and what it took"
+  target_query: "bathroom remodel shoreline wa"
+  variants: ["shoreline bathroom remodel", "bathroom remodeling shoreline"]
+  intent: project-story
+  hub: projects
+  angle: "Real before/during/after photos, scope, Shoreline permit path (plumbing inside the building permit, electrical via L&I), timeline, what demolition revealed; crews named as licensed subcontractors."
+  owner_inputs: ["project photos with written client consent", "house year", "scope", "permit facts", "client OK for story", "cost band only if approved"]
+  page_type: project-story
+  priority: 2
+  status: blocked
+  requires_project_city: "Shoreline, WA"
+  notes: "Blocked until the project is completed and the client consents to photos and a story. SERP: Seattle Times HomePro listings, HomeAdvisor, CRD service page; no articles."
+
+- id: tub-to-shower-conversion-seattle
+  title: "Tub-to-shower conversion in Seattle: cost drivers and the drain-size catch"
+  target_query: "tub to shower conversion cost seattle"
+  variants: ["tub to shower conversion seattle", "replace bathtub with shower seattle", "convert tub to walk in shower cost"]
+  intent: cost-guide
+  hub: bathroom
+  angle: "Angi Seattle benchmark $1,675–$8,900 (cited); plumbing permit triggers when drain/vent changes (Bellevue list, King County 'relocate or change'); 1950s 5x7 layouts; galvanized and cast-iron surprises."
+  owner_inputs: ["written subcontractor price range for a conversion (approved line in business-facts)", "photo of a tub demo"]
+  page_type: blog-plus-service-subpage
+  priority: 2
+  status: proposed
+  requires_project_city: null
+  notes: "SERP: thepricer, Angi, Bob Vila, Ben's Plumbing; zero local remodelers. Realistic: yes."
+
+- id: asbestos-bathroom-remodel-seattle
+  title: "Asbestos and your Seattle bathroom remodel: survey, notification, and who is allowed to touch it"
+  target_query: "asbestos bathroom remodel seattle"
+  variants: ["asbestos survey before remodel king county", "asbestos sheet vinyl bathroom seattle", "puget sound clean air asbestos renovation"]
+  intent: permit-explainer
+  hub: permits
+  angle: "PSCAA: AHERA survey for contractor jobs regardless of building age; owner-occupant self-survey option; $25 notification; possible 10-day wait; sheet vinyl and popcorn ceilings are friable; Renton requires the survey at permit submittal; penalties up to $24,273 per day."
+  owner_inputs: ["our actual survey workflow (who we hire; cost range only if a written quote exists)"]
+  page_type: blog
+  priority: 1
+  status: approved
+  requires_project_city: null
+  notes: "SERP: SWCAA PDFs (wrong agency), CRD, Block. PSCAA does not rank. Realistic: yes."
+
+- id: behind-the-tile-1950s-seattle-bathroom
+  title: "What is behind the tile in a 1950s Seattle bathroom: galvanized pipe, cast iron, asbestos vinyl, old wiring"
+  target_query: "bathroom remodel 1950s house seattle"
+  variants: ["remodeling old bathroom seattle", "mid century bathroom remodel seattle", "galvanized pipes bathroom remodel"]
+  intent: how-to
+  hub: bathroom
+  angle: "ACS: about half of Seattle units pre-1960; galvanized supply life 40–60 years; RRP rules for pre-1978; what the demolition of a mid-century bathroom usually reveals (owner observations)."
+  owner_inputs: ["demo photos showing pipes or subfloor", "what we found on a real job"]
+  page_type: blog
+  priority: 2
+  status: proposed
+  requires_project_city: null
+  notes: "SERP: portfolios only (Houzz, Hammer & Hand, Pathway). Realistic: yes."
+
+- id: bathroom-remodel-timeline-seattle
+  title: "How long a bathroom remodel takes in Seattle in 2026, including permits"
+  target_query: "how long does a bathroom remodel take seattle"
+  variants: ["bathroom remodel timeline", "how long does a bathroom renovation take", "bathroom remodel schedule"]
+  intent: how-to
+  hub: process
+  angle: "Renton 2–3 week first review, Seattle STFI screening in days, King County plumbing inspections 'several business days'; our own day-by-day schedule from a completed job."
+  owner_inputs: ["real schedule from a completed job", "subcontractor lead times"]
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "Head term is national/UK sites; only CRD is local. Long-tail only."
+
+- id: bathroom-fan-code-washington
+  title: "Bathroom exhaust fan rules in Washington (50/20 CFM, humidity sensor) and why Seattle bathrooms grow mold"
+  target_query: "bathroom exhaust fan code washington"
+  variants: ["bathroom fan requirements seattle", "wac 51-51-1505 bathroom fan", "bathroom ventilation code washington"]
+  intent: how-to
+  hub: bathroom
+  angle: "WAC 51-51-1505 numbers and the sensor override rule; 156 rain days per year; what fan rating we install (fact only)."
+  owner_inputs: ["fan model we actually install", "photo"]
+  page_type: blog
+  priority: 2
+  status: proposed
+  requires_project_city: null
+  notes: "SERP: WAC text, WSU PDF, NACHI forum. No plain-English page. Realistic: yes."
+
+- id: hidden-problems-change-orders
+  title: "Hidden problems during a bathroom remodel (rotten subfloor, old pipes): how we price them"
+  target_query: "bathroom remodel unexpected costs"
+  variants: ["change order bathroom remodel", "what happens if contractor finds problems", "bathroom remodel contingency"]
+  intent: trust
+  hub: process
+  angle: "Our rule: stop, photo, written price, nothing without written OK; the Washington disclosure statement; typical finds in older Seattle homes with photos."
+  owner_inputs: ["change-order template wording", "photos of a discovered issue"]
+  page_type: blog-trust
+  priority: 2
+  status: proposed
+  requires_project_city: null
+  notes: "Forum pattern: first quote 'alarmingly high'. Long-tail."
+
+- id: verify-contractor-washington
+  title: "How to verify a remodeling contractor in Washington: L&I lookup, bond, insurance, the number in every ad"
+  target_query: "how to verify a contractor washington"
+  variants: ["L&I verify contractor", "check contractor license washington", "is my contractor licensed washington"]
+  intent: trust
+  hub: trust
+  angle: "L&I verify tool, $30,000 general contractor bond, $200k/$50k insurance minimums, RCW 18.27.100 number-in-ads rule, RCW 18.27.114 disclosure statement; our own number as the worked example."
+  owner_inputs: ["confirmation of our bond and insurance status (no amounts beyond verified)"]
+  page_type: trust-page
+  priority: 2
+  status: proposed
+  requires_project_city: null
+  notes: "lni.wa.gov ranks; homeowner trust question. Long-tail."
+
+- id: shower-tile-installation-cost-seattle
+  title: "Shower tile installation cost in Seattle: labor vs material, and why large-format tile costs more to set"
+  target_query: "shower tile installation cost seattle"
+  variants: ["tile labor cost seattle", "cost to tile a shower seattle", "large format tile installation cost"]
+  intent: cost-guide
+  hub: bathroom
+  angle: "Angi tile labor $60–$120/hr benchmark (cited); Houzz: 48% choose 12x24–18x18; our subcontractor labor structure (only approved lines)."
+  owner_inputs: ["written tile labor pricing from 02_ЦЕНЫ", "tile photos"]
+  page_type: blog-plus-service-subpage
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "SERP weak/programmatic (contractorplus, Angi). Realistic: yes."
+
+- id: curbless-shower-older-seattle-home
+  title: "Walk-in or curbless shower in an older Seattle home: what it takes structurally"
+  target_query: "walk-in shower cost seattle"
+  variants: ["curbless shower seattle", "curbless shower joist recess", "walk in shower older home"]
+  intent: comparison
+  hub: bathroom
+  angle: "Houzz: curbless 28%; joist-recess reality in pre-1960 floors; permit implications; our approved range if any."
+  owner_inputs: ["subcontractor price range", "photo of a curbless pan install"]
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "SERP: Angi, a plumber, walk-in tub vendors. Realistic: yes."
+
+- id: lead-paint-rrp-pre-1978-seattle
+  title: "Lead paint and pre-1978 Seattle homes: what the RRP rule means for your bathroom remodel"
+  target_query: "lead paint remodel seattle"
+  variants: ["RRP certified contractor seattle", "lead safe renovation washington", "pre 1978 home remodel lead"]
+  intent: permit-explainer
+  hub: permits
+  angle: "6 sq ft interior threshold, pamphlet within 60 days with signed acknowledgment, 3-year records, Commerce certification in WA; ~69% of Seattle units pre-1980."
+  owner_inputs: ["whether TrueSquare or its subs hold WA RRP firm certification; if not, the article states the rules without claiming certification"]
+  page_type: blog
+  priority: 3
+  status: blocked
+  requires_project_city: null
+  notes: "Blocked until the certification status is known. Sources: EPA, Commerce, DOH."
+
+- id: what-20k-35k-buys-seattle-bathroom
+  title: "What a $20k–$35k bathroom remodel buys in Seattle, and why quotes range from $15k to $100k+"
+  target_query: "bathroom remodel cost seattle"
+  variants: ["small bathroom remodel cost seattle", "bathroom remodel quotes seattle", "is my bathroom remodel quote too high"]
+  intent: cost-guide
+  hub: pricing
+  angle: "Reconcile Angi $14,779 average, Cost vs Value 2025 Seattle midrange $36,146, Block $19–50k, CRD $50k floor; our tiered scope (approved lines only); sales tax separate."
+  owner_inputs: ["our tiers from 02_ЦЕНЫ with written subcontractor prices", "approval to publish ranges"]
+  page_type: blog-pillar-plus-service
+  priority: 2
+  status: blocked
+  requires_project_city: null
+  notes: "Blocked until approved price lines exist. Head term is Angi/CRD/Block; long-tail realistic."
+
+- id: unpermitted-bathroom-work-seattle
+  title: "Unpermitted bathroom work in Seattle: fines, stop-work orders and resale, as the city actually applies them"
+  target_query: "unpermitted bathroom remodel seattle"
+  variants: ["remodel without permit seattle", "seattle unpermitted work penalty", "selling house with unpermitted bathroom seattle"]
+  intent: permit-explainer
+  hub: permits
+  angle: "SDCI: stop-work, up to $500 per day, free coaching, permit-to-establish-use path; no moralizing."
+  owner_inputs: []
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "SDCI page exists; plain-language gap. Long-tail."
+
+- id: condo-bathroom-remodel-seattle
+  title: "Condo bathroom remodel in Seattle: HOA approval, noise hours and elevator logistics"
+  target_query: "condo bathroom remodel seattle"
+  variants: ["hoa approval bathroom remodel washington", "seattle condo renovation rules", "condo remodel noise hours seattle"]
+  intent: how-to
+  hub: bathroom
+  angle: "RCW 64.34.240 30-day board rule; SMC 25.08 hours 7–7 in multifamily zones; PSCAA: condos need an AHERA inspector and certified abatement contractor."
+  owner_inputs: ["a condo project if one exists; otherwise written as a planning guide"]
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "Thin SERP (Houzz project, Neil Kelly profile). Long-tail."
+
+- id: heated-bathroom-floor-seattle
+  title: "Heated bathroom floor in Seattle: cost, electrical permit, and whether it is worth it"
+  target_query: "heated bathroom floor cost seattle"
+  variants: ["radiant floor heat bathroom cost", "electric floor heating bathroom permit", "heated tile floor seattle"]
+  intent: cost-guide
+  hub: bathroom
+  angle: "HomeAdvisor national $1,800 average (cited with scope); SDCI electrical permit for a new circuit; do not cite Block's unsourced per-sq-ft figure."
+  owner_inputs: ["electrician's written price", "photo of a mat install"]
+  page_type: blog
+  priority: 4
+  status: proposed
+  requires_project_city: null
+  notes: "National head term; long-tail with Seattle."
+
+- id: aging-in-place-bathroom-seattle
+  title: "Aging-in-place bathroom in Seattle: curbless showers, blocking, comfort height, without the marketing claims"
+  target_query: "aging in place bathroom remodel seattle"
+  variants: ["accessible bathroom remodel seattle", "senior bathroom remodel seattle", "grab bar blocking bathroom remodel"]
+  intent: how-to
+  hub: bathroom
+  angle: "Houzz 2025: 49% plan for aging household members; Houzz 2026: 26% remove a tub; structural reality in old homes; no ADA/CAPS claims."
+  owner_inputs: ["any aging-in-place job photos"]
+  page_type: blog
+  priority: 4
+  status: proposed
+  requires_project_city: null
+  notes: "Pathway and Block own it; long-tail only."
+
+- id: renton-bathroom-project-story
+  title: "Bathroom remodel in Renton, WA: a project story"
+  target_query: "bathroom remodel renton wa"
+  variants: ["renton bathroom remodeling", "bathroom remodel renton"]
+  intent: project-story
+  hub: projects
+  angle: "Renton specifics: asbestos survey at submittal, 2–3 week review, 10.50% tax; real photos."
+  owner_inputs: ["signed and completed Renton project", "photos", "client OK"]
+  page_type: project-story
+  priority: 3
+  status: blocked
+  requires_project_city: "Renton, WA"
+  notes: "Blocked until a Renton project is completed and the client consents."
+
+- id: how-payment-works
+  title: "How payment works on a TrueSquare bathroom remodel: deposit, progress payments, change orders"
+  target_query: "bathroom remodel deposit washington"
+  variants: ["contractor payment schedule remodel", "how much deposit for bathroom remodel", "lien release washington contractor"]
+  intent: trust
+  hub: process
+  angle: "Our payment schedule from the facts file; disclosure statement and lien-release right (RCW 18.27.114); no financing or credit words anywhere."
+  owner_inputs: ["published payment terms"]
+  page_type: faq-or-service-page
+  priority: 2
+  status: proposed
+  requires_project_city: null
+  notes: "Replaces the excluded 'financing' topic."
+
+- id: small-5x7-bathroom-layouts-seattle
+  title: "Small (5x7) bathroom remodel in Seattle: layouts that avoid moving plumbing"
+  target_query: "small bathroom remodel cost seattle"
+  variants: ["5x7 bathroom remodel", "small bathroom layout keep plumbing", "5x8 bathroom remodel ideas"]
+  intent: how-to
+  hub: bathroom
+  angle: "Keep-the-footprint logic reduces permit scope (Bellevue exemption logic, KC 'relocate' trigger); floor plan sketches from a real job."
+  owner_inputs: ["floor plan sketches from a real job"]
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "Angi, CRD, Block rank; long-tail."
+
+- id: bathroom-mold-moisture-seattle
+  title: "Mold and moisture in Seattle bathrooms: what a remodel should fix (waterproofing, fan, wall board)"
+  target_query: "bathroom mold seattle"
+  variants: ["waterproofing shower seattle", "bathroom moisture problems seattle", "shower mold behind tile"]
+  intent: seasonal
+  hub: bathroom
+  angle: "156 rain days; code fan rules; demo photos of water damage; what we install (facts only)."
+  owner_inputs: ["photos of mold or rot found at demo"]
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "Weak SERP (remediation firms). Best published Nov–Feb."
+
+- id: basement-bathroom-adu-permits-seattle
+  title: "Basement bathroom or ADU bathroom in Seattle: permits and what the code requires"
+  target_query: "basement bathroom permit seattle"
+  variants: ["adu bathroom seattle", "adding a bathroom in basement seattle permit", "seattle adu plumbing permit"]
+  intent: permit-explainer
+  hub: permits
+  angle: "SMC 23.42.022: two ADUs per lot, no parking requirement, permit mandatory, sewer capacity charge."
+  owner_inputs: []
+  page_type: blog
+  priority: 4
+  status: proposed
+  requires_project_city: null
+  notes: "Marketplace pages rank; SDCI buried. Watch scope creep beyond bathrooms."
+
+- id: seattle-bathroom-trends-2026-data
+  title: "Seattle bathroom trends 2026 backed by data, not vibes"
+  target_query: "bathroom trends seattle 2026"
+  variants: ["bathroom remodel trends 2026", "popular bathroom tile 2026"]
+  intent: how-to
+  hub: bathroom
+  angle: "Houzz 2025/2026 figures with sources; climate facts; our finished tile photos."
+  owner_inputs: ["finished tile photos"]
+  page_type: blog
+  priority: 5
+  status: proposed
+  requires_project_city: null
+  notes: "Low priority; Block's uncited trends page ranks."
+
+- id: kitchen-remodel-cost-seattle
+  title: "Kitchen remodel cost in Seattle (2026)"
+  target_query: "kitchen remodel cost seattle"
+  variants: ["average kitchen remodel cost seattle", "small kitchen remodel cost seattle"]
+  intent: cost-guide
+  hub: kitchen
+  angle: "Cost vs Value minor kitchen Seattle $32,271 / 118% recouped (cited); our tiers only after a completed kitchen project and approved prices."
+  owner_inputs: ["completed kitchen project", "approved price lines"]
+  page_type: blog
+  priority: 5
+  status: blocked
+  requires_project_city: null
+  notes: "Four locals already compete (Neil Kelly, Pathway, MIR, CRD). Blocked until a kitchen project exists."
+
+- id: bathroom-remodel-roi-seattle
+  title: "Does a bathroom remodel add value in Seattle? What Cost vs Value 2025 says (46.8%)"
+  target_query: "bathroom remodel roi seattle"
+  variants: ["is bathroom remodel worth it seattle", "bathroom remodel resale value seattle"]
+  intent: comparison
+  hub: pricing
+  angle: "Seattle 46.8% recouped vs Pacific 91% (CvV 2025, cited with the scope caveat); honest framing of when it is worth it."
+  owner_inputs: []
+  page_type: blog
+  priority: 3
+  status: proposed
+  requires_project_city: null
+  notes: "Angi/NerdWallet 'is it worth it' sections rank. Long-tail."
+
+- id: bathroom-remodel-kent-bellevue
+  title: "Bathroom remodel in Kent or Bellevue"
+  target_query: "bathroom remodel kent wa"
+  variants: ["bathroom remodel bellevue cost"]
+  intent: project-story
+  hub: projects
+  angle: "None until a completed project exists in that city."
+  owner_inputs: ["completed project in that city"]
+  page_type: do-not-create
+  priority: 5
+  status: rejected
+  requires_project_city: "Kent, WA or Bellevue, WA"
+  notes: "Rejected as a doorway page. Re-propose only with a completed project."
+
+- id: bathroom-remodel-financing-seattle
+  title: "Bathroom remodel financing in Seattle"
+  target_query: "bathroom remodel financing seattle"
+  variants: []
+  intent: trust
+  hub: pricing
+  angle: "Excluded: the company does not make financing or credit claims."
+  owner_inputs: []
+  page_type: do-not-create
+  priority: 5
+  status: rejected
+  requires_project_city: null
+  notes: "Never write. See how-payment-works instead."

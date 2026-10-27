@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install -r tools/requirements.txt)",
+      "Bash(pip3 install -r tools/requirements.txt)",
+      "Bash(python3 tools/validate_content.py)",
+      "Bash(python3 tools/build.py)",
+      "Bash(python3 tools/build_blog.py)",
+      "Bash(python3 tools/build_all.py)",
+      "Bash(python3 tools/generate_image.py:*)",
+      "Bash(python3 tools/indexnow.py:*)",
+      "Bash(exiftool:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git switch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push -u origin HEAD)",
+      "Bash(gh api:*)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin main)",
+      "Bash(git push -u origin main)",
+      "Bash(git push origin HEAD:main)",
+      "Bash(rm -rf:*)"
+    ]
+  }
+}

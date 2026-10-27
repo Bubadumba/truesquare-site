@@ -1,0 +1,66 @@
+# Checks every pull request and every push to main.
+# validate: the articles follow the rules.  rebuild: the committed HTML equals a fresh build.
+# scope: an agent branch (claude/*) touched only the folders it owns.  linkcheck: broken links (advisory).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+      - run: pip install -r tools/requirements.txt
+      - run: python3 tools/validate_content.py
+
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+      - run: pip install -r tools/requirements.txt
+      - name: Rebuild and compare with the committed output
+        run: |
+          python3 tools/build.py
+          python3 tools/build_blog.py
+          git diff --exit-code -- public/ tools/lastmod.json \
+            || { echo "::error::public/ or tools/lastmod.json differs from a fresh build. Run python3 tools/build_all.py and commit the result."; exit 1; }
+
+  scope:
+    # Only for the content agent's branches: it may change content/, generated blog output and generated images.
+    if: startsWith(github.head_ref, 'claude/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Check changed paths
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          CHANGED="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
+          echo "$CHANGED"
+          BAD="$(echo "$CHANGED" | grep -v -E '^(content/|public/blog/|public/img/blog/ai/|public/sitemap\.xml$|public/_redirects$)' || true)"
+          if [ -n "$BAD" ]; then
+            echo "::error::An agent branch changed files outside its scope:"; echo "$BAD"; exit 1
+          fi
+
+  linkcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --root-dir "${{ github.workspace }}/public" --exclude localhost --exclude 'pages.dev' './public/**/*.html'
+          fail: false   # advisory for the first weeks: the site uses extensionless URLs (/about -> about.html), which lychee may report; switch to true once the report is quiet

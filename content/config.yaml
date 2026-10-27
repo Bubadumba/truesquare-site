@@ -1,0 +1,17 @@
+# Pipeline settings for the TrueSquare blog. The content agent reads this file at the start of every run.
+auto_publish: false            # the owner's merge is the publication step; never change this to true
+site_url: "https://truesquareremodel.com"
+blog_base: "/blog"
+max_articles_per_run: 3
+default_articles_per_run: 1
+indexnow_key: "149eeb6323d0c7a86dcb67d79d790f45"           # public by IndexNow design; the key file lives at public/<key>.txt
+images:
+  default_per_article: 2        # hero included; the normal number
+  max_per_article: 6            # only when every extra image explains a step, a diagram, a variant or a material detail
+  max_uses_per_photo: 2         # a real photo may appear in at most 2 posts; a hero photo is unique on the site
+  generate_when_missing: true   # no fitting real photo (or all fitting ones at their limit) -> generate
+  provider: openai
+  model: "gpt-image-2.5-flare"  # alternative: gpt-image-2.5-sunburst (editing precision)
+  candidates_per_slot: 3        # the agent looks at all three and keeps one
+  show_to_owner: 1              # only the chosen image goes into the PR
+  max_generations_per_article: 12   # hard cap on API images (candidates count), incl. one retry per slot

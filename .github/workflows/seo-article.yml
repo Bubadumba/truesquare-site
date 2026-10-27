@@ -1,0 +1,142 @@
+# .github/workflows/seo-article.yml
+# Fallback runner. Writes ONE (or N) SEO article(s) into content/blog, rebuilds public/blog and opens a PR.
+# Human approval happens on the PR. Nothing is merged automatically.
+# The schedule is COMMENTED OUT on purpose: the cloud scheduled task (claude.ai/code/routines) is the primary runner.
+# To switch to Actions: pause the cloud task first, add the ANTHROPIC_API_KEY repository secret, then uncomment the
+# two schedule lines below.
+name: SEO Article Draft
+
+on:
+  # schedule:
+  #   - cron: "7 13 * * 1"   # Mon 13:07 UTC = 06:07 Seattle in PDT (05:07 in PST). Off the hour on purpose.
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "How many articles to write in this run"
+        required: true
+        type: choice
+        options: ["1", "2", "3"]
+        default: "1"
+      topic:
+        description: "Optional: topic id from content/topics.yaml (empty = the skill picks)"
+        required: false
+        type: string
+        default: ""
+      regen:
+        description: "Optional: regenerate one image in an open PR: <slug> | <photo id> | <what to change>"
+        required: false
+        type: string
+        default: ""
+
+# Never let two article runs overlap (they would race on branches/PRs).
+concurrency:
+  group: seo-article
+  cancel-in-progress: false
+
+jobs:
+  write-article:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60            # hard stop for runaway runs
+    permissions:
+      contents: write              # push the claude/ branch
+      pull-requests: write         # open the PR
+      issues: write                # PR comments (regen mode)
+      id-token: write              # required by the action's default Claude GitHub App auth
+    env:
+      ARTICLE_COUNT: ${{ github.event.inputs.count || '1' }}
+      FORCED_TOPIC: ${{ github.event.inputs.topic || '' }}
+      REGEN: ${{ github.event.inputs.regen || '' }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}   # read only by tools/generate_image.py
+    steps:
+      - name: Checkout repository (full history so git/branch ops work)
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python for the site build
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r tools/requirements.txt
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          # Option 1 (API billing, recommended for automation):
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Option 2 (subscription billing; generate with `claude setup-token`; policy grey area):
+          # claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+            RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            ARTICLE_COUNT: ${{ env.ARTICLE_COUNT }}
+            FORCED_TOPIC: ${{ env.FORCED_TOPIC }}
+            REGEN: ${{ env.REGEN }}
+
+            You are writing SEO blog articles for TrueSquare Remodel LLC (Seattle bathroom and kitchen remodeling;
+            WA L&I # TRUESRL759QK; work performed by licensed subcontractor crews, approved wording "our crew").
+            The site is static: Python scripts in tools/ render public/; Cloudflare Pages deploys main as is.
+            Work fully autonomously; nobody will answer questions. Document everything in the Pull Request.
+
+            0. If REGEN is non-empty, run only the "Mode: regen" section of .claude/skills/seo-article/SKILL.md
+               with that text and stop.
+            1. Read CLAUDE.md, then load and follow the skill .claude/skills/seo-article/SKILL.md exactly, once per
+               article, for ARTICLE_COUNT articles. If FORCED_TOPIC is non-empty and that topic is approved in
+               content/topics.yaml, use it first. Use the article-critic subagent as the skill describes.
+            2. Hard content rules (also in the skill): no invented prices, timelines, guarantees, warranties,
+               licenses, certifications, reviews or "our statistics"; owner facts only from content/business-facts.md;
+               images only from content/photos.json (real photos with clientConsent true, at most 2 posts each, unique
+               hero; when none fits, generate with `python3 tools/generate_image.py` per content/image-style.md and the
+               skill's Step 6b, look at every candidate, keep one; generated images never in project stories, never
+               before/after, never with "our / we / project / job", a client name or a city in caption, alt or the
+               surrounding sentence; 1-2 images per article, up to 6 only with a written reason each; never print the
+               OPENAI_API_KEY); every external number with a source link and the month accessed; no copied source
+               text; never the words financing, financing available, credit, loan, APR, subject to credit approval;
+               never "in-house"; no page for a city without a completed project in the facts file; no near-duplicate
+               pages; phone numbers only in full +1 XXX-XXX-XXXX form; no em or en dashes anywhere; every doubt listed
+               in the PR; the layout prints the Reviewed-by block and the owner's merge is the review.
+            3. Change only content/, public/blog/, public/img/blog/ai/, public/sitemap.xml and public/_redirects, and the
+               generated files only through the build scripts. Never edit tools/, public/css, public/js, other pages,
+               .github/, .claude/, configuration files. content/config.yaml has auto_publish: false and it stays false.
+            4. Run `python3 tools/validate_content.py` and `python3 tools/build_all.py`; fix only inside content/ until
+               both pass; commit the generated HTML together with the Markdown.
+            5. Git: one branch for the whole run `claude/article-<first-slug>-<YYYYMMDD>`; commit each article
+               separately; push with EXACTLY: `git push -u origin HEAD`. Never push to main. Never merge.
+            6. Open the PR with EXACTLY: `gh pr create --base main --head "$(git branch --show-current)" --title "New article: <title>" --body-file /tmp/pr-body.md`
+               where /tmp/pr-body.md follows .github/pull_request_template.md and includes RUN_URL and the
+               Cloudflare Pages preview URL if a deployment status exists for the branch (otherwise say where to find it).
+               If `gh pr create` fails, use `gh api repos/${{ github.repository }}/pulls -f title=... -f head=... -f base=main -F body=@/tmp/pr-body.md`.
+            7. Finish with a short summary: titles, branch, PR URL, topics skipped and why, images used, doubts count.
+          claude_args: |
+            --model claude-sonnet-5-5
+            --max-turns 120
+            --allowedTools "WebSearch,WebFetch,Read,Write,Edit,Glob,Grep,Agent,Bash(pip install -r tools/requirements.txt),Bash(python3 tools/validate_content.py),Bash(python3 tools/build.py),Bash(python3 tools/build_blog.py),Bash(python3 tools/build_all.py),Bash(python3 tools/generate_image.py:*),Bash(exiftool:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*),Bash(git switch:*),Bash(git fetch:*),Bash(git checkout -b:*),Bash(git branch:*),Bash(git add:*),Bash(git commit:*),Bash(git push -u origin HEAD),Bash(gh pr create:*),Bash(gh pr list:*),Bash(gh pr view:*),Bash(gh api:*),Bash(curl:*)"
+
+      # Safety net: if Claude pushed a branch but did not open the PR, open it here.
+      # Requires repo setting "Allow GitHub Actions to create and approve pull requests" for GITHUB_TOKEN.
+      - name: Ensure a PR exists for the pushed branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="$(git branch --show-current)"
+          case "$BRANCH" in
+            claude/*) ;;
+            *) echo "No claude/ branch checked out; nothing to do."; exit 0 ;;
+          esac
+          if ! git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "Branch $BRANCH was not pushed; nothing to do."; exit 0
+          fi
+          EXISTING="$(gh pr list --head "$BRANCH" --state open --json number --jq 'length')"
+          if [ "$EXISTING" = "0" ]; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "New article (auto-opened): $BRANCH" \
+              --body "Opened by the safety-net step because Claude did not open a PR. Read the run log before merging: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            echo "PR already exists for $BRANCH."
+          fi

@@ -104,7 +104,7 @@ def footer():
     <div class="fbrand"><img src="/img/logo-reverse.svg" alt="TrueSquare Bathroom Remodeling" width="242" height="60" loading="lazy"><p>TrueSquare Remodel LLC. Bathroom remodeling in the Seattle area.</p></div>
     <div class="fcols">
       <div class="fcol"><h4>Services</h4>{svc}<a href="/services">All services</a></div>
-      <div class="fcol"><h4>Explore</h4><a href="/portfolio">Projects</a><a href="/about">About TrueSquare</a><a href="/reviews">Reviews</a><a href="/#process">How It Works</a><a href="/#faq">FAQ</a><a href="#book">Contact</a></div>
+      <div class="fcol"><h4>Explore</h4><a href="/portfolio">Projects</a><a href="/blog/">Blog</a><a href="/about">About TrueSquare</a><a href="/reviews">Reviews</a><a href="/#process">How It Works</a><a href="/#faq">FAQ</a><a href="#book">Contact</a></div>
     </div>
     <div class="fcontact">
       <h4 style="margin:0 0 4px;font:700 12.5px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:#fff">Contact</h4>
@@ -196,8 +196,12 @@ def faq_html(faqs, title="Questions about this project.", kicker="Questions"):
 </div></section>"""
 
 def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robots="index,follow",
-         og_image="/img/serhii.jpg", full_biz=False):
+         og_image="/img/serhii.jpg", full_biz=False, og_type="website", head_extra="", body_class=""):
+    """Wrap a page body in the shared head/header/footer. og_type, head_extra and body_class are used by
+    tools/build_blog.py; their defaults reproduce the main pages byte for byte."""
     url = SITE + path
+    body_attr = f' class="{body_class}"' if body_class else ""
+    extra = ("\n" + head_extra) if head_extra else ""
     graph = [biz_node(full_biz),
              {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "TrueSquare Remodel", "publisher": {"@id": BIZ_ID}},
              {"@type": "WebPage", "@id": url + "#webpage", "url": url, "name": title, "description": desc,
@@ -221,16 +225,16 @@ def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robo
 <meta property="og:site_name" content="TrueSquare Remodel">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE}{og_image}">
 <link rel="preload" href="/fonts/bricolage-700-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/inter-400-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>@font-face{{font-family:"Bricolage Grotesque";font-style:normal;font-weight:700 800;font-display:swap;src:url(/fonts/bricolage-700-800.woff2) format("woff2")}}@font-face{{font-family:"Inter";font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/inter-400-700.woff2) format("woff2")}}@font-face{{font-family:"Caveat";font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/caveat-600.woff2) format("woff2")}}</style>
 <style>{SITE_CSS}</style>
-<script type="application/ld+json">{ld}</script>
+<script type="application/ld+json">{ld}</script>{extra}
 </head>
-<body data-page="{page_id}">
+<body data-page="{page_id}"{body_attr}>
 {SVG_DEFS}
 
 {header(path) if 'id="book"' in body else header(path).replace('href="#book"', 'href="/#book"')}
@@ -761,7 +765,7 @@ PAGES["about.html"] = page(
 {areas_section(alt=True)}
 """ + book(tiles=["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Kitchen or tile"]),
     ld_extra=[{"@type": "AboutPage", "@id": SITE + "/about#about", "url": SITE + "/about", "about": {"@id": BIZ_ID}},
-              {"@type": "Person", "name": "Serhii Tomilov", "jobTitle": "Owner", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg"}],
+              {"@type": "Person", "@id": SITE + "/about#person", "name": "Serhii Tomilov", "jobTitle": "Owner", "url": SITE + "/about", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg", "sameAs": [GOOGLE, THUMBTACK]}],
     crumbs=crumb, page_id="about", og_image="/img/serhii.jpg")
 
 # ---------------------------------------------------------------- REVIEWS
@@ -807,18 +811,63 @@ PAGES["404.html"] = page(
     related([CARD["/bathroom-remodeling"], CARD["/tub-to-walk-in-shower"], CARD["/shower-remodeling"]], title="Popular pages.", three=True) + book(),
     page_id="404", robots="noindex")
 
-# ---------------------------------------------------------------- write
-for name, s in PAGES.items():
-    with open(os.path.join(PUB, name), "w", encoding="utf-8") as f:
-        f.write(s)
+# ---------------------------------------------------------------- sitemap data
+# Main-page URLs for the sitemap, in order. The sitemap itself is written by tools/build_blog.py
+# (run `python3 tools/build_all.py` to build everything). Dates come from tools/lastmod.json, which
+# main() below updates only when a page's generated HTML actually changes, so <lastmod> stays honest.
+SITEMAP_URLS = ["/", "/bathroom-remodeling", "/tub-to-walk-in-shower", "/shower-remodeling", "/services",
+                "/kitchen-renovations", "/tile-flooring", "/portfolio", "/about", "/privacy", "/terms"]
+LASTMOD_FILE = os.path.join(ROOT, "tools", "lastmod.json")
 
-urls = [("/", "1.0"), ("/bathroom-remodeling", "0.9"), ("/tub-to-walk-in-shower", "0.9"), ("/shower-remodeling", "0.9"),
-        ("/services", "0.8"), ("/kitchen-renovations", "0.6"), ("/tile-flooring", "0.6"), ("/portfolio", "0.7"),
-        ("/about", "0.7"), ("/privacy", "0.2"), ("/terms", "0.2")]
-today = datetime.date.today().isoformat()
-sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-sm += [f"  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><priority>{p}</priority></url>" for u, p in urls]
-sm.append("</urlset>")
-open(os.path.join(PUB, "sitemap.xml"), "w").write("\n".join(sm) + "\n")
-open(os.path.join(PUB, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
-print("built", len(PAGES), "pages")
+# Files written by main() that map to a sitemap URL (404 is excluded on purpose).
+PAGE_URL = {"index.html": "/", "privacy.html": "/privacy", "terms.html": "/terms"}
+for _n in PAGES:
+    if _n not in PAGE_URL and _n != "404.html":
+        PAGE_URL[_n] = "/" + _n[:-5]
+
+
+def content_hash(html_text):
+    """sha256 of a page with the volatile parts masked (footer year, asset version), so cache-busting
+    and the turn of the year do not count as content changes."""
+    import hashlib, re
+    masked = re.sub(r"© \d{4} TrueSquare", "© YEAR TrueSquare", html_text)
+    masked = re.sub(r"\?v=\d+", "?v=N", masked)
+    return hashlib.sha256(masked.encode("utf-8")).hexdigest()
+
+
+def update_lastmod(pages):
+    """Record today's date for every main page whose content hash changed (or is new)."""
+    today = datetime.date.today().isoformat()
+    try:
+        with open(LASTMOD_FILE, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        data = {}
+    changed = []
+    for name, html_text in pages.items():
+        url = PAGE_URL.get(name)
+        if not url:
+            continue
+        h = content_hash(html_text)
+        entry = data.get(url)
+        if not entry or entry.get("sha256") != h:
+            data[url] = {"sha256": h, "lastmod": today}
+            changed.append(url)
+    with open(LASTMOD_FILE, "w", encoding="utf-8") as f:
+        json.dump(dict(sorted(data.items())), f, indent=2)
+        f.write("\n")
+    return changed
+
+
+def main():
+    for name, s in PAGES.items():
+        with open(os.path.join(PUB, name), "w", encoding="utf-8") as f:
+            f.write(s)
+    changed = update_lastmod(PAGES)
+    with open(os.path.join(PUB, "robots.txt"), "w") as f:
+        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
+    print("built", len(PAGES), "pages;", "lastmod updated for:", ", ".join(changed) if changed else "nothing")
+
+
+if __name__ == "__main__":
+    main()
