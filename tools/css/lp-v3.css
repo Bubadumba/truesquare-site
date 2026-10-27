@@ -198,3 +198,18 @@
 .sheet-open .sticky{display:none}
 @media (min-width:600px){.sheet{align-items:center;padding:24px}.sheet-panel{height:auto;max-height:calc(100vh - 48px);border-radius:16px;padding-bottom:24px}.sheet-head{border-radius:16px 16px 0 0}}
 .lp3 .done .phone{white-space:nowrap}
+/* thank-you state v2 (26.10) */
+.lp3 .v3done{text-align:left}
+.lp3 .v3done .dcheck{width:56px;height:56px;border-radius:50%;background:var(--grad);color:var(--ink);display:grid;place-items:center;margin-bottom:14px}
+.lp3 .v3done .dcheck svg{width:28px;height:28px}
+.lp3 .v3done .big{margin:0;font:800 26px/30px var(--f-head);color:var(--ink)}
+.lp3 .v3done .dwhen{margin-top:10px;font-size:17px;line-height:25px;color:var(--ink);font-weight:600}
+.lp3 .v3done .dnum{margin-top:8px;font-size:14.5px;line-height:21px;color:var(--text)}
+.lp3 .v3done .dnum b{color:var(--ink)}
+.lp3 .v3done .dnum a{color:inherit}
+.lp3 .v3done .dsteps{list-style:none;margin:16px 0 18px;padding:0;display:grid;gap:8px}
+.lp3 .v3done .dsteps li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;line-height:20px;color:var(--ink);font-weight:600}
+.lp3 .v3done .dsteps .n{width:28px;height:28px;border-radius:8px;background:var(--grad);display:grid;place-items:center;font:800 14px var(--f-body);color:var(--ink)}
+.lp3 .v3done .dtip{margin-top:8px;text-align:center;font-size:13.5px;color:var(--muted)}
+.lp3 .v3done .dcall{display:block;margin-top:14px;text-align:center;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;min-height:44px;line-height:44px}
+.sheet-who[hidden]+.sheet-body{margin-top:14px}

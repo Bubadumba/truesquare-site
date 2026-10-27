@@ -18,7 +18,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "8"  # cache version for lp.js (8 = form in a pop-up sheet, 26.10)
+V = "9"  # cache version for lp.js (9 = new thank-you state, 26.10)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -228,13 +228,19 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
         
       </div>
     </div>
-    <div class="done" id="formDone" hidden>
-      <p class="kicker">Request received</p>
-      <p class="big">Request received.</p>
-      <p style="color:var(--text)">Serhii will call you shortly to set up your free visit.</p>
-      <p style="color:var(--text)">Sent after 7 PM or on Sunday? We'll call the next working morning.</p>
-      <p style="color:var(--text)">Need us sooner? Call <span class="phone">{PHONE}</span>.</p>
-      <a class="btn block" href="tel:{PHONE_T}">Call now</a>
+    <div class="done v3done" id="formDone" hidden>
+      <div class="dcheck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <p class="big" id="doneHi">Thanks! Your request is in.</p>
+      <p class="dwhen" id="doneWhen">Serhii will call you shortly to set up your free visit.</p>
+      <p class="dnum" id="doneNum" hidden>We'll call <b id="donePhone"></b>. Wrong number? Call or text <a href="tel:{PHONE_T}" class="nw">{PHONE}</a>.</p>
+      <ol class="dsteps">
+        <li><span class="n">1</span>Serhii calls to set a time</li>
+        <li><span class="n">2</span>Free visit: we discuss and measure your bathroom</li>
+        <li><span class="n">3</span>Your written price within 5 hours after the visit</li>
+      </ol>
+      <a class="btn block" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Our Number <span class="arr">↓</span></a>
+      <p class="dtip">So you know it's us when we call.</p>
+      <a class="dcall" href="tel:{PHONE_T}" data-cta="done-call">Or call now: <span class="nw">{PHONE}</span></a>
     </div>
   </form>
 </div></section>"""
