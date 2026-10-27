@@ -18,7 +18,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "7"  # cache version for lp.css / lp.js
+V = "8"  # cache version for lp.js (8 = form in a pop-up sheet, 26.10)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -94,6 +94,17 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 <div class="sticky" id="sticky" aria-hidden="true">
   <a class="s2" href="tel:{PHONE_T}" data-cta="sticky-call">Call</a>
   <a class="s1" href="#book" data-cta="sticky">{sticky_label}</a>
+</div>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-panel" id="sheetPanel">
+    <div class="sheet-head">
+      <p class="sheet-title" id="sheetTitle" tabindex="-1">Get Your <span class="grad-text">Written Price</span></p>
+      <button type="button" class="sheet-x" id="sheetClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="v3who sheet-who"><img src="/img/serhii-avatar.jpg" alt="" width="44" height="44" loading="lazy"><p><b>Serhii will call you to set a time.</b><span>Starts with a free visit. No decision at the visit.</span></p></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
 </div>
 
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
@@ -207,9 +218,9 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
         <div class="tiles" id="tiles">{tiles}</div>
       </fieldset>
       <div class="fields">
-        <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name"></label>
-        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel"><span class="why">We'll call or text only about your visit.</span></label>
-        <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5"></label>
+        <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
+        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"><span class="why">We'll call or text only about your visit.</span></label>
+        <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" enterkeyhint="send"></label>
                 <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
         <p class="legal-mini" id="consentText">By tapping {submit}, you agree {consent_name} may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
