@@ -111,7 +111,7 @@ def render_post(post, published, photos):
 <article class="prose blogpost">
 <figure class="bhero"{src_attr}><img src="{bc.esc(hero["file"])}" width="{hero["width"]}" height="{hero["height"]}" alt="{bc.esc(hero_alt)}" fetchpriority="high" decoding="async"></figure>
 {body_html}
-<div class="box reviewed"><p><b>{REVIEWED_BY}</b></p><p><a href="/about">About Serhii</a> · <a href="/how-we-write/">How we write these guides</a></p></div>
+<div class="box reviewed"><p><b>{REVIEWED_BY}</b></p><p><a href="/about">About Serhii</a></p></div>
 </article>
 </div></section>
 {related_posts(post, published, photos)}
@@ -149,6 +149,7 @@ def render_index(published, photos, page_no, total_pages):
 <section><div class="wrap">
   {empty}<div class="rel bindex">{cards}</div>
   {pager}
+  <p class="bnote">Every guide is checked by the owner before it goes up. <a href="/how-we-write/">How we write these guides</a>.</p>
 </div></section>
 {build.book()}"""
     head_extra = BLOG_CSS_TAG + '\n<link rel="alternate" type="application/rss+xml" title="TrueSquare Remodel blog" href="/blog/rss.xml">'
