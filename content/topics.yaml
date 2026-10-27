@@ -44,7 +44,9 @@
   owner_inputs: ["our estimate format showing tax as a separate line (02_ЦЕНЫ §5)"]
   page_type: blog-plus-faq
   priority: 1
-  status: approved
+  status: drafted
+  slug: sales-tax-remodeling-washington
+  drafted_on: 2026-10-27
   requires_project_city: null
   notes: "SERP: out-of-state tax blogs, DOR guide. Realistic: yes."
 
