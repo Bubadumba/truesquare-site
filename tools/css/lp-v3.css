@@ -225,3 +225,23 @@
 /* tile hint line (28.10): e.g. "Partial update" + "Vanity, tile or fixtures" */
 .lp .tile small{display:block;margin-top:3px;font-size:12.5px;line-height:16px;font-weight:500;color:var(--muted)}
 .lp .tile[aria-pressed="true"] small{color:rgba(18,19,20,.72)}
+
+/* first screen v3c (28.10, two councils): rating row, H1 38, price 28, three one-line promises 14, CTA 18, quieter diagonal */
+.lp3 .v3hero .v3row{gap:6px;font:600 14px/20px var(--f-body);color:rgba(255,255,255,.9)}
+.lp3 .v3hero .v3row a{border:0;border-radius:0;padding:0;min-height:24px}
+.lp3 .v3hero .v3row i{font-style:normal;color:rgba(255,255,255,.45);padding:0 2px}
+.lp3 .v3hero h1{font-size:38px;line-height:40px;letter-spacing:-.02em}
+.lp3 .v3hero .v3price{margin-top:16px}
+.lp3 .v3hero .v3plab{margin:0;font:600 14px/20px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.66)}
+.lp3 .v3hero .v3prow{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px;margin:2px 0 0}
+.lp3 .v3hero .v3pnum{font:800 28px/34px var(--f-head);letter-spacing:-.01em}
+.lp3 .v3hero .v3prow span{font:600 15px/20px var(--f-body);color:#fff}
+.lp3 .v3hero .v3pnote{margin:4px 0 0;font-size:14px;line-height:18px;color:rgba(255,255,255,.62)}
+.lp3 .v3hero .v3list{margin-top:14px}
+.lp3 .v3hero .v3list li{margin-top:8px;font-size:14px;line-height:20px;font-weight:600;color:#fff;align-items:center}
+.lp3 .v3hero .v3list li b{font-weight:700}
+.lp3 .v3hero .v3list li .w5{font-weight:500}
+.lp3 .v3hero .hcta{margin-top:18px}
+.lp3 .v3hero .hcta .btn{font-size:18px}
+.lp3 .v3hero .v3under{margin-top:10px;font-size:14px;color:rgba(255,255,255,.62)}
+.lp3 .v3hero::before{opacity:.06}
