@@ -201,6 +201,8 @@ WORK = f"""<section id="work"><div class="wrap">
   </div>
 </div></section>"""
 
+TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
+
 def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel"):
     tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v.replace("tub-to-shower", '<span class="nw">tub-to-shower</span>')}</button>' for v in
                     (tile_opts or ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"]))
@@ -226,7 +228,7 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
         <p class="legal-mini" id="consentText">By tapping {submit}, you agree {consent_name} may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">No payment. No obligation.</p>
-        
+        {TRUST}
       </div>
     </div>
     <div class="done v3done" id="formDone" hidden>

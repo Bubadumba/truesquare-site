@@ -29,6 +29,7 @@ def _site_css():
     c = _re.sub(r"/\*.*?\*/", "", c, flags=_re.S)
     return _re.sub(r"\s*\n\s*", "", c)
 SITE_CSS = _site_css()  # bump to bust browser cache of css/js
+TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
 
 def read(name):
     with open(os.path.join(CONTENT, name), encoding="utf-8") as f:
@@ -155,6 +156,7 @@ def book(tiles=BATH_TILES, default="", title='Get your price <span class="grad-t
         <button class="btn block" type="submit" id="fSubmit"><span id="fLabel">Request my free visit</span> <span class="arr">→</span></button>
         <p class="legal-mini" id="consentText">By tapping Request my free visit, you agree TrueSquare Remodel may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">Serhii will call to arrange a time. No obligation.</p>
+        {TRUST}
       </div>
     </div>
     <div class="done" id="formDone" hidden>
