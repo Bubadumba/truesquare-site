@@ -455,7 +455,9 @@
     "heroOk": true,
     "source": "photo",
     "altDefault": "Marble-look tile and lit mirror",
-    "usedIn": []
+    "usedIn": [
+      "sales-tax-remodeling-washington"
+    ]
   },
   {
     "id": "b22",
@@ -512,7 +514,9 @@
     "heroOk": true,
     "source": "photo",
     "altDefault": "Gray large-format shower tile",
-    "usedIn": []
+    "usedIn": [
+      "sales-tax-remodeling-washington"
+    ]
   },
   {
     "id": "b05",
