@@ -213,3 +213,12 @@
 .lp3 .v3done .dtip{margin-top:8px;text-align:center;font-size:13.5px;color:var(--muted)}
 .lp3 .v3done .dcall{display:block;margin-top:14px;text-align:center;font-weight:700;color:var(--ink);text-decoration:underline;text-underline-offset:3px;min-height:44px;line-height:44px}
 .sheet-who[hidden]+.sheet-body{margin-top:14px}
+
+/* two-step form (28.10): step 1 = tiles only, a tap opens step 2 = name / phone / ZIP */
+.lp .form.steps .fields,.lp .form.steps .fchosen{display:none}
+.lp .form.steps.on2 fieldset,.lp .form.steps.on2 .fstep{display:none}
+.lp .form.steps.on2 .fields{display:grid;margin-top:12px}
+.lp .fstep{margin:0 0 6px;font-size:13px;line-height:18px;color:var(--muted)}
+.lp .form.steps.on2 .fchosen{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 6px;margin:0;font-size:13px;line-height:18px;color:var(--muted)}
+.lp .fchosen b{font-weight:600;color:var(--ink)}
+.lp .fback{margin-left:auto;padding:2px 0;background:none;border:0;font:600 13px/18px var(--f-body);color:var(--coral-dk);text-decoration:underline;text-underline-offset:2px;cursor:pointer}

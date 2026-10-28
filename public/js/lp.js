@@ -10,7 +10,11 @@ var Q=new URLSearchParams(location.search);
 var project='',cta='';
 function pick(v){[].forEach.call(d.querySelectorAll('.tile'),function(x){x.setAttribute('aria-pressed',x.dataset.v===v?'true':'false');});project=v;}
 [].forEach.call(d.querySelectorAll('[data-cta]'),function(a){a.addEventListener('click',function(){if(!form.contains(a))cta=a.dataset.cta;});}); /* the submit button no longer overwrites the CTA that opened the form */
-$('tiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;pick(b.dataset.v);$('fName').focus();});
+/* two-step form (V3, 28.10): a tap on a tile opens step 2 (name / phone / ZIP); "Change" goes back to the tiles */
+var steps=form.classList.contains('steps');
+function step2(){if(!steps)return;form.classList.add('on2');var c=$('fChoice');if(c)c.textContent=project;if(sheet&&!sheet.hidden&&panel)panel.scrollTop=0;track('form_step',{step:2});}
+if(steps&&$('fBack'))$('fBack').addEventListener('click',function(){form.classList.remove('on2');if(sheet&&!sheet.hidden&&panel)panel.scrollTop=0;try{var t=d.querySelector('.tile[aria-pressed="true"]')||d.querySelector('.tile');t.focus({preventScroll:true});}catch(x){}});
+$('tiles').addEventListener('click',function(e){var b=e.target.closest('.tile');if(!b)return;pick(b.dataset.v);step2();$('fName').focus();});
 var zip=$('fZip');
 zip.addEventListener('input',function(){zip.value=zip.value.replace(/\D/g,'').slice(0,5);});
 var sending=false;
@@ -83,7 +87,7 @@ if(sheet){
   $('sheetClose').addEventListener('click',closeSheet);
   /* the keyboard's Next key moves to the next field instead of sending a half-filled form */
   [['fName','fPhone'],['fPhone','fZip']].forEach(function(p){$(p[0]).addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$(p[1]).focus();}});});
-  var start=function(){if(!started){started=true;track('form_start',{});}};
+  var start=function(){if(!started){started=true;track('form_start',steps?{step:2}:{});}};
   $('tiles').addEventListener('click',start);
   ['fName','fPhone','fZip'].forEach(function(id){$(id).addEventListener('focus',start);});
   $('fPhone').addEventListener('input',function(){var v=this.value.replace(/\D/g,'');if(v.length===11&&v[0]==='1')v=v.slice(1);if(!phoneOk&&v.length===10){phoneOk=true;track('form_phone',{});}});

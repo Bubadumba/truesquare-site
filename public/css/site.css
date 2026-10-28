@@ -408,3 +408,14 @@ nav.desk>a[aria-current="page"]{background:var(--grey)}
 .legal-mini a{color:inherit}
 .faq small.fine{display:block;margin-top:8px;font-size:13.5px;line-height:1.45;color:var(--muted)}
 .nw{white-space:nowrap}
+
+/* trust row under every form (27.10): rating badge + secure-form shield */
+.ftrust{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.tbadge{display:inline-flex;align-items:center}
+.tseal{position:relative;z-index:1;flex:0 0 44px;width:44px;height:44px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.18))}
+.tseal svg{display:block;width:44px;height:44px}
+.tseal img{position:absolute;left:12px;top:12px;width:20px;height:20px}
+.tpill{display:inline-flex;flex-direction:column;align-items:center;gap:3px;margin-left:-14px;padding:6px 14px 6px 22px;background:#2A2B2D;border-radius:0 999px 999px 0;color:#fff}
+.tstars{display:block;width:56px;height:10px}
+.ttxt{font:700 10.5px/1 var(--f-body);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+.tshield{flex:0 0 38px;width:38px;height:40px}
