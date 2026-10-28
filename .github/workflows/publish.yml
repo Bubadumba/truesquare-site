@@ -1,0 +1,99 @@
+# Publish on command. The owner reads the preview, then either
+#   - says "Публикуй" in the Сайт chat (Claude adds the label `publish` to the PR), or
+#   - adds the label `publish` himself, or
+#   - writes the comment `/publish` on the PR (owner only).
+# This workflow then waits for the PR checks, marks a draft PR ready, merges it into main (Cloudflare Pages deploys
+# main in 1-2 minutes) and pings IndexNow for the changed posts. A merge made with GITHUB_TOKEN does not start the
+# other workflows (CI on main, IndexNow), so the IndexNow ping is repeated here on purpose.
+# Nothing happens without the label or the comment: the default stays manual review.
+name: Publish
+
+on:
+  pull_request:
+    types: [labeled]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      (github.event_name == 'pull_request' && github.event.label.name == 'publish') ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request != null &&
+       github.event.comment.body == '/publish' && github.event.comment.author_association == 'OWNER')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number || github.event.issue.number }}
+    steps:
+      - name: Wait for the PR checks (up to 15 minutes)
+        run: |
+          set -e
+          HEAD=$(gh api "repos/$REPO/pulls/$PR" --jq .head.sha)
+          echo "PR #$PR head $HEAD"
+          for i in $(seq 1 60); do
+            JSON=$(gh api "repos/$REPO/commits/$HEAD/check-runs?per_page=100")
+            PENDING=$(echo "$JSON" | jq '[.check_runs[] | select(.name != "publish") | select(.status != "completed")] | length')
+            FAILED=$(echo "$JSON" | jq -r '[.check_runs[] | select(.name != "publish") | select(.conclusion == "failure" or .conclusion == "timed_out" or .conclusion == "cancelled" or .conclusion == "action_required")] | map(.name) | join(", ")')
+            if [ -n "$FAILED" ]; then
+              gh api "repos/$REPO/issues/$PR/comments" -f body="Not published: these checks failed: $FAILED. Fix the PR, then add the label publish again." >/dev/null
+              gh api -X DELETE "repos/$REPO/issues/$PR/labels/publish" >/dev/null 2>&1 || true
+              exit 1
+            fi
+            if [ "$PENDING" = "0" ]; then echo "All checks done."; break; fi
+            echo "Waiting: $PENDING check(s) still running"; sleep 15
+          done
+
+      - name: Mark ready and merge
+        id: merge
+        run: |
+          set -e
+          DRAFT=$(gh api "repos/$REPO/pulls/$PR" --jq .draft)
+          if [ "$DRAFT" = "true" ]; then gh pr ready "$PR" --repo "$REPO"; fi
+          BEFORE=$(gh api "repos/$REPO/git/ref/heads/main" --jq .object.sha)
+          TITLE=$(gh api "repos/$REPO/pulls/$PR" --jq .title)
+          if ! gh api -X PUT "repos/$REPO/pulls/$PR/merge" -f merge_method=merge -f commit_title="Merge pull request #$PR: $TITLE" >/tmp/merge.json 2>/tmp/merge.err; then
+            MSG=$(cat /tmp/merge.err | tr -d '"' | head -c 600)
+            gh api "repos/$REPO/issues/$PR/comments" -f body="Not published: GitHub refused the merge. $MSG" >/dev/null
+            gh api -X DELETE "repos/$REPO/issues/$PR/labels/publish" >/dev/null 2>&1 || true
+            exit 1
+          fi
+          AFTER=$(jq -r .sha /tmp/merge.json)
+          echo "before=$BEFORE" >> "$GITHUB_OUTPUT"
+          echo "after=$AFTER" >> "$GITHUB_OUTPUT"
+          echo "Merged $PR: $BEFORE -> $AFTER"
+
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Tell IndexNow about the changed posts (after Cloudflare has deployed)
+        run: |
+          pip install -r tools/requirements.txt >/dev/null
+          URLS="$(python3 tools/changed_posts.py "${{ steps.merge.outputs.before }}" "${{ steps.merge.outputs.after }}")"
+          if [ -z "$URLS" ]; then echo "No blog post changed."; echo "urls=" >> "$GITHUB_ENV"; exit 0; fi
+          echo "$URLS"
+          sleep 150
+          python3 tools/indexnow.py $URLS || echo "IndexNow did not answer 200/202; the sitemap still carries the page."
+          echo "urls<<EOF" >> "$GITHUB_ENV"; echo "$URLS" >> "$GITHUB_ENV"; echo "EOF" >> "$GITHUB_ENV"
+
+      - name: Report on the PR
+        run: |
+          if [ -n "$urls" ]; then BODY="Published. Live in 1-2 minutes:
+          $urls"; else BODY="Published (merged into main)."; fi
+          gh api "repos/$REPO/issues/$PR/comments" -f body="$BODY" >/dev/null

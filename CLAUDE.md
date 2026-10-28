@@ -50,4 +50,4 @@ No raw HTML, no `![image]`, no H1 in the body, no em or en dashes, nothing from 
 3. Never write the words financing, "financing available", credit, loan, APR, "subject to credit approval". Never write "in-house" for trades: the approved wording is "our crew".
 4. Do not create city or neighborhood pages.
 5. Publishing an article, referencing a photo, generating an illustration or adding a 301 must never require touching `tools/`, `public/css`, `public/js`, workflows or other pages.
-6. Default publishing mode is manual review: `content/config.yaml` has `auto_publish: false`. Nothing deploys without a human merge.
+6. Default publishing mode is manual review: `content/config.yaml` has `auto_publish: false`. Nothing deploys without the owner's decision: his Merge click, or his publish command (label `publish` on the PR, or his comment `/publish`), which `.github/workflows/publish.yml` turns into the merge plus the IndexNow ping. The content agent never adds that label and never writes that comment.
