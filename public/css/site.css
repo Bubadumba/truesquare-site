@@ -419,3 +419,27 @@ nav.desk>a[aria-current="page"]{background:var(--grey)}
 .tstars{display:block;width:56px;height:10px}
 .ttxt{font:700 10.5px/1 var(--f-body);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
 .tshield{flex:0 0 38px;width:38px;height:40px}
+
+/* pop-up form sheet on every page with a form (28.10; same rules as the V3 landing): every free-visit button opens the form, it closes only with the X */
+.sheet{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;background:rgba(18,19,20,.6)}
+.sheet[hidden]{display:none}
+.sheet-panel{position:relative;width:100%;max-width:520px;height:100%;height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--ink);color:#fff;padding:0 16px calc(24px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .28s ease}
+.sheet.open .sheet-panel{transform:none}
+.sheet-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 -16px;padding:calc(10px + env(safe-area-inset-top,0px)) 12px 10px 16px;background:var(--ink);border-bottom:1px solid rgba(255,255,255,.1)}
+.sheet-title{margin:0;font:800 22px/26px var(--f-head);color:#fff;outline:none}
+.sheet-x{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;padding:0}
+.sheet-x svg{width:20px;height:20px}
+.sheet-who{display:flex;align-items:center;gap:12px;margin:14px 0 14px}
+.sheet-who img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--peach);flex:none}
+.sheet-who p{margin:0;display:flex;flex-direction:column;gap:2px;font-size:15px;line-height:20px;color:#fff}
+.sheet-who span{font-size:13px;line-height:18px;color:rgba(255,255,255,.66)}
+.sheet-body .form{margin:0}
+.sheet-who[hidden]+.sheet-body{margin-top:14px}
+.sheet-open .sticky{display:none}
+@media (min-width:600px){.sheet{align-items:center;padding:24px}.sheet-panel{height:auto;max-height:calc(100vh - 48px);border-radius:16px;padding-bottom:24px}.sheet-head{border-radius:16px 16px 0 0}}
+
+/* slow moving gradient (28.10): buttons one sweep in 6 s, gradient text in 12 s, back and forth; off when the phone asks for reduced motion */
+@keyframes tsrShift{from{background-position:0% 50%}to{background-position:100% 50%}}
+:root .btn:not(.outline),:root .callbtn,:root .sticky .s1,:root .lp .lp-call{background-image:linear-gradient(120deg,#F69A72 0%,#F47A61 25%,#EC6463 50%,#F47A61 75%,#F69A72 100%);background-size:300% 100%;animation:tsrShift 6s ease-in-out infinite alternate}
+:root .grad-text{background-image:linear-gradient(120deg,#F69A72 0%,#F47A61 25%,#EC6463 50%,#F47A61 75%,#F69A72 100%);background-size:300% 100%;animation:tsrShift 12s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){:root .btn,:root .callbtn,:root .sticky .s1,:root .lp .lp-call,:root .grad-text{animation:none}}
