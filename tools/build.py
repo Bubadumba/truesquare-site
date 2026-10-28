@@ -246,6 +246,7 @@ def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robo
 {footer()}
 
 <script src="/js/site.js?v={ASSET_V}" defer></script>
+<script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
 </body>
 </html>
 """
