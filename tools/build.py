@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "7"
+ASSET_V = "8"
 def _site_css():
     # speed pass 26.10: site.css is inlined into every page (no render-blocking request), same rules
     import re as _re
@@ -197,6 +197,26 @@ def faq_html(faqs, title="Questions about this project.", kicker="Questions"):
   </div>
 </div></section>"""
 
+def sheet_html(body):
+    """Pop-up form shell (28.10): on every page with the form, the free-visit buttons open it in this sheet (site.js)."""
+    if 'id="book"' not in body:
+        return ""
+    import re as _re
+    m = _re.search(r'id="book".*?<h2[^>]*>(.*?)</h2>', body, _re.S)
+    title = m.group(1).strip() if m else 'Request Your <span class="grad-text">Free Visit</span>'
+    return f"""
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-panel" id="sheetPanel">
+    <div class="sheet-head">
+      <p class="sheet-title" id="sheetTitle" tabindex="-1">{title}</p>
+      <button type="button" class="sheet-x" id="sheetClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="sheet-who"><img src="/img/serhii-avatar.jpg" alt="" width="44" height="44" loading="lazy"><p><b>Serhii will call you to set a time.</b><span>Free visit. No obligation.</span></p></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+</div>
+"""
+
 def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robots="index,follow",
          og_image="/img/serhii.jpg", full_biz=False, og_type="website", head_extra="", body_class=""):
     """Wrap a page body in the shared head/header/footer. og_type, head_extra and body_class are used by
@@ -245,8 +265,8 @@ def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robo
 {body}
 </main>
 
-{footer()}
-
+{footer() if 'id="book"' in body else footer().replace('href="#book"', 'href="/#book"')}
+{sheet_html(body)}
 <script src="/js/site.js?v={ASSET_V}" defer></script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
 </body>

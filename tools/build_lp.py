@@ -87,11 +87,22 @@ def shell(path, title, desc, angle, body, preload=None):
   <a class="s1" href="#book" data-cta="sticky">Get My Price</a>
 </div>
 
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" hidden>
+  <div class="sheet-panel" id="sheetPanel">
+    <div class="sheet-head">
+      <p class="sheet-title" id="sheetTitle" tabindex="-1">Get Your <span class="grad-text">Written Price</span></p>
+      <button type="button" class="sheet-x" id="sheetClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="sheet-who"><img src="/img/serhii-avatar.jpg" alt="" width="44" height="44" loading="lazy"><p><b>Serhii will call you to set a time.</b><span>Free visit. No obligation.</span></p></div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+</div>
+
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=7';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=8';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
 if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
