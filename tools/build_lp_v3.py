@@ -18,7 +18,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "9"  # cache version for lp.js (9 = new thank-you state, 26.10)
+V = "10"  # cache version for lp.js (10 = two-step form, 28.10; 9 = new thank-you state, 26.10)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -203,9 +203,14 @@ WORK = f"""<section id="work"><div class="wrap">
 
 TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
 
-def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel"):
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel", steps=False):
     tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v.replace("tub-to-shower", '<span class="nw">tub-to-shower</span>')}</button>' for v in
                     (tile_opts or ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"]))
+    # two-step form (decision 28.10, V3 only): step 1 = tiles, a tap opens step 2 = name / phone / ZIP
+    fcls = "form steps" if steps else "form"
+    step1 = '\n      <p class="fstep">Step 1 of 2</p>' if steps else ""
+    chosen = '\n      <p class="fchosen" id="fChosen"><span>Step 2 of 2 ·</span> <b id="fChoice"></b> <button type="button" class="fback" id="fBack">Change</button></p>' if steps else ""
+    trust_in, trust_out = ("", "\n      " + TRUST) if steps else (TRUST, "")
     return f"""<section class="book on-ink" id="book"><div class="wrap bgrid">
   <div>
     <p class="kicker">Free visit</p>
@@ -214,12 +219,12 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
     {'<p class="formlic">WA Registered Contractor · <b>' + LNI + '</b> · <span class="nw">Owner-led</span></p>' if show_lic else ''}
   </div>
-  <form class="form" id="lpForm" novalidate>
-    <div id="formBody">
+  <form class="{fcls}" id="lpForm" novalidate>
+    <div id="formBody">{step1}
       <fieldset>
         <legend>What are you planning?</legend>{('<p class="thelp">' + tile_help + '</p>') if tile_help else ''}
         <div class="tiles" id="tiles">{tiles}</div>
-      </fieldset>
+      </fieldset>{chosen}
       <div class="fields">
         <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
         <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"><span class="why">We'll call or text only about your visit.</span></label>
@@ -228,8 +233,8 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
         <p class="legal-mini" id="consentText">By tapping {submit}, you agree {consent_name} may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
         <p class="next">No payment. No obligation.</p>
-        {TRUST}
-      </div>
+        {trust_in}
+      </div>{trust_out}
     </div>
     <div class="done v3done" id="formDone" hidden>
       <div class="dcheck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
@@ -438,7 +443,7 @@ def v3_page():
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
                         lead="It starts with a free visit. Your detailed written scope and price follow within 5 hours after the visit.",
                         submit="Get My Written Price", who=who,
-                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC")
+                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
     work = f"""<section class="v2work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Crew</h2></div>
   <div class="v2gal">
