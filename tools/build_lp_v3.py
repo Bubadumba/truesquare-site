@@ -423,19 +423,24 @@ def v2_page():
 # 26.10 Serhii: no "subcontractor" caption under V3 photos ("they are members of our team")
 def v3_page():
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
+    # first screen v3c (28.10, two councils, owner OK 11:29): 4 text levels, price as its own line, 3 one-line promises
+    top = RANGE.split("–")[-1]
     hero = f"""<section class="hero on-ink v2hero v3hero">
   <div class="wrap">
-    <p class="v3rate"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
+    <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
     <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
-    <p class="v3sub">Let's fix that.</p>
-    <p class="hrange">Seattle-area full bathroom remodels: <b class="nw">{RANGE}</b> + WA sales tax<small>Smaller bathrooms fall at the lower end. Price depends on scope. Larger or more complex projects may exceed this range.</small></p>
-    <ul class="hlist">
-      {li("Itemized written scope and price within 5 hours after your visit")}
-      {li("One phone/text contact throughout your project")}
-      {li("Your written OK before extra work")}
+    <div class="v3price">
+      <p class="v3plab">Seattle-area full bathroom remodels</p>
+      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
+      <p class="v3pnote">Price depends on scope; some projects may exceed {top}.</p>
+    </div>
+    <ul class="hlist v3list">
+      {li("Written price within 5 hours after your visit")}
+      {li("No extra work without your written OK")}
+      {li('<span><b>One contact:</b> <span class="w5">Serhii, start to finish</span></span>')}
     </ul>
     <div class="hcta"><a class="btn block" href="#book" data-cta="hero">Get My Written Price <span class="arr">→</span></a></div>
-    <p class="under v3under">Starts with a free visit. We'll call to set a time.<br>No decision at the visit.</p>
+    <p class="under v3under">Free visit first. No decision at the visit.</p>
   </div>
 </section>"""
     band = f"""<section class="v3band"><div class="wrap">
