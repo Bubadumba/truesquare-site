@@ -1,12 +1,17 @@
+**Preview:** https://<branch-alias>.truesquareremodel.pages.dev/blog/<slug>/ (ready about 2 minutes after the PR opens)
+
+## What to do
+- This article is for: ...
+- Check on the preview: 1. ... 2. ... 3. ...
+- Happy: **Merge pull request → Confirm merge**. The page goes live in about 2 minutes.
+- Change something: scheduled task "TSR blog article" → Run now with the text `fix: <slug> | <what to change>` (or write it in the Сайт chat).
+
 ## Topic and target query
 
 ## Intent
 
 ## Information-gain sentence
 This article adds ...
-
-## Preview URL
-(from the Cloudflare Pages check or comment on this PR)
 
 ## Sources (URL, month accessed)
 
@@ -18,15 +23,10 @@ This article adds ...
 | # | preview | file | source | where used | alt | caption | prompt (ai) | uses so far |
 |---|---|---|---|---|---|---|---|---|
 
-To replace an image: open the scheduled task → Run now with the text `regen: <slug> | <photo id> | <what to change>`
+To replace an image: scheduled task → Run now with the text `regen: <slug> | <photo id> | <what to change>`
 
 ## Changes to existing posts
 
 ## Doubts and [OWNER INPUT NEEDED]
-
-## Three things Serhii must check on the preview
-1.
-2.
-3.
 
 Merging publishes this page and makes the Reviewed-by block true.
