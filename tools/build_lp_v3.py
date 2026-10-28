@@ -204,8 +204,12 @@ WORK = f"""<section id="work"><div class="wrap">
 TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
 
 def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel", steps=False):
-    tiles = "".join(f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{v.replace("tub-to-shower", '<span class="nw">tub-to-shower</span>')}</button>' for v in
-                    (tile_opts or ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"]))
+    # a tile is "value" or ("value", "small hint"); the value is what goes to GHL as project_type
+    def _tile(t):
+        v, hint = (t if isinstance(t, tuple) else (t, ""))
+        label = v.replace("tub-to-shower", '<span class="nw">tub-to-shower</span>')
+        return f'<button type="button" class="tile" data-v="{v}" aria-pressed="false">{label}{("<small>" + hint + "</small>") if hint else ""}</button>'
+    tiles = "".join(_tile(t) for t in (tile_opts or ["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Not sure yet"]))
     # two-step form (decision 28.10, V3 only): step 1 = tiles, a tap opens step 2 = name / phone / ZIP
     fcls = "form steps" if steps else "form"
     step1 = '\n      <p class="fstep">Step 1 of 2</p>' if steps else ""
@@ -443,7 +447,7 @@ def v3_page():
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
                         lead="It starts with a free visit. Your detailed written scope and price follow within 5 hours after the visit.",
                         submit="Get My Written Price", who=who,
-                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Full remodel + tub-to-shower", "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
+                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
     work = f"""<section class="v2work"><div class="wrap">
   <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Crew</h2></div>
   <div class="v2gal">

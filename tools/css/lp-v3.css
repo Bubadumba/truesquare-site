@@ -222,3 +222,6 @@
 .lp .form.steps.on2 .fchosen{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 6px;margin:0;font-size:13px;line-height:18px;color:var(--muted)}
 .lp .fchosen b{font-weight:600;color:var(--ink)}
 .lp .fback{margin-left:auto;padding:2px 0;background:none;border:0;font:600 13px/18px var(--f-body);color:var(--coral-dk);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+/* tile hint line (28.10): e.g. "Partial update" + "Vanity, tile or fixtures" */
+.lp .tile small{display:block;margin-top:3px;font-size:12.5px;line-height:16px;font-weight:500;color:var(--muted)}
+.lp .tile[aria-pressed="true"] small{color:rgba(18,19,20,.72)}
