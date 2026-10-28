@@ -95,6 +95,7 @@ def shell(path, title, desc, angle, body, preload=None):
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
 if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
+<script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
 </body>
 </html>
 """
