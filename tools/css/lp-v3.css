@@ -244,4 +244,4 @@
 .lp3 .v3hero .hcta{margin-top:18px}
 .lp3 .v3hero .hcta .btn{font-size:18px}
 .lp3 .v3hero .v3under{margin-top:10px;font-size:14px;color:rgba(255,255,255,.62)}
-.lp3 .v3hero::before{opacity:.06}
+.lp3 .v3hero::before{opacity:.06;top:300px;bottom:auto}  /* anchored to the top: the web font changes the hero height a little, a bottom-anchored shape moved and caused CLS 0.21 */
