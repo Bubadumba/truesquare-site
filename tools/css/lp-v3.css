@@ -245,3 +245,38 @@
 .lp3 .v3hero .hcta .btn{font-size:18px}
 .lp3 .v3hero .v3under{margin-top:10px;font-size:14px;color:rgba(255,255,255,.62)}
 .lp3 .v3hero::before{opacity:.06;top:300px;bottom:auto}  /* anchored to the top: the web font changes the hero height a little, a bottom-anchored shape moved and caused CLS 0.21 */
+
+/* safe package 30.10 (council R8): before/after, 4 photos to swipe, CTA under the written scope */
+.lp3 .v3work .v3ba{margin:0}
+.lp3 .v3work .v3ba .ph{aspect-ratio:3/2;border-radius:12px}
+.lp3 .v3work .v3ba .ph::after{display:none}
+.lp3 .v3work .v3ba figcaption{padding:8px 2px 0;font-size:14px;line-height:20px;color:var(--muted)}
+.lp3 .v3work .v3swipe{display:flex;gap:8px;overflow-x:auto;margin:14px -20px 0;padding:0 20px 2px;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.lp3 .v3work .v3swipe::-webkit-scrollbar{display:none}
+.lp3 .v3work .v3swipe .ph{flex:0 0 150px;width:150px;height:150px;aspect-ratio:auto;border-radius:10px;scroll-snap-align:start}
+.lp3 .v3work .v3swipe .ph::after{display:none}
+.lp3 .v3work .v3swipenote{margin:8px 0 0;font-size:14px;line-height:20px;color:var(--muted)}
+.lp3 .v2written .v3mid{margin-top:20px;text-align:center}
+.lp3 .v2written .v3midunder{margin:10px 0 0;font-size:14px;line-height:20px;color:var(--muted)}
+@media (min-width:960px){.lp3 .v3work .v3swipe{margin:14px 0 0;padding:0}}
+/* 29.10: generated before/after as a drag slider (labelled Illustration) + 2 Google reviews in the owner block */
+.lp3 .v3cmp{position:relative;margin:0;border-radius:12px;overflow:hidden;aspect-ratio:931/698;background:var(--grey);touch-action:pan-y}
+.lp3 .v3cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.lp3 .v3cmp .v3cmp-b{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--pos,40%)) 0 0)}
+.lp3 .v3cmp .v3knob{position:absolute;top:0;bottom:0;left:var(--pos,40%);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 0 1px rgba(18,19,20,.18);pointer-events:none}
+.lp3 .v3cmp .v3knob::after{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23121314' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l-5 6 5 6M15 6l5 6-5 6'/%3E%3C/svg%3E") center/24px no-repeat;box-shadow:0 2px 10px rgba(18,19,20,.3)}
+.lp3 .v3cmp input[type=range]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none;background:transparent}
+.lp3 .v3cmp input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:56px;height:100%}
+.lp3 .v3cmp input[type=range]::-moz-range-thumb{width:56px;height:100%;border:0;background:transparent}
+.lp3 .v3cmp .v3tag{position:absolute;top:12px;padding:5px 10px;border-radius:999px;background:rgba(18,19,20,.72);color:#fff;font:700 12px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+.lp3 .v3cmp .v3tag-b{left:12px}.lp3 .v3cmp .v3tag-a{right:12px}
+.lp3 .v3cmp .v3ill{position:absolute;right:10px;bottom:10px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.82);color:#3a3d40;font:600 11px/1.2 var(--f-body);pointer-events:none}
+.lp3 .v3work .v3cmpcap{margin:8px 0 0;font-size:14px;line-height:20px;color:var(--muted)}
+.lp3 .v3work .v3real{margin:22px 0 0;font:700 18px/24px var(--f-head);color:var(--ink)}
+.lp3 .v3rev{display:grid;gap:10px;margin-top:20px}
+.lp3 .v3rev blockquote{margin:0;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+.lp3 .v3rev .st5{margin:0;color:#F6B532;letter-spacing:2px;font-size:14px;line-height:18px}
+.lp3 .v3rev blockquote p:not(.st5){margin:6px 0 0;font-size:15px;line-height:22px;color:#fff}
+.lp3 .v3rev cite{display:block;margin-top:8px;font-style:normal;font-size:13px;line-height:18px;color:rgba(255,255,255,.7)}
+.lp3 .v3rev .v3revall{justify-self:start;margin-top:2px;color:#F69A72;font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:no-preference){.lp3 .v3cmp .v3cmp-b,.lp3 .v3cmp .v3knob{transition:none}}

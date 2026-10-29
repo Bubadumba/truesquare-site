@@ -219,7 +219,7 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
   <div>
     <p class="kicker">Free visit</p>
     <h2 style="margin-top:10px">{h2}</h2>
-    <p class="lead" style="margin-top:10px">{lead}</p>{extra}{who}
+    {('<p class="lead" style="margin-top:10px">' + lead + '</p>') if lead else ''}{extra}{who}
     <p class="callline">Prefer to talk? Call <a href="tel:{PHONE_T}">{PHONE}</a></p>
     {'<p class="formlic">WA Registered Contractor · <b>' + LNI + '</b> · <span class="nw">Owner-led</span></p>' if show_lic else ''}
   </div>
@@ -447,18 +447,34 @@ def v3_page():
   <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13-band.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="760" height="388" fetchpriority="high"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
   <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
 </div></section>"""
-    who = """
-    <div class="v3who"><img src="/img/serhii-avatar.jpg" alt="Serhii, owner of TrueSquare Remodel" width="56" height="56"><p><b>Serhii will call you to set a time.</b><span>Owner. Your phone/text contact.</span></p></div>"""
+    # safe package 30.10 (#1, council R8 6-1): the form intro is only FREE VISIT / Get Your Written Price / Prefer to talk? Call
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
-                        lead="It starts with a free visit. Your detailed written scope and price follow within 5 hours after the visit.",
-                        submit="Get My Written Price", who=who,
+                        lead="",
+                        submit="Get My Written Price", who="",
                         tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
-    work = f"""<section class="v2work"><div class="wrap">
-  <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Crew</h2></div>
-  <div class="v2gal">
-    <button class="ph" type="button" data-full="/img/lp-hero.jpg"><img src="/img/lp-hero-sq.jpg" alt="Finished walk-in shower with glass door, vanity and toilet" loading="lazy" width="360" height="360"></button>
-    <button class="ph" type="button" data-full="/img/p/b18.jpg"><img src="/img/p/b18-sq.jpg" alt="Floating vanity with vessel sink, black mirror and toilet" loading="lazy" width="360" height="360"></button>
+    # safe package 30.10 (#2): owner 29.10 07:18 — the real shower before/after looked weak; use a high-quality generated before/after instead,
+    # shown as a drag slider and labelled "Illustration" (never passed off as our project); real crew photos follow under their own heading
+    def ph(full, img, alt, w, h):
+        return f'<button class="ph" type="button" data-full="{full}"><img src="{img}" alt="{alt}" loading="lazy" width="{w}" height="{h}"></button>'
+    work = f"""<section class="v2work v3work"><div class="wrap">
+  <div class="head"><p class="kicker">Before &amp; after</p><h2>From Dated <span class="grad-text">to Done.</span></h2></div>
+  <figure class="v3cmp" style="--pos:40%">
+    <img class="v3cmp-a" src="/img/p/ill-after.jpg?v=2" alt="After: the same bathroom with a walk-in glass shower, vertical white tile, walnut floating vanity and a round black mirror" width="931" height="698" loading="lazy">
+    <div class="v3cmp-b"><img src="/img/p/ill-before.jpg?v=2" alt="Before: a dated bathroom with an almond tub-shower combo, oak vanity and brass fixtures" width="931" height="698" loading="lazy"></div>
+    <span class="v3tag v3tag-b" aria-hidden="true">Before</span><span class="v3tag v3tag-a" aria-hidden="true">After</span>
+    <span class="v3ill">Illustration</span>
+    <span class="v3knob" aria-hidden="true"></span>
+    <input type="range" min="0" max="100" value="40" aria-label="Drag to compare before and after" oninput="this.parentNode.style.setProperty('--pos',this.value+'%')">
+  </figure>
+  <p class="v3cmpcap">Drag to compare. Illustration of a typical full remodel.</p>
+  <h3 class="v3real">Bathrooms completed by our crew</h3>
+  <div class="v3swipe">
+    {ph("/img/lp-hero.jpg", "/img/lp-hero-sq.jpg", "Finished walk-in shower with glass door, vanity and toilet", 360, 360)}
+    {ph("/img/p/b18.jpg", "/img/p/b18-sq.jpg", "Floating vanity with vessel sink, black mirror and toilet", 360, 360)}
+    {ph("/img/p/b05.jpg", "/img/p/b05-sq.jpg", "Shower floor in black hexagon tile with white wall tile", 300, 300)}
+    {ph("/img/g-glass-corner.jpg", "/img/g-glass-corner-sq.jpg", "Corner shower with a frameless glass enclosure", 300, 300)}
   </div>
+  <p class="v3swipenote" aria-hidden="true">Swipe for more photos →</p>
 </div></section>"""
     written = f"""<section class="alt v2written"><div class="wrap">
   <div class="head"><p class="kicker">On paper</p><h2>Don't Guess. <span class="grad-text">Get It in Writing.</span></h2><p class="lead">Within 5 hours after your visit: everything included, spelled out in writing, with one total price. Extra work needs your written OK.</p></div>
@@ -475,6 +491,7 @@ def v3_page():
     </ul>
     <p class="exnote">Example only. Your written price follows the free visit.</p>
   </div>
+  <div class="v3mid"><a class="btn block" href="#book" data-cta="scope">Get My Written Price <span class="arr">→</span></a><p class="v3midunder">Free visit first. No decision at the visit.</p></div>
 </div></section>"""
     owner = """<section class="owner on-ink v2owner"><div class="wrap">
   <div class="v2own">
@@ -487,20 +504,25 @@ def v3_page():
   <p class="lead">Serhii, the owner, visits to measure your bathroom and stays your contact by phone or text throughout the project. He coordinates the work with our subcontractor crew, who handle the construction.</p>
   <ol class="v2steps">
     <li><span class="n">1</span>Request your free visit</li>
-    <li><span class="n">2</span>Discuss and measure your bathroom</li>
-    <li><span class="n">3</span>Get your written price within 5 hours after the visit</li>
+    <li><span class="n">2</span>Serhii visits to measure</li>
+    <li><span class="n">3</span>Written price within 5 hours after the visit</li>
   </ol>
-</div></section>"""
+  <div class="v3rev">
+    <blockquote><p class="st5" role="img" aria-label="5 out of 5 stars">★★★★★</p><p>“I had TrueSquare handle my outdated bathroom in Lynnwood, and wow, what a difference! Sergey and the crew were friendly and really listened to my ideas, turning a cramped space into something open and modern…”</p><cite>Artyom S. · Google review</cite></blockquote>
+    <blockquote><p class="st5" role="img" aria-label="5 out of 5 stars">★★★★★</p><p>“From the first time we talked, I didn't feel pressured to hire them, but I'm really glad I did. Sergey and Andrew did an awesome job… They were super professional and worked really hard.”</p><cite>Vitaliy S. · Google review</cite></blockquote>
+    <a class="v3revall" href="GOOGLE_URL" target="_blank" rel="noopener">Read all reviews on Google →</a>
+  </div>
+</div></section>""".replace("GOOGLE_URL", GOOGLE)
     faq_items = [
-        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
         ("Will the price jump once the walls are open?", "Only if we find hidden damage or you change the scope. We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
+        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
         ("Are you the one swinging the hammer?", "No. Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
         ("Do I pay everything up front?", "No. You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
         ("How long will I be without a bathroom?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
         ("What if something fails after you leave?", "You get a 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
     ]
     faq = """<section id="faq" class="v2faq"><div class="wrap">
-  <div class="head"><p class="kicker">Straight answers</p><h2>Ask Us the <span class="grad-text">Awkward Questions.</span></h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
+  <div class="head"><p class="kicker">Straight answers</p><h2>Ask Us the <span class="grad-text">Awkward Questions.</span></h2></div>
   <div class="faq">
 """ + "\n".join(f"    <details><summary>{q}</summary><p>{a}</p></details>" for q, a in faq_items) + """
   </div>
