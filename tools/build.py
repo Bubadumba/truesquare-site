@@ -402,7 +402,7 @@ PAGES["index.html"] = page(
 
 # ---------------------------------------------------------------- SEATTLE BATHROOM REMODELING (owner 29.10: service page for "Bathroom remodeler" / "Bathroom Remodeling" in Seattle)
 SEA_AREAS = ["Seattle", "Bellevue", "Redmond", "Bothell", "Issaquah", "Tukwila", "Federal Way", "Tacoma", "Sumner"]
-SEA_TEL = '<a class="tlink" href="tel:+12062222328">+1 206-222-2328</a>'
+SEA_TEL = '<a class="tlink nw" href="tel:+12062222328">+1 206-222-2328</a>'
 def sea_img(src, alt):
     return f'<figure class="phimg" style="margin:0"><img src="/img/p/{src}" alt="{esc(alt)}" loading="lazy" width="900" height="1200"></figure>'
 crumb = [("Home", "/"), ("Services", "/services"), ("Bathroom Remodeling in Seattle", "/seattle-bathroom-remodeling")]
@@ -411,7 +411,8 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
     "Seattle bathroom remodeler for full and partial bathroom remodeling, shower and tub replacement and tile work. Free visit, written itemized price. Call +1 206-222-2328.",
     phero(crumb, "Bathroom remodeler · Seattle, WA", 'Seattle Bathroom Remodeling <span class="grad-text">by a Local Bathroom Remodeler</span>',
           "Full and partial bathroom remodeling, shower and tub replacement, and tile work. Free visit. Written, itemized price within 5 hours after the visit.",
-          "/img/p/b19.jpg", "Remodeled bathroom with green subway tile, a niche and a new soaking tub") +
+          "/img/p/b19.jpg", "Remodeled bathroom with green subway tile, a niche and a new soaking tub"
+          ).replace('<a class="btn outline" href="tel:', '<a class="btn outline" style="display:inline-flex" data-cta="hero-call" href="tel:') +
     f"""
 <section><div class="wrap">
   <div class="prose">
@@ -501,7 +502,7 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
   <p class="lead" style="margin:12px auto 0;max-width:36ch">Call or text Serhii to set up a free visit.</p>
   <div class="hcta" style="justify-content:center;margin-top:20px">
     <a class="btn" href="tel:{PHONE_T}" data-cta="call-band">Call {PHONE} <span class="arr">→</span></a>
-    <a class="btn outline" href="#book" data-cta="band">Request a free visit</a>
+    <a class="btn outline" style="color:#fff;border-color:rgba(255,255,255,.4)" href="#book" data-cta="band">Request a free visit</a>
   </div>
 </div></section>
 """ + book(),
