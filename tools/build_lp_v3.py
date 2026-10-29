@@ -452,12 +452,22 @@ def v3_page():
                         lead="",
                         submit="Get My Written Price", who="",
                         tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
-    # safe package 30.10 (#2, council R8 7-0): one genuine before/after of the same shower (owner confirmed 28.10), then 4 different photos to swipe; none repeats the band photo (b13)
+    # safe package 30.10 (#2): owner 29.10 07:18 — the real shower before/after looked weak; use a high-quality generated before/after instead,
+    # shown as a drag slider and labelled "Illustration" (never passed off as our project); real crew photos follow under their own heading
     def ph(full, img, alt, w, h):
         return f'<button class="ph" type="button" data-full="{full}"><img src="{img}" alt="{alt}" loading="lazy" width="{w}" height="{h}"></button>'
     work = f"""<section class="v2work v3work"><div class="wrap">
-  <div class="head"><p class="kicker">Real work</p><h2>Bathrooms Completed by Our Crew</h2></div>
-  <figure class="v3ba">{ph("/img/p/ba02.jpg", "/img/p/ba02-760.jpg", "Before and after: the same shower, old blue tile replaced with new tile, a niche and a grab bar", 760, 507)}<figcaption>Bathroom remodeled by our crew</figcaption></figure>
+  <div class="head"><p class="kicker">Before &amp; after</p><h2>From Dated <span class="grad-text">to Done.</span></h2></div>
+  <figure class="v3cmp" style="--pos:40%">
+    <img class="v3cmp-a" src="/img/p/ill-after.jpg" alt="After: the same bathroom with a walk-in glass shower, vertical white tile, walnut floating vanity and round mirror" width="931" height="698" loading="lazy">
+    <div class="v3cmp-b"><img src="/img/p/ill-before.jpg" alt="Before: a dated bathroom with an almond tub-shower combo, oak vanity and brass fixtures" width="931" height="698" loading="lazy"></div>
+    <span class="v3tag v3tag-b" aria-hidden="true">Before</span><span class="v3tag v3tag-a" aria-hidden="true">After</span>
+    <span class="v3ill">Illustration</span>
+    <span class="v3knob" aria-hidden="true"></span>
+    <input type="range" min="0" max="100" value="40" aria-label="Drag to compare before and after" oninput="this.parentNode.style.setProperty('--pos',this.value+'%')">
+  </figure>
+  <p class="v3cmpcap">Drag to compare. Illustration of a typical full remodel.</p>
+  <h3 class="v3real">Bathrooms completed by our crew</h3>
   <div class="v3swipe">
     {ph("/img/lp-hero.jpg", "/img/lp-hero-sq.jpg", "Finished walk-in shower with glass door, vanity and toilet", 360, 360)}
     {ph("/img/p/b18.jpg", "/img/p/b18-sq.jpg", "Floating vanity with vessel sink, black mirror and toilet", 360, 360)}
@@ -497,7 +507,12 @@ def v3_page():
     <li><span class="n">2</span>Serhii visits to measure</li>
     <li><span class="n">3</span>Written price within 5 hours after the visit</li>
   </ol>
-</div></section>"""
+  <div class="v3rev">
+    <blockquote><p class="st5" role="img" aria-label="5 out of 5 stars">★★★★★</p><p>“I had TrueSquare handle my outdated bathroom in Lynnwood, and wow, what a difference! Sergey and the crew were friendly and really listened to my ideas, turning a cramped space into something open and modern…”</p><cite>Artyom S. · Google review</cite></blockquote>
+    <blockquote><p class="st5" role="img" aria-label="5 out of 5 stars">★★★★★</p><p>“From the first time we talked, I didn't feel pressured to hire them, but I'm really glad I did. Sergey and Andrew did an awesome job… They were super professional and worked really hard.”</p><cite>Vitaliy S. · Google review</cite></blockquote>
+    <a class="v3revall" href="GOOGLE_URL" target="_blank" rel="noopener">Read all reviews on Google →</a>
+  </div>
+</div></section>""".replace("GOOGLE_URL", GOOGLE)
     faq_items = [
         ("Will the price jump once the walls are open?", "Only if we find hidden damage or you change the scope. We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
         ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
