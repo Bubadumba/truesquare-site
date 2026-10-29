@@ -6,7 +6,10 @@ var d=document,$=function(id){return d.getElementById(id);};
 if(d.body.classList.contains('lp2')&&'IntersectionObserver' in window){var st=$('sticky'),seen=new Set();var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?seen.add(e.target):seen.delete(e.target);});if(st)st.classList.toggle('away',seen.size>0);});[].forEach.call(d.querySelectorAll('.final,footer'),function(el){io.observe(el);});}
 var form=$('lpForm'); if(!form) return;
 var ANGLE=d.body.getAttribute('data-angle')||'lp';
-var VARIANT=d.body.getAttribute('data-variant')||''; /* landing split (29.10): v3 | q, sent with every form event and with the lead */
+var VARIANT=d.body.getAttribute('data-variant')||'';
+/* service area (owner's map 29.10: Marysville/Lake Stevens to Olympia/Tumwater, Bremerton/Shelton to the Cascade foothills): ZIP is flagged, never blocked */
+var AREA='98001,98002,98003,98004,98005,98006,98007,98008,98009,98010,98011,98012,98013,98014,98015,98019,98020,98021,98022,98023,98024,98025,98026,98027,98028,98029,98030,98031,98032,98033,98034,98035,98036,98037,98038,98039,98040,98041,98042,98043,98045,98046,98047,98050,98051,98052,98053,98054,98055,98056,98057,98058,98059,98061,98062,98063,98064,98065,98070,98071,98072,98073,98074,98075,98077,98082,98083,98087,98089,98092,98093,98101,98102,98103,98104,98105,98106,98107,98108,98109,98110,98111,98112,98113,98114,98115,98116,98117,98118,98119,98121,98122,98124,98125,98126,98127,98129,98131,98132,98133,98134,98136,98138,98139,98141,98144,98145,98146,98148,98151,98154,98155,98158,98160,98161,98164,98165,98166,98168,98170,98171,98174,98175,98177,98178,98181,98184,98185,98188,98189,98190,98191,98194,98195,98198,98199,98201,98203,98204,98205,98206,98207,98208,98213,98236,98249,98251,98252,98258,98260,98270,98271,98272,98275,98290,98291,98293,98294,98296,98303,98310,98311,98312,98314,98315,98321,98322,98323,98327,98328,98329,98332,98333,98335,98337,98338,98340,98342,98344,98345,98346,98349,98351,98352,98353,98354,98359,98360,98364,98366,98367,98370,98371,98372,98373,98374,98375,98378,98380,98383,98384,98385,98386,98387,98388,98390,98391,98392,98393,98394,98395,98396,98398,98401,98402,98403,98404,98405,98406,98407,98408,98409,98411,98412,98413,98415,98416,98417,98418,98419,98421,98422,98424,98430,98431,98433,98438,98439,98442,98443,98444,98445,98446,98447,98448,98450,98455,98460,98464,98465,98466,98467,98471,98477,98481,98490,98492,98493,98496,98497,98498,98499,98501,98502,98503,98504,98505,98506,98507,98508,98509,98511,98512,98513,98516,98524,98528,98540,98546,98558,98576,98580,98584,98589,98592,98597,98599';
+function inArea(z){return AREA.indexOf(z)>-1&&z.length===5?'yes':'no';} /* landing split (29.10): v3 | q, sent with every form event and with the lead */
 var Q=new URLSearchParams(location.search);
 var project='',cta='';
 function pick(v){[].forEach.call(d.querySelectorAll('.tile'),function(x){x.setAttribute('aria-pressed',x.dataset.v===v?'true':'false');});project=v;}
@@ -35,7 +38,7 @@ form.addEventListener('submit',function(e){
   var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
   var p={full_name:name,first_name:parts[0],last_name:parts.slice(1).join(' '),phone:'+1'+ph,zip:zip.value,project_type:project,
     sms_consent:'yes',sms_consent_text:ctext,consent_text:ctext,marketing_consent:'no',
-    lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,page_variant:VARIANT,cta:cta||'form',form_source:fsrc,
+    lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,page_variant:VARIANT,zip_in_area:inArea(zip.value),cta:cta||'form',form_source:fsrc,
     utm_source:Q.get('utm_source')||'',utm_medium:Q.get('utm_medium')||'',utm_campaign:Q.get('utm_campaign')||'',utm_content:Q.get('utm_content')||'',utm_term:Q.get('utm_term')||'',
     fbclid:Q.get('fbclid')||'',page_url:location.href.split('#')[0],event_id:id,submitted_at:new Date().toISOString()};
   var lab=$('fLabel'),btn=$('fSubmit'),label=lab.textContent;btn.disabled=true;lab.textContent='Sending…';
