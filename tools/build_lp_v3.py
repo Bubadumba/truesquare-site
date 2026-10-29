@@ -453,7 +453,8 @@ def v3_page(variant="v3"):
                         submit="Get My Written Price", who="",
                         tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
     # safe package 30.10 (#2): owner 29.10 07:18 — the real shower before/after looked weak; use a high-quality generated before/after instead,
-    # shown as a drag slider and labelled "Illustration" (never passed off as our project); real crew photos follow under their own heading
+    # shown as a drag slider; owner 29.10 15:42: no "Illustration" label on the image; the caption says "Example of a typical full remodel"
+    # so it is not passed off as a specific client project; real crew photos follow under their own heading
     def ph(full, img, alt, w, h):
         return f'<button class="ph" type="button" data-full="{full}"><img src="{img}" alt="{alt}" loading="lazy" width="{w}" height="{h}"></button>'
     work = f"""<section class="v2work v3work"><div class="wrap">
@@ -462,11 +463,10 @@ def v3_page(variant="v3"):
     <img class="v3cmp-a" src="/img/p/ill-after.jpg?v=2" alt="After: the same bathroom with a walk-in glass shower, vertical white tile, walnut floating vanity and a round black mirror" width="931" height="698" loading="lazy">
     <div class="v3cmp-b"><img src="/img/p/ill-before.jpg?v=2" alt="Before: a dated bathroom with an almond tub-shower combo, oak vanity and brass fixtures" width="931" height="698" loading="lazy"></div>
     <span class="v3tag v3tag-b" aria-hidden="true">Before</span><span class="v3tag v3tag-a" aria-hidden="true">After</span>
-    <span class="v3ill">Illustration</span>
     <span class="v3knob" aria-hidden="true"></span>
     <input type="range" min="0" max="100" value="40" aria-label="Drag to compare before and after" oninput="this.parentNode.style.setProperty('--pos',this.value+'%')">
   </figure>
-  <p class="v3cmpcap">Drag to compare. Illustration of a typical full remodel.</p>
+  <p class="v3cmpcap">Drag to compare. Example of a typical full remodel.</p>
   <h3 class="v3real">Bathrooms completed by our crew</h3>
   <div class="v3swipe">
     {ph("/img/lp-hero.jpg", "/img/lp-hero-sq.jpg", "Finished walk-in shower with glass door, vanity and toilet", 360, 360)}
