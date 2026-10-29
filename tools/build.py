@@ -411,8 +411,8 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
     "Seattle bathroom remodeler for full and partial bathroom remodeling, shower and tub replacement and tile work. Free visit, written itemized price. Call +1 206-222-2328.",
     phero(crumb, "Bathroom remodeler · Seattle, WA", 'Seattle Bathroom Remodeling <span class="grad-text">by a Local Bathroom Remodeler</span>',
           "Full and partial bathroom remodeling, shower and tub replacement, and tile work. Free visit. Written, itemized price within 5 hours after the visit.",
-          "/img/p/b19.jpg", "Remodeled bathroom with green subway tile, a niche and a new soaking tub"
-          ).replace('<a class="btn outline" href="tel:', '<a class="btn outline" style="display:inline-flex" data-cta="hero-call" href="tel:') +
+          "/img/p/b19-hero.jpg", "Remodeled bathroom with green subway tile, a niche and a new soaking tub"
+          ).replace('width="1200" height="900" fetchpriority="high"', 'width="700" height="560" fetchpriority="high"').replace('<a class="btn outline" href="tel:', '<a class="btn outline" style="display:inline-flex" data-cta="hero-call" href="tel:') +
     f"""
 <section><div class="wrap">
   <div class="prose">
