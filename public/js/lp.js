@@ -6,6 +6,7 @@ var d=document,$=function(id){return d.getElementById(id);};
 if(d.body.classList.contains('lp2')&&'IntersectionObserver' in window){var st=$('sticky'),seen=new Set();var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?seen.add(e.target):seen.delete(e.target);});if(st)st.classList.toggle('away',seen.size>0);});[].forEach.call(d.querySelectorAll('.final,footer'),function(el){io.observe(el);});}
 var form=$('lpForm'); if(!form) return;
 var ANGLE=d.body.getAttribute('data-angle')||'lp';
+var VARIANT=d.body.getAttribute('data-variant')||''; /* landing split (29.10): v3 | q, sent with every form event and with the lead */
 var Q=new URLSearchParams(location.search);
 var project='',cta='';
 function pick(v){[].forEach.call(d.querySelectorAll('.tile'),function(x){x.setAttribute('aria-pressed',x.dataset.v===v?'true':'false');});project=v;}
@@ -34,12 +35,12 @@ form.addEventListener('submit',function(e){
   var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
   var p={full_name:name,first_name:parts[0],last_name:parts.slice(1).join(' '),phone:'+1'+ph,zip:zip.value,project_type:project,
     sms_consent:'yes',sms_consent_text:ctext,consent_text:ctext,marketing_consent:'no',
-    lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,cta:cta||'form',form_source:fsrc,
+    lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,page_variant:VARIANT,cta:cta||'form',form_source:fsrc,
     utm_source:Q.get('utm_source')||'',utm_medium:Q.get('utm_medium')||'',utm_campaign:Q.get('utm_campaign')||'',utm_content:Q.get('utm_content')||'',utm_term:Q.get('utm_term')||'',
     fbclid:Q.get('fbclid')||'',page_url:location.href.split('#')[0],event_id:id,submitted_at:new Date().toISOString()};
   var lab=$('fLabel'),btn=$('fSubmit'),label=lab.textContent;btn.disabled=true;lab.textContent='Sending…';
   function reset(){sending=false;btn.disabled=false;lab.textContent=label;}
-  function done(){$('formBody').hidden=true;$('formDone').hidden=false;thanks(parts[0],ph);window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'generate_lead',project_type:project,page_angle:ANGLE,event_id:id,cta:fcta,form_source:fsrc});try{if(window.fbq)fbq('track','Lead',{content_name:project},{eventID:id});}catch(x){}try{if(window.clarity){clarity('set','form_source',fsrc);clarity('event','generate_lead');}}catch(e){}if(window.tsrCapi)tsrCapi({event_id:id,phone:ph,first:parts[0],last:parts.slice(1).join(' '),zip:zip.value,project:project,page_url:location.href.split('#')[0]});}
+  function done(){$('formBody').hidden=true;$('formDone').hidden=false;thanks(parts[0],ph);window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'generate_lead',project_type:project,page_angle:ANGLE,variant:VARIANT,event_id:id,cta:fcta,form_source:fsrc});try{if(window.fbq)fbq('track','Lead',{content_name:project},{eventID:id});}catch(x){}try{if(window.clarity){clarity('set','form_source',fsrc);clarity('event','generate_lead');}}catch(e){}if(window.tsrCapi)tsrCapi({event_id:id,phone:ph,first:parts[0],last:parts.slice(1).join(' '),zip:zip.value,project:project,page_url:location.href.split('#')[0]});}
   var url=window.WEBHOOK_URL||'';
   if(!url){ if(window.PREVIEW){done();return;} reset();err.innerHTML='Please call <a href="tel:+12062222328" style="color:inherit;font-weight:700">(206) 222-2328</a>.';err.hidden=false;return;}
   fetch(url,{method:'POST',mode:'no-cors',body:new URLSearchParams(p),keepalive:true}).then(done).catch(function(){reset();err.textContent="That didn't go through. Please call or text (206) 222-2328.";err.hidden=false;});
@@ -62,8 +63,8 @@ function thanks(first,ph){
    cta is also what BRM Stats keeps: inline events carry cta 'inline', sheet events carry the opener's data-cta. */
 var openCta='';
 function where(){return sheet&&!sheet.hidden?'modal':'inline';}
-function track(ev,o){window.dataLayer=window.dataLayer||[];var x={event:ev,page_angle:ANGLE};for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
-try{if(window.clarity)clarity('set','page_angle',ANGLE);}catch(e){}
+function track(ev,o){window.dataLayer=window.dataLayer||[];var x={event:ev,page_angle:ANGLE};if(VARIANT)x.variant=VARIANT;for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
+try{if(window.clarity){clarity('set','page_angle',ANGLE);if(VARIANT)clarity('set','ab_variant',VARIANT);}}catch(e){}
 var sheet=$('sheet');
 if(sheet){
   var sbody=$('sheetBody'),panel=$('sheetPanel'),slot=d.createComment('form-slot'),opener=null,y=0,started=false,phoneOk=false;

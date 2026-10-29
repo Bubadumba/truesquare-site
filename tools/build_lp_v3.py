@@ -18,7 +18,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "11"  # cache version for lp.js (11 = form_source tracking + Clarity + Conversions API, 28.10; 10 = two-step form)
+V = "12"  # cache version for lp.js (12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -53,7 +53,7 @@ def css_inline():
         out.append(c)
     return "".join(out)
 
-def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_label="Get My Price", footer_html=None):
+def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_label="Get My Price", footer_html=None, variant=""):
     CSS = css_inline()
     PRE = ""
     return f"""<!doctype html>
@@ -73,7 +73,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 <link rel="preload" href="/fonts/inter-400-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>{FONT_FACES}{CSS}</style>
 </head>
-<body class="{body_class}" data-page="lp-{angle}" data-angle="{angle}">
+<body class="{body_class}" data-page="lp-{angle}" data-angle="{angle}"{(' data-variant="' + variant + '"') if variant else ''}>
 {SVG_DEFS}
 
 <header class="top"><div class="wrap hbar">
@@ -421,7 +421,7 @@ def v2_page():
 
 # ===== love-v3: final 3-council summit (26.10). Preview only, not in ads. =====
 # 26.10 Serhii: no "subcontractor" caption under V3 photos ("they are members of our team")
-def v3_page():
+def v3_page(variant="v3"):
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
     # first screen v3c (28.10, two councils, owner OK 11:29): 4 text levels, price as its own line, 3 one-line promises
     top = RANGE.split("–")[-1]
@@ -533,14 +533,45 @@ def v3_page():
   <p class="v3first">Starts with a free visit.</p>
   <p class="or">or call <a href="tel:{PHONE_T}">{PHONE}</a></p>
 </div></section>"""
-    body = "\n".join([hero, band, form, work, written, owner, faq, final])
+    body_class = "lp lp2 lp3"
+    if variant == "q":
+        # Q (council R4-R5, 29.10): form-first page. The two-step form sits on the first screen (no pop-up, no ZIP gate),
+        # under the ad headline, the price and two promises; the rest of the page is the V3 proof below it.
+        import re as _re
+        qform = form_section(show_lic=False, lead="", submit="Get My Written Price", who="", tile_help="Tap a project to continue.",
+                             tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"],
+                             phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
+        qform = _re.search(r'<form .*?</form>', qform, _re.S).group(0)
+        hero = f"""<section class="hero on-ink v2hero v3hero q3hero" id="book">
+  <div class="wrap">
+    <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
+    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <div class="v3price">
+      <p class="v3plab">Seattle-area full bathroom remodels</p>
+      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
+      <p class="v3pnote">Price depends on scope; some projects may exceed {top}.</p>
+    </div>
+    <ul class="qprom">
+      <li>Free in-home visit with Serhii, the owner.</li>
+      <li>Itemized written price within 5 hours after your visit.</li>
+    </ul>
+    {qform}
+    <p class="qlic">WA Registered Contractor · <b>{LNI}</b> · 1-year written workmanship warranty</p>
+  </div>
+</section>"""
+        body = "\n".join([hero, work, written, owner, faq, final])
+        body_class = "lp lp2 lp3 lpq"
+    else:
+        body = "\n".join([hero, band, form, work, written, owner, faq, final])
     return shell("/bathroom-remodel-cost-v3", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
                  f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, written price within 5 hours.",
-                 "love-v3", body, body_class="lp lp2 lp3", sticky_label="Get My Price")
+                 "love-v3", body, body_class=body_class, sticky_label="Get My Price", variant=variant)
 
 # Only the V3 ad landing is built from this file (26.10 summit). Other landings: tools/build_lp.py.
 PAGES = {
-    "bathroom-remodel-cost-v3.html": v3_page(),
+    "bathroom-remodel-cost-v3.html": v3_page("v3"),
+    # landing split (owner 29.10): same ad URL, functions/bathroom-remodel-cost-v3.js serves V3 or Q (sticky per visitor)
+    "bathroom-remodel-cost-v3-q.html": v3_page("q"),
 }
 
 if __name__ == "__main__":
