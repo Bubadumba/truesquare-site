@@ -245,3 +245,17 @@
 .lp3 .v3hero .hcta .btn{font-size:18px}
 .lp3 .v3hero .v3under{margin-top:10px;font-size:14px;color:rgba(255,255,255,.62)}
 .lp3 .v3hero::before{opacity:.06;top:300px;bottom:auto}  /* anchored to the top: the web font changes the hero height a little, a bottom-anchored shape moved and caused CLS 0.21 */
+
+/* safe package 30.10 (council R8): before/after, 4 photos to swipe, CTA under the written scope */
+.lp3 .v3work .v3ba{margin:0}
+.lp3 .v3work .v3ba .ph{aspect-ratio:3/2;border-radius:12px}
+.lp3 .v3work .v3ba .ph::after{display:none}
+.lp3 .v3work .v3ba figcaption{padding:8px 2px 0;font-size:14px;line-height:20px;color:var(--muted)}
+.lp3 .v3work .v3swipe{display:flex;gap:8px;overflow-x:auto;margin:14px -20px 0;padding:0 20px 2px;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.lp3 .v3work .v3swipe::-webkit-scrollbar{display:none}
+.lp3 .v3work .v3swipe .ph{flex:0 0 150px;width:150px;height:150px;aspect-ratio:auto;border-radius:10px;scroll-snap-align:start}
+.lp3 .v3work .v3swipe .ph::after{display:none}
+.lp3 .v3work .v3swipenote{margin:8px 0 0;font-size:14px;line-height:20px;color:var(--muted)}
+.lp3 .v2written .v3mid{margin-top:20px;text-align:center}
+.lp3 .v2written .v3midunder{margin:10px 0 0;font-size:14px;line-height:20px;color:var(--muted)}
+@media (min-width:960px){.lp3 .v3work .v3swipe{margin:14px 0 0;padding:0}}
