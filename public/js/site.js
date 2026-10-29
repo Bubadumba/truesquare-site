@@ -4,6 +4,7 @@ var PREVIEW = false;          // true = shows preview-only blocks and fakes form
 var WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/H42lV2iiJ2m872quvLqA/webhook-trigger/0c2edfc6-f5c4-468b-8362-84c3d005ff83";         // GHL Inbound Webhook URL (from the "CRM + tech" chat)
 var META_PIXEL_ID = "843066468533246";
 var GTM_ID = "GTM-TNQM47NC";  // GA4 G-97XK2QM2FG loads inside GTM
+var CLARITY_ID = "z42dmgqbaj"; // Microsoft Clarity project "TrueSquare Remodel LLC" (heatmaps, session recordings; form text masked)
 
 (function(){
 var d=document, $=function(id){return d.getElementById(id);};
@@ -18,6 +19,9 @@ if(!PREVIEW){
 window.dataLayer=window.dataLayer||[];var tagJs=[];
 if(GTM_ID){window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});tagJs.push('https://www.googletagmanager.com/gtm.js?id='+GTM_ID);}
 if(META_PIXEL_ID){!function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];}(window);fbq('init',META_PIXEL_ID);fbq('track','PageView');tagJs.push('https://connect.facebook.net/en_US/fbevents.js');}
+if(CLARITY_ID){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};tagJs.push('https://www.clarity.ms/tag/'+CLARITY_ID);}
+/* Meta Conversions API: the same Lead goes server-side via /api/capi (Cloudflare Pages Function) with the Pixel's event_id, so Meta counts it once */
+window.tsrCapi=function(o){try{var c=d.cookie,g=function(n){var m=c.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):'';},q=new URLSearchParams(location.search).get('fbclid');o.fbp=g('_fbp');o.fbc=g('_fbc')||(q?'fb.1.'+Date.now()+'.'+q:'');fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(o),keepalive:true}).catch(function(){});}catch(x){}};
 function loadTags(){tagJs.forEach(function(u){var j=d.createElement('script');j.async=true;j.src=u;d.head.appendChild(j);});}
 if(d.readyState==='complete')loadTags();else window.addEventListener('load',loadTags);
 
@@ -110,23 +114,27 @@ form.addEventListener('submit',function(e){
   else if(!/^\d{5}$/.test(zip.value))msg='Please enter a 5-digit ZIP code.';
   if(msg){err.textContent=msg;err.hidden=false;if(sheet)track('form_error',{msg:msg});return;}
   err.hidden=true; sending=true;
+  var fsrc=where(),fcta=fsrc==='modal'?(openCta||'modal'):'inline';
   var parts=name.split(/\s+/),mkt=!!($('fMkt')&&$('fMkt').checked),ctext=$('consentText')?$('consentText').textContent.trim():'';
   var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
   var p={full_name:name,first_name:parts[0],last_name:parts.slice(1).join(' '),phone:'+1'+ph,zip:zip.value,project_type:project,
     sms_consent:'yes',sms_consent_text:ctext,consent_text:ctext,marketing_consent:mkt?'yes':'no',marketing_consent_text:mkt?$('mktText').textContent.trim():'',
-    lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,cta:cta||'form',
+    lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,cta:cta||'form',form_source:fsrc,
     utm_source:Q.get('utm_source')||'',utm_medium:Q.get('utm_medium')||'',utm_campaign:Q.get('utm_campaign')||'',utm_content:Q.get('utm_content')||'',utm_term:Q.get('utm_term')||'',
     fbclid:Q.get('fbclid')||'',page_url:location.href.split('#')[0],event_id:id,submitted_at:new Date().toISOString()};
   var lab=$('fLabel'),btn=$('fSubmit');btn.disabled=true;lab.textContent='Sending…';
   function reset(){sending=false;btn.disabled=false;lab.textContent='Request my free visit';}
-  function done(){$('doneTitle').textContent='Thanks, '+parts[0]+'. We received your request. Serhii will call to arrange a time.';$('formBody').hidden=true;$('formDone').hidden=false;sheetDone();window.dataLayer.push({event:'generate_lead',project_type:project,event_id:id});try{if(window.fbq)fbq('track','Lead',{content_name:project},{eventID:id});}catch(x){}}
+  function done(){$('doneTitle').textContent='Thanks, '+parts[0]+'. We received your request. Serhii will call to arrange a time.';$('formBody').hidden=true;$('formDone').hidden=false;sheetDone();window.dataLayer.push({event:'generate_lead',project_type:project,page_angle:ANGLE,event_id:id,cta:fcta,form_source:fsrc});try{if(window.clarity){clarity('set','form_source',fsrc);clarity('event','generate_lead');}}catch(x){}try{if(window.fbq)fbq('track','Lead',{content_name:project},{eventID:id});}catch(x){}if(window.tsrCapi)tsrCapi({event_id:id,phone:ph,first:parts[0],last:parts.slice(1).join(' '),zip:zip.value,project:project,page_url:location.href.split('#')[0]});}
   if(!WEBHOOK_URL){ if(PREVIEW){done();return;} reset();err.innerHTML='Online requests open shortly. Please call or text <a href="tel:+12062222328" style="color:inherit;font-weight:700">(206) 222-2328</a> and Serhii will set up your free visit.';err.hidden=false;return;}
   fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(p),keepalive:true}).then(done).catch(function(){reset();err.textContent="That didn't go through. Please call or text (206) 222-2328.";err.hidden=false;});
 });
 
 /* pop-up form (28.10): every free-visit button ("#book" or "/#book") opens this page's form in a sheet; it closes only with the X.
    Pages without a form link to /#book: the home page then opens the sheet on load. Same events as the V3 landing. */
-function track(ev,o){var x={event:ev,page_angle:ANGLE};for(var k in o)x[k]=o[k];window.dataLayer.push(x);}
+/* form_source (28.10): same as the V3 landing. modal = pop-up sheet (cta = the button that opened it), inline = form on the page (cta 'inline') */
+var openCta='';
+function where(){return sheet&&!sheet.hidden?'modal':'inline';}
+function track(ev,o){var x={event:ev,page_angle:ANGLE};for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
 var sheet=$('sheet');
 function sheetDone(){var t=$('sheetTitle');if(t&&sheet&&!sheet.hidden){t.innerHTML='Request <span class="grad-text">Received</span>';var w=d.querySelector('.sheet-who');if(w)w.hidden=true;}}
 if(sheet){
@@ -141,7 +149,8 @@ if(sheet){
     sheet.hidden=false;panel.scrollTop=0;
     requestAnimationFrame(function(){requestAnimationFrame(function(){sheet.classList.add('open');});});
     try{$('sheetTitle').focus({preventScroll:true});}catch(x){}
-    track('form_open',{cta:src||''});
+    openCta=src||'';
+    track('form_open',{cta:openCta||'modal'});
   };
   var closeSheet=function(){
     if(sheet.hidden)return;
@@ -151,7 +160,8 @@ if(sheet){
     var bs=d.body.style;bs.position='';bs.top='';bs.left='';bs.right='';bs.width='';
     var de=d.documentElement,sb=de.style.scrollBehavior;de.style.scrollBehavior='auto';window.scrollTo(0,y);de.style.scrollBehavior=sb;window.dispatchEvent(new Event('scroll'));
     try{if(opener)opener.focus({preventScroll:true});}catch(x){}
-    track('form_close',{stage:!$('formDone').hidden?'sent':phoneOk?'phone':started?'started':'empty'});
+    track('form_close',{form_source:'modal',cta:openCta||'modal',stage:!$('formDone').hidden?'sent':phoneOk?'phone':started?'started':'empty'});
+    openCta='';
   };
   [].forEach.call(d.querySelectorAll('a[href="#book"],a[href="/#book"]'),function(a){a.addEventListener('click',function(e){e.preventDefault();opener=a;openSheet(a.getAttribute('data-cta')||'link');});});
   $('sheetClose').addEventListener('click',closeSheet);
