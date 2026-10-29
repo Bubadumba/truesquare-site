@@ -233,7 +233,7 @@
 .lp3 .v3hero h1{font-size:38px;line-height:40px;letter-spacing:-.02em}
 .lp3 .v3hero .v3price{margin-top:16px}
 .lp3 .v3hero .v3plab{margin:0;font:600 14px/20px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.66)}
-.lp3 .v3hero .v3prow{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px;margin:2px 0 0}
+.lp3 .v3hero .v3prow{display:flex;flex-direction:column;align-items:flex-start;gap:0;margin:2px 0 0}  /* "+ WA sales tax" always on its own line: inline it fit with the web font but wrapped with the fallback font, and that jump was the CLS */
 .lp3 .v3hero .v3pnum{font:800 28px/34px var(--f-head);letter-spacing:-.01em}
 .lp3 .v3hero .v3prow span{font:600 15px/20px var(--f-body);color:#fff}
 .lp3 .v3hero .v3pnote{margin:4px 0 0;font-size:14px;line-height:18px;color:rgba(255,255,255,.62)}
@@ -244,4 +244,4 @@
 .lp3 .v3hero .hcta{margin-top:18px}
 .lp3 .v3hero .hcta .btn{font-size:18px}
 .lp3 .v3hero .v3under{margin-top:10px;font-size:14px;color:rgba(255,255,255,.62)}
-.lp3 .v3hero::before{opacity:.06}
+.lp3 .v3hero::before{opacity:.06;top:300px;bottom:auto}  /* anchored to the top: the web font changes the hero height a little, a bottom-anchored shape moved and caused CLS 0.21 */
