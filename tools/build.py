@@ -40,6 +40,7 @@ def esc(s):
 
 # ---------------------------------------------------------------- shared parts
 NAV_SERVICES = [
+    ("/seattle-bathroom-remodeling", "Bathroom Remodeling in Seattle", "Full and partial remodels, showers, tile"),
     ("/bathroom-remodeling", "Full Bathroom Remodeling", "Everything out, new tile, fixtures, vanity"),
     ("/tub-to-walk-in-shower", "Tub to Walk-In Shower", "Old tub out, tiled walk-in shower in"),
     ("/shower-remodeling", "Shower Remodeling", "Rebuild your existing shower"),
@@ -218,13 +219,16 @@ def sheet_html(body):
 """
 
 def page(path, title, desc, body, ld_extra=(), crumbs=None, page_id="home", robots="index,follow",
-         og_image="/img/serhii.jpg", full_biz=False, og_type="website", head_extra="", body_class=""):
+         og_image="/img/serhii.jpg", full_biz=False, og_type="website", head_extra="", body_class="", biz_extra=None):
     """Wrap a page body in the shared head/header/footer. og_type, head_extra and body_class are used by
     tools/build_blog.py; their defaults reproduce the main pages byte for byte."""
     url = SITE + path
     body_attr = f' class="{body_class}"' if body_class else ""
     extra = ("\n" + head_extra) if head_extra else ""
-    graph = [biz_node(full_biz),
+    bn = biz_node(full_biz)
+    if biz_extra:
+        bn.update(biz_extra)
+    graph = [bn,
              {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "TrueSquare Remodel", "publisher": {"@id": BIZ_ID}},
              {"@type": "WebPage", "@id": url + "#webpage", "url": url, "name": title, "description": desc,
               "isPartOf": {"@id": SITE + "/#website"}, "about": {"@id": BIZ_ID}}]
@@ -395,6 +399,116 @@ PAGES["index.html"] = page(
     "/", "Bathroom Remodeling in Seattle, WA | TrueSquare Remodel",
     "Seattle-area bathroom remodeling by TrueSquare Remodel. Owner Serhii measures your bathroom and provides a written price within 5 hours. Free on-site visit.",
     home_main.replace("<!--AREAS-->", areas_section()) + book(), full_biz=True)
+
+# ---------------------------------------------------------------- SEATTLE BATHROOM REMODELING (owner 29.10: service page for "Bathroom remodeler" / "Bathroom Remodeling" in Seattle)
+SEA_AREAS = ["Seattle", "Bellevue", "Redmond", "Bothell", "Issaquah", "Tukwila", "Federal Way", "Tacoma", "Sumner"]
+SEA_TEL = '<a class="tlink" href="tel:+12062222328">+1 206-222-2328</a>'
+def sea_img(src, alt):
+    return f'<figure class="phimg" style="margin:0"><img src="/img/p/{src}" alt="{esc(alt)}" loading="lazy" width="900" height="1200"></figure>'
+crumb = [("Home", "/"), ("Services", "/services"), ("Bathroom Remodeling in Seattle", "/seattle-bathroom-remodeling")]
+PAGES["seattle-bathroom-remodeling.html"] = page(
+    "/seattle-bathroom-remodeling", "Bathroom Remodeling in Seattle | TrueSquare Remodel LLC, Bathroom Remodeler",
+    "Seattle bathroom remodeler for full and partial bathroom remodeling, shower and tub replacement and tile work. Free visit, written itemized price. Call +1 206-222-2328.",
+    phero(crumb, "Bathroom remodeler · Seattle, WA", 'Seattle Bathroom Remodeling <span class="grad-text">by a Local Bathroom Remodeler</span>',
+          "Full and partial bathroom remodeling, shower and tub replacement, and tile work. Free visit. Written, itemized price within 5 hours after the visit.",
+          "/img/p/b19.jpg", "Remodeled bathroom with green subway tile, a niche and a new soaking tub") +
+    f"""
+<section><div class="wrap">
+  <div class="prose">
+    <h2>Your Local Bathroom Remodeler in Seattle</h2>
+    <p>TrueSquare Remodel LLC is a bathroom remodeler. We do full and partial bathroom remodeling in Seattle and the Greater Seattle Area.</p>
+    <p>We are a WA Registered Contractor, license <a class="tlink" href="{LNI_URL}" target="_blank" rel="noopener">{LNI}</a>. You can check it on the L&amp;I website.</p>
+    <p>Have a question about your bathroom? Call or text Serhii, the owner, at {SEA_TEL}.</p>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap two">
+  <div class="prose">
+    <h2>Bathroom Remodeling</h2>
+    <p>A full bathroom remodel starts with gutting the room to the studs. We replace old plumbing lines, repair or replace the subfloor, and take out the old tile and fixtures.</p>
+    <p>Then we rebuild. Many homeowners switch the tub for a walk-in shower. You also get a new vanity, new lighting, new tile and new fixtures. Plumbing and electrical work is done with permits where required.</p>
+    <p>Not every bathroom needs all of that. A partial bathroom remodeling project can be just the shower, just the floor or just the vanity. You decide what changes.</p>
+    <p>Most projects finish within two to three weeks. You get the start date in writing.</p>
+    <p><a class="tlink" href="/bathroom-remodeling">More about full bathroom remodels →</a></p>
+  </div>
+  {sea_img("b20.jpg", "Corner walk-in shower with frameless glass, a niche and dark floor tile")}
+</div></section>
+
+<section><div class="wrap two">
+  <div class="prose">
+    <h2>Shower and Tub Replacement</h2>
+    <p>Old fiberglass tubs and shower units are cut out and hauled away.</p>
+    <p>In their place goes a new shower pan, a new surround or a soaking tub, over a fresh waterproofing membrane. We install a new valve and seal the grout lines.</p>
+    <p>We also do <a class="tlink" href="/tub-to-walk-in-shower">tub to walk-in shower conversions</a> and <a class="tlink" href="/shower-remodeling">shower remodels</a>.</p>
+  </div>
+  {sea_img("b22.jpg", "New tub with a marble-look tile surround and chrome fixtures")}
+</div></section>
+
+<section class="alt"><div class="wrap two">
+  <div class="prose">
+    <h2>Install Tile Work and Replace Tile Work</h2>
+    <p>We install tile in showers, on floors and on backsplashes. Every layout is planned first, and wet areas get a waterproof backing before any tile goes on.</p>
+    <p>Cracked or loose tile? We remove it without damaging the substrate underneath and replace it with water-tight material.</p>
+    <p><a class="tlink" href="/tile-flooring">More about tile installation →</a></p>
+  </div>
+  {sea_img("b03.jpg", "Lit shower niche set into marble-look wall tile")}
+</div></section>
+
+<section><div class="wrap">
+  <div class="prose">
+    <h2>Water-Damaged Bathroom Remodel</h2>
+    <p>A leak under the tub. A stain on the ceiling below the bathroom. If you see signs like these, we open the wall or floor, photograph what we find and show you.</p>
+    <p>Then you get a written price to rebuild.</p>
+    <p>We do the remodel, not water extraction. If the area is still wet, call a water mitigation company first, then call us for the rebuild.</p>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap two">
+  <div class="prose">
+    <h2>More Bathroom Work</h2>
+    <p>Along with a remodel, or on its own:</p>
+    {incl([
+        ("Bathroom flooring", "Vinyl, ceramic or porcelain."),
+        ("Exhaust fan upgrades", "A new fan to move moisture out of the room."),
+        ("Water-resistant drywall", "For bathroom walls outside the shower."),
+        ("Moisture-resistant interior paint", "Paint made for bathrooms."),
+    ])}
+  </div>
+  {sea_img("b11.jpg", "Vanity with a quartz top, matte black faucet and a lit mirror")}
+</div></section>
+
+<section><div class="wrap">
+  <div class="prose">
+    <h2>How It Works</h2>
+    <p>Serhii, the owner, comes to your home for a free visit. He measures and listens. There is no pressure to decide at the visit.</p>
+    <p>Within 5 hours after the visit, you get a written, itemized price.</p>
+    <p>Your price changes only if you choose an upgrade, or if we find hidden damage. Hidden damage is photographed and priced in writing first. Nothing extra happens without your written OK.</p>
+    <p>Serhii is your one point of contact. He answers your calls and texts from the first visit to the final walk-through.</p>
+  </div>
+</div></section>
+
+<section class="alt" id="service-areas"><div class="wrap">
+  <div class="prose">
+    <h2>Areas We Serve</h2>
+    <p>We remodel bathrooms in Seattle, Bellevue, Redmond, Bothell, Issaquah, Tukwila, Federal Way, Tacoma, Sumner and the Seattle Metropolitan Area.</p>
+    <ul class="cities">{"".join(f"<li>{c}</li>" for c in SEA_AREAS)}<li>Seattle Metropolitan Area</li></ul>
+    <p>Not sure we cover your address? Call or text {SEA_TEL}.</p>
+  </div>
+</div></section>
+
+<section class="on-ink" id="call"><div class="wrap" style="text-align:center">
+  <h2>Planning a Bathroom Remodel <span class="grad-text">in Seattle?</span></h2>
+  <p class="lead" style="margin:12px auto 0;max-width:36ch">Call or text Serhii to set up a free visit.</p>
+  <div class="hcta" style="justify-content:center;margin-top:20px">
+    <a class="btn" href="tel:{PHONE_T}" data-cta="call-band">Call {PHONE} <span class="arr">→</span></a>
+    <a class="btn outline" href="#book" data-cta="band">Request a free visit</a>
+  </div>
+</div></section>
+""" + book(),
+    ld_extra=[{**svc_ld("Bathroom Remodeling", "/seattle-bathroom-remodeling", "Full and partial bathroom remodeling in Seattle: shower and tub replacement, tub to walk-in shower conversions, tile installation and replacement, water-damaged bathroom remodels.", "Bathroom remodeling"),
+               "areaServed": [{"@type": "City", "name": c + ", WA"} for c in SEA_AREAS]}],
+    biz_extra={"areaServed": {"@type": "City", "name": "Seattle", "containedInPlace": {"@type": "State", "name": "Washington"}}},
+    crumbs=crumb, page_id="seattle-bathroom-remodeling", og_image="/img/p/b19.jpg")
 
 # ---------------------------------------------------------------- FULL BATHROOM
 faq_bath = [
@@ -838,7 +952,7 @@ PAGES["404.html"] = page(
 # Main-page URLs for the sitemap, in order. The sitemap itself is written by tools/build_blog.py
 # (run `python3 tools/build_all.py` to build everything). Dates come from tools/lastmod.json, which
 # main() below updates only when a page's generated HTML actually changes, so <lastmod> stays honest.
-SITEMAP_URLS = ["/", "/bathroom-remodeling", "/tub-to-walk-in-shower", "/shower-remodeling", "/services",
+SITEMAP_URLS = ["/", "/seattle-bathroom-remodeling", "/bathroom-remodeling", "/tub-to-walk-in-shower", "/shower-remodeling", "/services",
                 "/kitchen-renovations", "/tile-flooring", "/portfolio", "/about", "/privacy", "/terms"]
 LASTMOD_FILE = os.path.join(ROOT, "tools", "lastmod.json")
 
