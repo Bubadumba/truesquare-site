@@ -18,7 +18,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "12"  # cache version for lp.js (12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
+V = "13"  # cache version for lp.js (12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -111,7 +111,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=9';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=10';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>

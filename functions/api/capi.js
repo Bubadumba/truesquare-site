@@ -1,6 +1,8 @@
 // Cloudflare Pages Function: POST /api/capi
-// Sends the website "Lead" to the Meta Conversions API with the same event_id as the browser Pixel,
-// so Meta counts it once (deduplication) and matches it better (hashed phone/name/ZIP + IP + browser + fbp/fbc).
+// Sends website events to the Meta Conversions API with the same event_id as the browser Pixel,
+// so Meta counts each one once (deduplication):
+//   Lead             = the request was sent (hashed phone/name/ZIP + IP + browser + fbp/fbc)
+//   InitiateCheckout = first touch of a form (29.10), no personal data yet (IP + browser + fbp/fbc only)
 // Needs the encrypted secret META_CAPI_TOKEN (Cloudflare > Workers & Pages > truesquareremodel > Settings > Variables and Secrets).
 // Without the token it does nothing. Optional plain variable META_TEST_CODE sends events to Events Manager > Test events.
 // Never logs personal data. Never put the token in this repository (it is public).
@@ -25,32 +27,39 @@ export async function onRequestPost({ request, env }) {
   try { b = await request.json(); } catch { return new Response(null, { status: 400 }); }
   const url = String(b.page_url || "");
   const id = String(b.event_id || "");
+  const ic = b.event_name === "InitiateCheckout";
   const ph = String(b.phone || "").replace(/\D/g, "");
-  if (!SITE.test(url) || !/^tsr-\d{10,14}-[a-z0-9]{3,10}$/.test(id) || ph.length !== 10) {
+  if (!SITE.test(url) || !/^tsr-\d{10,14}-[a-z0-9]{3,10}$/.test(id) || (!ic && ph.length !== 10)) {
     return new Response(null, { status: 400 });
   }
 
   const user_data = {
-    ph: [await sha256("1" + ph)],
     country: [await sha256("us")],
     client_ip_address: request.headers.get("CF-Connecting-IP") || undefined,
     client_user_agent: request.headers.get("User-Agent") || undefined,
   };
-  if (clean(b.first)) user_data.fn = [await sha256(clean(b.first))];
-  if (clean(b.last)) user_data.ln = [await sha256(clean(b.last))];
-  if (/^\d{5}$/.test(String(b.zip || ""))) user_data.zp = [await sha256(String(b.zip))];
+  if (!ic) {
+    user_data.ph = [await sha256("1" + ph)];
+    if (clean(b.first)) user_data.fn = [await sha256(clean(b.first))];
+    if (clean(b.last)) user_data.ln = [await sha256(clean(b.last))];
+    if (/^\d{5}$/.test(String(b.zip || ""))) user_data.zp = [await sha256(String(b.zip))];
+  }
   if (/^fb\.\d\.\d+\./.test(String(b.fbp || ""))) user_data.fbp = String(b.fbp).slice(0, 200);
   if (/^fb\.\d\.\d+\./.test(String(b.fbc || ""))) user_data.fbc = String(b.fbc).slice(0, 500);
 
+  const custom_data = ic
+    ? { content_name: String(b.page_angle || "").slice(0, 80), content_category: /^(modal|inline)$/.test(String(b.form_source || "")) ? String(b.form_source) : "" }
+    : { content_name: String(b.project || "").slice(0, 80) };
+
   const body = {
     data: [{
-      event_name: "Lead",
+      event_name: ic ? "InitiateCheckout" : "Lead",
       event_time: Math.floor(Date.now() / 1000),
       event_id: id,
       action_source: "website",
       event_source_url: url.slice(0, 1000),
       user_data,
-      custom_data: { content_name: String(b.project || "").slice(0, 80) },
+      custom_data,
     }],
   };
   if (env.META_TEST_CODE) body.test_event_code = String(env.META_TEST_CODE);
