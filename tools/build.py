@@ -21,7 +21,7 @@ THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare
 CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
           "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
 BIZ_ID = SITE + "/#business"
-ASSET_V = "9"
+ASSET_V = "10"
 def _site_css():
     # speed pass 26.10: site.css is inlined into every page (no render-blocking request), same rules
     import re as _re

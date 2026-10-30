@@ -66,7 +66,7 @@ function thanks(first,ph){
    cta is also what BRM Stats keeps: inline events carry cta 'inline', sheet events carry the opener's data-cta. */
 var openCta='';
 function where(){return sheet&&!sheet.hidden?'modal':'inline';}
-function track(ev,o){window.dataLayer=window.dataLayer||[];var x={event:ev,page_angle:ANGLE};if(VARIANT)x.variant=VARIANT;for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
+function track(ev,o){window.dataLayer=window.dataLayer||[];var x={event:ev,page_angle:ANGLE};if(VARIANT)x.variant=VARIANT;for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);if(ev==='form_start'&&window.tsrIC)tsrIC(x.page_angle,x.form_source);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
 try{if(window.clarity){clarity('set','page_angle',ANGLE);if(VARIANT)clarity('set','ab_variant',VARIANT);}}catch(e){}
 var sheet=$('sheet');
 if(sheet){
