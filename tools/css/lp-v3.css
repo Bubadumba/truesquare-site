@@ -290,3 +290,5 @@
 .lpq .q3hero .qprom li::before{content:"";position:absolute;left:2px;top:6px;width:8px;height:8px;background:var(--grad);transform:rotate(45deg)}
 .lpq .q3hero .form{margin-top:14px}
 .lpq .q3hero .qlic{margin:12px 0 0;font-size:13px;line-height:18px;color:rgba(255,255,255,.72)}
+/* 29.10: city line above the H1; the split function fills in the visitor's city (Cloudflare IP city, only cities on the owner's map) */
+.lp3 .v3geo{margin:12px 0 -2px;font:700 13px/18px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#F8A08F}

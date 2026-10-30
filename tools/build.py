@@ -18,8 +18,21 @@ LNI = "TRUESRL759QK"
 LNI_URL = "https://secure.lni.wa.gov/verify/Detail.aspx?UBI=606001506&amp;LIC=TRUESRL759QK&amp;SAW="
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island",
-          "Renton", "Bothell", "Woodinville", "Newcastle", "Shoreline"]
+# service area = the owner's map (29.10): Marysville/Everett to Olympia/Tumwater, west to Bremerton/Shelton, east to the Cascade foothills
+CITY_GROUPS = [
+    ("King County", ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island", "Shoreline",
+                     "Bothell", "Woodinville", "Renton", "Kent", "Auburn", "Federal Way", "Burien", "Tukwila"]),
+    ("Snohomish County", ["Everett", "Lynnwood", "Edmonds", "Mill Creek", "Mukilteo", "Marysville", "Lake Stevens", "Snohomish"]),
+    ("Pierce County", ["Tacoma", "Lakewood", "University Place", "Puyallup", "Sumner", "Gig Harbor"]),
+    ("Thurston County", ["Olympia", "Lacey", "Tumwater"]),
+    ("Kitsap and Mason", ["Bremerton", "Port Orchard", "Shelton"]),
+]
+CITIES = [c for _, cs in CITY_GROUPS for c in cs]
+
+def cities_grouped():
+    return '<div class="cgroups">' + "".join(
+        f'<div class="cgroup"><p class="cglab">{g}</p><ul class="cities">' + "".join(f"<li>{c}</li>" for c in cs) + "</ul></div>"
+        for g, cs in CITY_GROUPS) + "</div>"
 BIZ_ID = SITE + "/#business"
 ASSET_V = "9"
 def _site_css():
@@ -116,7 +129,7 @@ def footer():
       <a href="{LNI_URL}" target="_blank" rel="noopener">Verify registration →</a>
     </div>
   </div>
-  <p class="areas" id="areas"><b>Service areas:</b> {", ".join(CITIES[:-1])} and {CITIES[-1]}.</p>
+  <p class="areas" id="areas"><b>Service areas:</b> Seattle, Bellevue, Everett, Tacoma, Olympia and nearby cities in King, Snohomish, Pierce and Thurston counties, plus Bremerton and Shelton.</p>
   <div class="legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><span>© {datetime.date.today().year} TrueSquare Remodel LLC</span></div>
 </div></footer>
 
@@ -338,7 +351,7 @@ def price_block(h2='Your price, in writing. <span class="uline">Within 5 hours.<
     return PRICE_BLOCK.format(h2=h2, lead=lead)
 
 def steps(last="Within 5 hours after the visit, you receive your price in writing. No obligation.",
-          note="Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."):
+          note="Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."):
     n = f'<p class="after-steps"><i></i>{note}</p>' if note else ""
     return f"""<section class="alt" id="process"><div class="wrap">
   <div class="head"><p class="kicker">What happens next</p><h2>Three steps. No guessing.</h2></div>
@@ -371,18 +384,19 @@ def svc_ld(name, path, desc, stype):
             "url": SITE + path, "provider": {"@id": BIZ_ID},
             "areaServed": [{"@type": "City", "name": c + ", WA"} for c in CITIES]}
 
-SERVICE_POLY = [[47.777,-122.382],[47.777,-122.29],[47.79,-122.21],[47.785,-122.10],[47.72,-122.02],[47.63,-121.98],
-                [47.55,-121.98],[47.50,-122.02],[47.46,-122.10],[47.43,-122.18],[47.46,-122.25],[47.495,-122.30],
-                [47.50,-122.40],[47.58,-122.42],[47.66,-122.43],[47.72,-122.39]]
+SERVICE_POLY = [[48.130,-122.493],[48.126,-122.025],[48.056,-121.790],[47.939,-121.681],[47.823,-121.622],[47.707,-121.634],
+                [47.544,-121.681],[47.358,-121.732],[47.172,-121.763],[46.986,-121.829],[46.893,-121.986],[46.842,-122.259],
+                [46.835,-122.650],[46.858,-122.884],[46.916,-123.040],[47.032,-123.118],[47.149,-123.138],[47.312,-123.099],
+                [47.498,-122.962],[47.660,-122.806],[47.823,-122.689],[47.986,-122.611]]  # traced from the owner's map 29.10
 
 def areas_section(alt=False, sid="service-areas"):
-    chips = '<ul class="cities">' + "".join(f"<li>{c}</li>" for c in CITIES) + "</ul>"
+    chips = cities_grouped()
     poly = json.dumps(SERVICE_POLY)
     return f"""<section class="{'alt' if alt else ''}" id="{sid}"><div class="wrap areas-grid">
   <div class="areas-text">
     <p class="kicker">Service area</p>
-    <h2>Serving Seattle <span class="grad-text">and the Eastside.</span></h2>
-    <p class="lead">We remodel bathrooms in Seattle and nearby cities, from Shoreline and Bothell down to Renton, and east to Redmond, Sammamish and Issaquah.</p>
+    <h2>Serving Seattle <span class="grad-text">and Puget Sound.</span></h2>
+    <p class="lead">We remodel bathrooms from Marysville and Everett down to Tacoma and Olympia, west to Bremerton and Shelton, and east to the Cascade foothills.</p>
     {chips}
   </div>
   <figure class="areamap" style="margin:0">
@@ -396,12 +410,12 @@ PAGES = {}
 # ---------------------------------------------------------------- HOME
 home_main = read("home.main.html")
 PAGES["index.html"] = page(
-    "/", "Bathroom Remodeling in Seattle, WA | TrueSquare Remodel",
+    "/", "Bathroom Remodeling in Seattle, Tacoma & Everett | TrueSquare Remodel",
     "Seattle-area bathroom remodeling by TrueSquare Remodel. Owner Serhii measures your bathroom and provides a written price within 5 hours. Free on-site visit.",
     home_main.replace("<!--AREAS-->", areas_section()) + book(), full_biz=True)
 
 # ---------------------------------------------------------------- SEATTLE BATHROOM REMODELING (owner 29.10: service page for "Bathroom remodeler" / "Bathroom Remodeling" in Seattle)
-SEA_AREAS = ["Seattle", "Bellevue", "Redmond", "Bothell", "Issaquah", "Tukwila", "Federal Way", "Tacoma", "Sumner"]
+SEA_AREAS = CITIES  # one city list for the whole site (owner 29.10)
 SEA_TEL = '<a class="tlink nw" href="tel:+12062222328">+1 206-222-2328</a>'
 def sea_img(src, alt):
     return f'<figure class="phimg" style="margin:0"><img src="/img/p/{src}" alt="{esc(alt)}" loading="lazy" width="900" height="1200"></figure>'
@@ -429,7 +443,7 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
     <p>A full bathroom remodel starts with gutting the room to the studs. We replace old plumbing lines, repair or replace the subfloor, and take out the old tile and fixtures.</p>
     <p>Then we rebuild. Many homeowners switch the tub for a walk-in shower. You also get a new vanity, new lighting, new tile and new fixtures. Plumbing and electrical work is done with permits where required.</p>
     <p>Not every bathroom needs all of that. A partial bathroom remodeling project can be just the shower, just the floor or just the vanity. You decide what changes.</p>
-    <p>Most projects finish within two to three weeks. You get the start date in writing.</p>
+    <p>Most projects take one to three weeks of construction. You get the start date in writing.</p>
     <p><a class="tlink" href="/bathroom-remodeling">More about full bathroom remodels →</a></p>
   </div>
   {sea_img("b20.jpg", "Corner walk-in shower with frameless glass, a niche and dark floor tile")}
@@ -491,8 +505,8 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
 <section class="alt" id="service-areas"><div class="wrap">
   <div class="prose">
     <h2>Areas We Serve</h2>
-    <p>We remodel bathrooms in Seattle, Bellevue, Redmond, Bothell, Issaquah, Tukwila, Federal Way, Tacoma, Sumner and the Seattle Metropolitan Area.</p>
-    <ul class="cities">{"".join(f"<li>{c}</li>" for c in SEA_AREAS)}<li>Seattle Metropolitan Area</li></ul>
+    <p>We remodel bathrooms in Seattle and across Puget Sound, from Everett to Olympia and from Bremerton to the Cascade foothills.</p>
+    {cities_grouped()}
     <p>Not sure we cover your address? Call or text {SEA_TEL}.</p>
   </div>
 </div></section>
@@ -513,7 +527,7 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
 
 # ---------------------------------------------------------------- FULL BATHROOM
 faq_bath = [
-    ("How long does a full bathroom remodel take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+    ("How long does a full bathroom remodel take?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Can I keep my layout?", "Yes. You decide. Keeping the toilet, tub or shower where they are is usually the simpler option. Moving plumbing is possible and is done with a permit."),
     ("What if you find damage behind the old tile?", "We stop, send you photos and a written price for the fix. Nothing moves forward without your OK. The rest of your price stays the same."),
     ("Do you pull permits?", "Yes. When your remodel includes plumbing or electrical work, we do it with a permit and handle the paperwork."),
@@ -522,7 +536,7 @@ faq_bath = [
 crumb = [("Home", "/"), ("Services", "/services"), ("Full Bathroom Remodeling", "/bathroom-remodeling")]
 PAGES["bathroom-remodeling.html"] = page(
     "/bathroom-remodeling", "Full Bathroom Remodel in Seattle, WA | TrueSquare Remodel",
-    "Full bathroom remodeling in Seattle and the Eastside. New tile, tub or shower, vanity and fixtures. The owner measures and you get a written price within 5 hours.",
+    "Full bathroom remodeling in Seattle, Tacoma, Everett and Olympia. New tile, tub or shower, vanity and fixtures. The owner measures and you get a written price within 5 hours.",
     phero(crumb, "Full bathroom remodeling", 'Full bathroom remodeling <span class="grad-text">in Seattle.</span>',
           "Everything out. New tile, fixtures and vanity. Serhii, the owner, measures your bathroom himself. You get your price in writing within 5 hours after the visit.",
           "/img/p/b13.jpg", "Remodeled bathroom with a dark wood vanity, quartz top and lit mirror") +
@@ -567,7 +581,7 @@ PAGES["bathroom-remodeling.html"] = page(
 
 # ---------------------------------------------------------------- TUB TO SHOWER
 faq_tub = [
-    ("How long does a tub to shower conversion take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+    ("How long does a tub to shower conversion take?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Can you keep the rest of my bathroom as it is?", "Yes. We can change only the tub area, or remodel the whole bathroom. You decide, and the written scope shows exactly what is included."),
     ("What about the plumbing?", "The drain and shower valve usually need to change for a walk-in shower. Plumbing work is done with a permit."),
     ("What if there is damage under the old tub?", "We stop, send you photos and a written price for the fix. Nothing moves forward without your OK."),
@@ -622,7 +636,7 @@ PAGES["tub-to-walk-in-shower.html"] = page(
 # ---------------------------------------------------------------- SHOWER
 faq_shower = [
     ("Can you remodel just the shower?", "Yes. We can rebuild only the shower, or the whole bathroom. Your written scope shows exactly what is included."),
-    ("How long does a shower remodel take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+    ("How long does a shower remodel take?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("My shower leaks behind the tile. Can you fix that?", "We open it up, show you what we find with photos, and give you a written price for the fix before we continue."),
     ("Do you replace the shower valve?", "Yes, when your project needs it. Plumbing work is done with a permit."),
 ]
@@ -787,7 +801,7 @@ crumb = [("Home", "/"), ("Services", "/services")]
 cards_all = [CARD[k] for k in ["/bathroom-remodeling", "/tub-to-walk-in-shower", "/shower-remodeling", "/kitchen-renovations", "/tile-flooring"]]
 PAGES["services.html"] = page(
     "/services", "Remodeling Services in Seattle | TrueSquare Remodel",
-    "Bathroom remodeling, tub to walk-in shower conversions, shower remodels, kitchen remodeling and tile installation in Seattle and the Eastside.",
+    "Bathroom remodeling, tub to walk-in shower conversions, shower remodels, kitchen remodeling and tile installation from Everett to Olympia.",
     phero(crumb, "Services", 'What we <span class="grad-text">remodel.</span>',
           "Mostly bathrooms. Also kitchens and tile work. Every project starts the same way: Serhii measures and you get your price in writing.",
           "/img/p/b10.jpg", "Remodeled bathroom with a double vanity and glass shower") +
@@ -857,7 +871,7 @@ PAGES["portfolio.html"] = page(
 
 # ---------------------------------------------------------------- ABOUT
 crumb = [("Home", "/"), ("About", "/about")]
-cities_html = '<ul class="cities">' + "".join(f"<li>{c}</li>" for c in CITIES) + "</ul>"
+cities_html = cities_grouped()
 PAGES["about.html"] = page(
     "/about", "About TrueSquare Remodel | Owner-Led Remodeling in Seattle",
     "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. WA Registered Contractor TRUESRL759QK.",
@@ -879,7 +893,7 @@ PAGES["about.html"] = page(
     <div class="fact"><b>1-year</b><span>workmanship warranty + manufacturer warranties</span></div>
     <div class="fact"><b>Permits</b><span>for plumbing and electrical work</span></div>
     <div class="fact"><b>Written price</b><span>within 5 hours after a bathroom visit</span></div>
-    <div class="fact"><b>Typically 2–4 weeks</b><span>of construction, depending on scope</span></div>
+    <div class="fact"><b>Typically 1–3 weeks</b><span>of construction, depending on scope</span></div>
     <div class="fact"><b>Daily photos</b><span>of the progress, if you want them</span></div>
     <div class="fact"><b>Deposit at signing</b><span>final payment after the walk-through</span></div>
   </div>

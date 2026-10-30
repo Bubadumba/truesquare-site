@@ -297,13 +297,13 @@ STEPS = """<section class="alt" id="process"><div class="wrap">
     <div class="step"><span class="n">2</span><div><h3>Free visit</h3><p>Serhii measures the room and talks through what you want.</p></div></div>
     <div class="step"><span class="n">3</span><div><h3>Your price in writing</h3><p>Within 5 hours after the visit. Take your time to decide.</p></div></div>
   </div>
-  <p class="after-steps"><i></i>Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing.</p>
+  <p class="after-steps"><i></i>Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing.</p>
 </div></section>"""
 
 FAQ_ITEMS = [
     ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}. Smaller bathrooms fall at the lower end. Larger or more complex projects may exceed this range. Price depends on scope. Plus WA sales tax. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
     ("What if you find damage behind the wall?", "We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
-    ("How long does it take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+    ("How long does it take?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Is there a warranty?", "Yes. 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
     ("Who will I deal with?", "Serhii is your phone/text contact from the first visit to the final walkthrough. Our subcontractor crew does the work. Any extra work needs your written OK first."),
     ("How do payments work?", "You pay a deposit when you sign the contract, the next payment after the rough-in inspection passes, and the final payment after our walkthrough together. The visit and the written price are free."),
@@ -401,7 +401,7 @@ def v2_page():
         ("What happens if you find hidden damage?", "We'll explain the issue and give you a price for extra work in writing. Nothing extra starts without your written OK."),
         ("Who does the remodeling work?", "Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
         ("How do payments work?", "You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
-        ("How long does construction take, and what is the warranty?", "Construction typically takes 2–4 weeks, depending on scope. There's a 1-year written workmanship warranty."),
+        ("How long does construction take, and what is the warranty?", "Construction typically takes 1–3 weeks, depending on scope. There's a 1-year written workmanship warranty."),
     ]
     faq = """<section id="faq" class="v2faq"><div class="wrap">
   <div class="head"><p class="kicker">Your price</p><h2>What Changes Your Bathroom Remodel Price?</h2><p class="lead">Layout changes, materials and finishes, and hidden damage can affect the final price. Larger or more complex projects may exceed the listed range.</p></div>
@@ -428,9 +428,10 @@ def v3_page(variant="v3"):
     hero = f"""<section class="hero on-ink v2hero v3hero">
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
+    <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
     <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price">
-      <p class="v3plab">Seattle-area full bathroom remodels</p>
+      <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
       <p class="v3pnote">Price depends on scope; some projects may exceed {top}.</p>
     </div>
@@ -518,7 +519,7 @@ def v3_page(variant="v3"):
         ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
         ("Are you the one swinging the hammer?", "No. Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
         ("Do I pay everything up front?", "No. You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
-        ("How long will I be without a bathroom?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+        ("How long will I be without a bathroom?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
         ("What if something fails after you leave?", "You get a 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
     ]
     faq = """<section id="faq" class="v2faq"><div class="wrap">
@@ -546,9 +547,10 @@ def v3_page(variant="v3"):
         hero = f"""<section class="hero on-ink v2hero v3hero q3hero" id="book">
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
+    <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
     <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price">
-      <p class="v3plab">Seattle-area full bathroom remodels</p>
+      <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
       <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
     </div>
