@@ -29,12 +29,19 @@ CITY_GROUPS = [
 ]
 CITIES = [c for _, cs in CITY_GROUPS for c in cs]
 
+# board of directors 29.10 (ChatGPT, 3 rounds, B2 won 7–2, the owner's idea): 8 main cities in view, then one closed row per county
+MAIN_CITIES = ["Seattle", "Bellevue", "Tacoma", "Everett", "Redmond", "Olympia", "Puyallup", "Bremerton"]
+COUNTY_LABEL = {"Kitsap and Mason": "Kitsap and Mason Counties"}
+
 def cities_grouped():
-    return '<div class="cgroups">' + "".join(
-        f'<div class="cgroup"><p class="cglab">{g}</p><ul class="cities">' + "".join(f"<li>{c}</li>" for c in cs) + "</ul></div>"
-        for g, cs in CITY_GROUPS) + "</div>"
+    chips = '<ul class="cities">' + "".join(f"<li>{c}</li>" for c in MAIN_CITIES) + "</ul>"
+    rows = "".join(
+        f'<details class="county" data-county="{COUNTY_LABEL.get(g, g)}"><summary>{COUNTY_LABEL.get(g, g)} <span>({len(cs)})</span></summary>'
+        f'<ul class="cities">' + "".join(f"<li>{c}</li>" for c in cs) + "</ul></details>"
+        for g, cs in CITY_GROUPS)
+    return chips + f'<div class="counties">{rows}</div>'
 BIZ_ID = SITE + "/#business"
-ASSET_V = "9"
+ASSET_V = "11"
 def _site_css():
     # speed pass 26.10: site.css is inlined into every page (no render-blocking request), same rules
     import re as _re
@@ -390,19 +397,20 @@ SERVICE_POLY = [[48.130,-122.493],[48.126,-122.025],[48.056,-121.790],[47.939,-1
                 [47.498,-122.962],[47.660,-122.806],[47.823,-122.689],[47.986,-122.611]]  # traced from the owner's map 29.10
 
 def areas_section(alt=False, sid="service-areas"):
-    chips = cities_grouped()
     poly = json.dumps(SERVICE_POLY)
     return f"""<section class="{'alt' if alt else ''}" id="{sid}"><div class="wrap areas-grid">
-  <div class="areas-text">
+  <div class="areas-head">
     <p class="kicker">Service area</p>
     <h2>Serving Seattle <span class="grad-text">and Puget Sound.</span></h2>
-    <p class="lead">We remodel bathrooms from Marysville and Everett down to Tacoma and Olympia, west to Bremerton and Shelton, and east to the Cascade foothills.</p>
-    {chips}
+    <p class="lead">We remodel bathrooms across Seattle, Tacoma, Everett, Olympia and nearby communities.</p>
   </div>
   <figure class="areamap" style="margin:0">
-    <div id="areaMap" data-poly='{poly}' role="img" aria-label="Map of the TrueSquare Remodel service area around Seattle"></div>
-    <figcaption>Map shows an approximate service area. Call or text <a href="tel:{PHONE_T}">{PHONE}</a> to confirm your address.</figcaption>
+    <div id="areaMap" data-poly='{poly}' role="img" aria-label="Map of the TrueSquare Remodel service area from Everett to Olympia"></div>
   </figure>
+  <div class="areas-list">
+    {cities_grouped()}
+    <p class="areas-note">The map shows an approximate service area. Call or text <a href="tel:{PHONE_T}">{PHONE}</a> to confirm your address.</p>
+  </div>
 </div></section>"""
 
 PAGES = {}
@@ -505,8 +513,7 @@ PAGES["seattle-bathroom-remodeling.html"] = page(
 <section class="alt" id="service-areas"><div class="wrap">
   <div class="prose">
     <h2>Areas We Serve</h2>
-    <p>We remodel bathrooms in Seattle and across Puget Sound, from Everett to Olympia and from Bremerton to the Cascade foothills.</p>
-    {cities_grouped()}
+    <p>We remodel bathrooms across Seattle. We also remodel bathrooms throughout the Puget Sound region. <a class="tlink" href="/#service-areas">View all service areas →</a></p>
     <p>Not sure we cover your address? Call or text {SEA_TEL}.</p>
   </div>
 </div></section>
@@ -871,7 +878,6 @@ PAGES["portfolio.html"] = page(
 
 # ---------------------------------------------------------------- ABOUT
 crumb = [("Home", "/"), ("About", "/about")]
-cities_html = cities_grouped()
 PAGES["about.html"] = page(
     "/about", "About TrueSquare Remodel | Owner-Led Remodeling in Seattle",
     "TrueSquare Remodel LLC is an owner-led remodeling company in Seattle. Serhii measures every project and writes every price. WA Registered Contractor TRUESRL759QK.",
@@ -914,7 +920,10 @@ PAGES["about.html"] = page(
   </div>
 </div></section>
 
-{areas_section(alt=True)}
+<section class="alt"><div class="wrap"><div class="prose">
+    <h2>Where We Work</h2>
+    <p>TrueSquare serves homeowners across Seattle and Puget Sound. <a class="tlink" href="/#service-areas">See where we work →</a></p>
+  </div></div></section>
 """ + book(tiles=["Full bathroom remodel", "Tub to walk-in shower", "Shower remodel", "Kitchen or tile"]),
     ld_extra=[{"@type": "AboutPage", "@id": SITE + "/about#about", "url": SITE + "/about", "about": {"@id": BIZ_ID}},
               {"@type": "Person", "@id": SITE + "/about#person", "name": "Serhii Tomilov", "jobTitle": "Owner", "url": SITE + "/about", "worksFor": {"@id": BIZ_ID}, "image": SITE + "/img/serhii.jpg", "sameAs": [GOOGLE, THUMBTACK]}],

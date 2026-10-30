@@ -111,7 +111,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=9';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=11';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
