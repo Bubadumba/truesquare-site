@@ -16,7 +16,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "6"  # cache version for lp.css / lp.js (6 = variant tag, 29.10)
+V = "7"  # cache version for lp.css / lp.js (7 = InitiateCheckout on form_start, 29.10)
 RANGE = "$16,000–$28,500"
 
 def esc(s): return html.escape(s, quote=True)

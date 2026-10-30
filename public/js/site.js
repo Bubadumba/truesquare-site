@@ -22,6 +22,9 @@ if(META_PIXEL_ID){!function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMeth
 if(CLARITY_ID){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};tagJs.push('https://www.clarity.ms/tag/'+CLARITY_ID);}
 /* Meta Conversions API: the same Lead goes server-side via /api/capi (Cloudflare Pages Function) with the Pixel's event_id, so Meta counts it once */
 window.tsrCapi=function(o){try{var c=d.cookie,g=function(n){var m=c.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):'';},q=new URLSearchParams(location.search).get('fbclid');o.fbp=g('_fbp');o.fbc=g('_fbc')||(q?'fb.1.'+Date.now()+'.'+q:'');fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(o),keepalive:true}).catch(function(){});}catch(x){}};
+/* InitiateCheckout (29.10): the first touch of a form (form_start) goes to Meta as InitiateCheckout, so Ads Manager shows "Checkouts initiated" per ad.
+   Once per visit (sessionStorage, this tab): closing and reopening the form does not send it again. Pixel + /api/capi share one event_id, so Meta counts it once. Lead is unchanged. */
+window.tsrIC=function(angle,src){try{var k='tsr_ic_sent',s=!!window.__tsrIC;try{s=s||sessionStorage.getItem(k)==='1';}catch(e){}if(s)return;window.__tsrIC=1;try{sessionStorage.setItem(k,'1');}catch(e){}var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);window.__tsrICid=id;if(window.fbq)fbq('track','InitiateCheckout',{content_name:angle,content_category:src},{eventID:id});if(window.tsrCapi)tsrCapi({event_name:'InitiateCheckout',event_id:id,page_angle:angle,form_source:src,page_url:location.href.split('#')[0]});}catch(x){}};
 function loadTags(){tagJs.forEach(function(u){var j=d.createElement('script');j.async=true;j.src=u;d.head.appendChild(j);});}
 if(d.readyState==='complete')loadTags();else window.addEventListener('load',loadTags);
 
@@ -140,7 +143,7 @@ form.addEventListener('submit',function(e){
 /* form_source (28.10): same as the V3 landing. modal = pop-up sheet (cta = the button that opened it), inline = form on the page (cta 'inline') */
 var openCta='';
 function where(){return sheet&&!sheet.hidden?'modal':'inline';}
-function track(ev,o){var x={event:ev,page_angle:ANGLE};for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
+function track(ev,o){var x={event:ev,page_angle:ANGLE};for(var k in o)x[k]=o[k];if(!x.form_source)x.form_source=where();if(x.cta===undefined)x.cta=x.form_source==='modal'?(openCta||'modal'):'inline';window.dataLayer.push(x);if(ev==='form_start'&&window.tsrIC)tsrIC(x.page_angle,x.form_source);try{if(window.clarity){clarity('set','form_source',x.form_source);clarity('event',ev);}}catch(e){}}
 var sheet=$('sheet');
 function sheetDone(){var t=$('sheetTitle');if(t&&sheet&&!sheet.hidden){t.innerHTML='Request <span class="grad-text">Received</span>';var w=d.querySelector('.sheet-who');if(w)w.hidden=true;}}
 if(sheet){
