@@ -102,7 +102,7 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=10';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=11';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
 if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
 </script>
@@ -242,13 +242,13 @@ STEPS = """<section class="alt" id="process"><div class="wrap">
     <div class="step"><span class="n">2</span><div><h3>Free visit</h3><p>Serhii measures the room and talks through what you want.</p></div></div>
     <div class="step"><span class="n">3</span><div><h3>Your price in writing</h3><p>Within 5 hours after the visit. Take your time to decide.</p></div></div>
   </div>
-  <p class="after-steps"><i></i>Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing.</p>
+  <p class="after-steps"><i></i>Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing.</p>
 </div></section>"""
 
 FAQ_ITEMS = [
     ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}. Smaller bathrooms fall at the lower end. Larger or more complex projects may exceed this range. Price depends on scope. Plus WA sales tax. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
     ("What if you find damage behind the wall?", "We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
-    ("How long does it take?", "Typically 2–4 weeks of construction, depending on scope and what we find. You get the start date in writing."),
+    ("How long does it take?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Is there a warranty?", "Yes. 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
     ("Who does the work?", "Our crew does the remodeling work. Serhii leads every project and is your one point of contact."),
     ("How do payments work?", "You pay a deposit when you sign the contract, the next payment after the rough-in inspection passes, and the final payment after our walkthrough together. The visit and the written price are free."),

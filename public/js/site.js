@@ -98,6 +98,12 @@ if(am){
   };
   if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();loadLeaflet();}},{rootMargin:'400px'});io.observe(am);}else loadLeaflet();
 }
+/* service area analytics (board 29.10): service_area_view once when the heading is on screen; service_area_county_open with the county name */
+(function(){var sa=$('service-areas');if(!sa)return;
+  var push=function(ev,o){var x={event:ev};for(var k in o)x[k]=o[k];window.dataLayer=window.dataLayer||[];window.dataLayer.push(x);try{if(window.clarity){if(o.county)clarity('set','county',o.county);clarity('event',ev);}}catch(e){}};
+  if('IntersectionObserver' in window){var h=sa.querySelector('h2')||sa,so=new IntersectionObserver(function(es){if(es[0].isIntersecting){so.disconnect();push('service_area_view',{});}},{threshold:0.6});so.observe(h);}
+  [].forEach.call(sa.querySelectorAll('details.county'),function(dt){dt.addEventListener('toggle',function(){if(dt.open)push('service_area_county_open',{county:dt.getAttribute('data-county')||''});});});
+})();
 
 /* form */
 var form=$('bookForm'); if(!form) return;

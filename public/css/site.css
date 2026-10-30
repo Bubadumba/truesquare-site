@@ -443,3 +443,16 @@ nav.desk>a[aria-current="page"]{background:var(--grey)}
 :root .btn:not(.outline),:root .callbtn,:root .sticky .s1,:root .lp .lp-call{background-image:linear-gradient(120deg,#F69A72 0%,#F47A61 25%,#EC6463 50%,#F47A61 75%,#F69A72 100%);background-size:300% 100%;animation:tsrShift 6s ease-in-out infinite alternate}
 :root .grad-text{background-image:linear-gradient(120deg,#F69A72 0%,#F47A61 25%,#EC6463 50%,#F47A61 75%,#F69A72 100%);background-size:300% 100%;animation:tsrShift 12s ease-in-out infinite alternate}
 @media (prefers-reduced-motion:reduce){:root .btn,:root .callbtn,:root .sticky .s1,:root .lp .lp-call,:root .grad-text{animation:none}}
+/* 29.10 service area (board B2, the owner's idea): map first on phones, 8 main cities, one closed row per county; desktop: list left, map right */
+.areas-head{display:grid;gap:14px}
+.areas-list{display:grid;gap:18px;align-content:start}
+.counties{display:grid;gap:8px}
+.county{padding:0 16px}
+.county summary{min-height:52px;font:700 16px/1.3 var(--f-body);padding:10px 40px 10px 0}
+.county summary span{color:var(--muted);font-weight:600;margin-left:6px}
+.county summary::after,.county[open] summary::after{content:"\25BE";width:28px;height:28px;font:700 15px/28px var(--f-body);transition:transform .2s}
+.county[open] summary::after{transform:translateY(-50%) rotate(180deg)}
+.county .cities{padding:2px 0 16px}
+.areas-note{margin:0;font-size:13.5px;color:var(--muted)}
+.areas-note a{color:inherit;font-weight:600}
+@media (min-width:960px){.areas-grid{grid-template-areas:"head map" "list map";align-items:start;row-gap:24px}.areas-head{grid-area:head}.areamap{grid-area:map;align-self:center}.areas-list{grid-area:list}}
