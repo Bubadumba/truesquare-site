@@ -456,3 +456,8 @@ nav.desk>a[aria-current="page"]{background:var(--grey)}
 .areas-note{margin:0;font-size:13.5px;color:var(--muted)}
 .areas-note a{color:inherit;font-weight:600}
 @media (min-width:960px){.areas-grid{grid-template-areas:"head map" "list map";align-items:start;row-gap:24px}.areas-head{grid-area:head}.areamap{grid-area:map;align-self:center}.areas-list{grid-area:list}}
+/* 30.10: links to our profiles on other sites (owner's list, tools/profiles.py) */
+.findus{border-top:1px solid rgba(255,255,255,.1);padding-block:18px;margin:0;font-size:14px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px}
+.findus b{color:#fff}
+.findus a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.findus a:hover{color:#fff}

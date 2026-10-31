@@ -18,6 +18,7 @@ LNI = "TRUESRL759QK"
 LNI_URL = "https://secure.lni.wa.gov/verify/Detail.aspx?UBI=606001506&amp;LIC=TRUESRL759QK&amp;SAW="
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
+import profiles  # profiles on other sites (owner 30.10): footer + schema sameAs
 # service area = the owner's map (29.10): Marysville/Everett to Olympia/Tumwater, west to Bremerton/Shelton, east to the Cascade foothills
 CITY_GROUPS = [
     ("King County", ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issaquah", "Mercer Island", "Shoreline",
@@ -136,6 +137,7 @@ def footer():
       <a href="{LNI_URL}" target="_blank" rel="noopener">Verify registration →</a>
     </div>
   </div>
+  <p class="findus"><b>Find us on:</b> {profiles.footer_links()}</p>
   <p class="areas" id="areas"><b>Service areas:</b> Seattle, Bellevue, Everett, Tacoma, Olympia and nearby cities in King, Snohomish, Pierce and Thurston counties, plus Bremerton and Shelton.</p>
   <div class="legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a><span>© {datetime.date.today().year} TrueSquare Remodel LLC</span></div>
 </div></footer>
@@ -191,13 +193,13 @@ def book(tiles=BATH_TILES, default="", title='Get your price <span class="grad-t
 
 def biz_node(full=False):
     n = {"@type": "HomeAndConstructionBusiness", "@id": BIZ_ID, "name": "TrueSquare Remodel LLC",
-         "url": SITE + "/", "telephone": "+1-206-222-2328"}
+         "url": SITE + "/", "telephone": "+1-206-222-2328", "sameAs": profiles.SAME_AS}
     if full:
         n.update({"email": "info@truesquareremodel.com", "logo": SITE + "/img/logo.svg", "image": SITE + "/img/serhii.jpg",
                   "description": "Bathroom remodeling in the Seattle area: full bathroom remodels, tub to walk-in shower conversions and shower remodels. Also kitchen remodeling and tile installation.",
                   "founder": {"@type": "Person", "name": "Serhii Tomilov"},
                   "areaServed": [{"@type": "City", "name": c + ", WA"} for c in CITIES],
-                  "sameAs": [GOOGLE, THUMBTACK]})
+                  "sameAs": profiles.SAME_AS})
     return n
 
 def crumbs_ld(trail):

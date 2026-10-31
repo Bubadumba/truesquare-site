@@ -8,6 +8,7 @@ Writes: public/bathroom-remodel-cost.html (M0), public/bathroom-remodel-guarante
 public/guarantee-terms.html. All noindex, none in sitemap.
 """
 import os, html
+import profiles  # profiles on other sites (owner 30.10)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUB = os.path.join(ROOT, "public")
@@ -79,6 +80,7 @@ def shell(path, title, desc, angle, body, preload=None):
 <footer><div class="wrap lpf">
   <span><b>TrueSquare Remodel LLC</b> · WA Registered Contractor · <b>{LNI}</b> · <span class="nw">Owner-led</span></span>
   <span><a href="tel:{PHONE_T}">{PHONE}</a> · info@truesquareremodel.com · Seattle, WA</span>
+  <span class="links"><b style="color:#fff">Find us on:</b>{profiles.footer_links()}</span>
   <span class="links"><a href="/">About TrueSquare</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></span>
 </div></footer>
 
