@@ -297,7 +297,5 @@
 /* ad headlines are longer than the default one: 34px keeps most of them to two lines, so the button stays on the first screen */
 .lp3 .v3hero h1.v3h1w{font-size:34px;line-height:37px}
 .lp3 .v3hero .v3sub{margin:8px 0 0;font-size:15px;line-height:21px;font-weight:500;color:rgba(255,255,255,.84)}
-.lp3 .v3hero .v3prow.v3pfrom{flex-direction:row;align-items:baseline;gap:6px}  /* "from $9,690 + tax" is short enough to stay on one line with any font */
-.lp3 .v3hero .v3prow .v3tax{color:rgba(255,255,255,.62)}
 .lp3 .v3hero .v3pfree{margin:0;font:800 22px/28px var(--f-head);letter-spacing:-.01em;color:#fff}
 .lpq .q3hero .v3sub{margin-top:8px}

@@ -60,8 +60,9 @@ function pickAd(params) {
   const a = (params.get("ad") || "").trim().toLowerCase();
   return (a && ["owner", "tub", "price", "love", "hire"].includes(a) ? AD[a] : findAd(a)) || findAd(params.get("utm_content"));
 }
+// owner 02.11 15:38: no "+ tax" on the site (ads keep it)
 const PLATE = {
-  from: '<p class="v3plab">Bathroom remodels</p><p class="v3prow v3pfrom"><b class="v3pnum grad-text nw">from $9,690</b> <span class="v3tax">+ tax</span></p><p class="v3pnote">Full remodels $16,000–$28,500 · Price depends on scope.</p>',
+  from: '<p class="v3plab">Bathroom remodels</p><p class="v3prow"><b class="v3pnum grad-text nw">from $9,690</b></p><p class="v3pnote">Full remodels $16,000–$28,500 · Price depends on scope.</p>',
   free: '<p class="v3pfree"><span class="grad-text">Free visit</span> · Itemized written price within 5 hours</p>',
 };
 const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

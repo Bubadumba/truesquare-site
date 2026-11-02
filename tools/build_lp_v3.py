@@ -424,6 +424,7 @@ def v2_page():
 # ===== love-v3: final 3-council summit (26.10). Preview only, not in ads. =====
 # 26.10 Serhii: no "subcontractor" caption under V3 photos ("they are members of our team")
 def v3_page(variant="v3"):
+    # owner 02.11 15:38: no "+ tax" / "+ WA sales tax" on this landing (V3 and Q); ads keep "+ tax"
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
     # first screen v3c (28.10, two councils, owner OK 11:29): 4 text levels, price as its own line, 3 one-line promises
     top = RANGE.split("–")[-1]
@@ -434,8 +435,8 @@ def v3_page(variant="v3"):
     <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price" data-lp-price>
       <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
-      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
-      <p class="v3pnote">Price depends on scope; some projects may exceed {top}.</p>
+      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
+      <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
     </div>
     <ul class="hlist v3list" data-lp-list="tick">
       {li("Written price within 5 hours after your visit")}
@@ -518,7 +519,7 @@ def v3_page(variant="v3"):
 </div></section>""".replace("GOOGLE_URL", GOOGLE)
     faq_items = [
         ("Will the price jump once the walls are open?", "Only if we find hidden damage or you change the scope. We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
-        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
+        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home. Your written price follows within 5 hours after the free visit."),
         ("Are you the one swinging the hammer?", "No. Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
         ("Do I pay everything up front?", "No. You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
         ("How long will I be without a bathroom?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
@@ -553,7 +554,7 @@ def v3_page(variant="v3"):
     <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price" data-lp-price>
       <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
-      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
+      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
       <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
     </div>
     <ul class="qprom" data-lp-list="plain">
@@ -569,7 +570,7 @@ def v3_page(variant="v3"):
     else:
         body = "\n".join([hero, band, form, work, written, owner, faq, final])
     return shell("/bathroom-remodel-cost-v3", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
-                 f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, written price within 5 hours.",
+                 f"Full bathroom remodels in the Seattle area: {RANGE}. Free visit, written price within 5 hours.",
                  "love-v3", body, body_class=body_class, sticky_label="Get My Price", variant=variant)
 
 # Only the V3 ad landing is built from this file (26.10 summit). Other landings: tools/build_lp.py.

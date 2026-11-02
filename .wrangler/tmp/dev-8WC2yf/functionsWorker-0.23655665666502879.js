@@ -215,7 +215,7 @@ function pickAd(params) {
 __name(pickAd, "pickAd");
 __name2(pickAd, "pickAd");
 var PLATE = {
-  from: '<p class="v3plab">Bathroom remodels</p><p class="v3prow v3pfrom"><b class="v3pnum grad-text nw">from $9,690</b> <span class="v3tax">+ tax</span></p><p class="v3pnote">Full remodels $16,000\u2013$28,500 \xB7 Price depends on scope.</p>',
+  from: '<p class="v3plab">Bathroom remodels</p><p class="v3prow"><b class="v3pnum grad-text nw">from $9,690</b></p><p class="v3pnote">Full remodels $16,000\u2013$28,500 \xB7 Price depends on scope.</p>',
   free: '<p class="v3pfree"><span class="grad-text">Free visit</span> \xB7 Itemized written price within 5 hours</p>'
 };
 var esc = /* @__PURE__ */ __name2((t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), "esc");
