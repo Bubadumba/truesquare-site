@@ -19,7 +19,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "13"  # cache version for lp.js (12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
+V = "14"  # cache version for lp.js (14 = lp_variant + W3 tile picked by the server, 02.11; 12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -431,13 +431,13 @@ def v3_page(variant="v3"):
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
     <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
-    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
-    <div class="v3price">
+    <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <div class="v3price" data-lp-price>
       <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
       <p class="v3pnote">Price depends on scope; some projects may exceed {top}.</p>
     </div>
-    <ul class="hlist v3list">
+    <ul class="hlist v3list" data-lp-list="tick">
       {li("Written price within 5 hours after your visit")}
       {li("No extra work without your written OK")}
       {li('<span><b>One contact:</b> <span class="w5">Serhii, start to finish</span></span>')}
@@ -550,13 +550,13 @@ def v3_page(variant="v3"):
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
     <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
-    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
-    <div class="v3price">
+    <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <div class="v3price" data-lp-price>
       <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
       <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
     </div>
-    <ul class="qprom">
+    <ul class="qprom" data-lp-list="plain">
       <li>Free in-home visit with Serhii, the owner.</li>
       <li>Itemized written price within 5 hours after your visit.</li>
     </ul>
