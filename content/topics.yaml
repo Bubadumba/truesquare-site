@@ -16,9 +16,9 @@
   owner_inputs: ["which permits our Seattle jobs pulled (no fee invention)", "photo of a posted permit card if any"]
   page_type: blog-pillar
   priority: 1
-  status: approved
+  status: blocked
   requires_project_city: null
-  notes: "SERP: CRD 2017 post, permitmint (inconsistent), Block, Board & Vellum. Official SDCI pages do not surface. Realistic: yes."
+  notes: "SERP: CRD 2017 post, permitmint (inconsistent), Block, Board & Vellum. Official SDCI pages do not surface. Realistic: yes. Blocked 2026-11-02: facts file has no 'Permits we have actually pulled' (FILL) and no permit card photo. Fill that section, then set status: approved."
 
 - id: permits-by-city-matrix
   title: "Who issues what: bathroom remodel permits in Seattle, Shoreline, Renton, Bellevue and unincorporated King County"
@@ -30,9 +30,9 @@
   owner_inputs: ["which of these jurisdictions we have actually permitted in"]
   page_type: blog-reference
   priority: 1
-  status: approved
+  status: blocked
   requires_project_city: null
-  notes: "SERP: official pages only, buried. Realistic: yes."
+  notes: "SERP: official pages only, buried. Realistic: yes. Blocked 2026-11-02: facts file does not say in which jurisdictions we have permitted (that section is FILL). Fill it, then set status: approved."
 
 - id: washington-remodel-sales-tax
   title: "Why your Seattle bathroom estimate has a 10.55% sales tax line"
@@ -88,9 +88,9 @@
   owner_inputs: ["our actual survey workflow (who we hire; cost range only if a written quote exists)"]
   page_type: blog
   priority: 1
-  status: approved
+  status: blocked
   requires_project_city: null
-  notes: "SERP: SWCAA PDFs (wrong agency), CRD, Block. PSCAA does not rank. Realistic: yes."
+  notes: "SERP: SWCAA PDFs (wrong agency), CRD, Block. PSCAA does not rank. Realistic: yes. Blocked 2026-11-02: our asbestos survey workflow (who we hire, cost only with a written quote) is missing from the facts file. Fill it, then set status: approved."
 
 - id: behind-the-tile-1950s-seattle-bathroom
   title: "What is behind the tile in a 1950s Seattle bathroom: galvanized pipe, cast iron, asbestos vinyl, old wiring"
