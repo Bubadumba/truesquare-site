@@ -292,3 +292,10 @@
 .lpq .q3hero .qlic{margin:12px 0 0;font-size:13px;line-height:18px;color:rgba(255,255,255,.72)}
 /* 29.10: city line above the H1; the split function fills in the visitor's city (Cloudflare IP city, only cities on the owner's map) */
 .lp3 .v3geo{margin:12px 0 -2px;font:700 13px/18px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#F8A08F}
+/* W3 (owner 02.11): one first screen per ad. functions/bathroom-remodel-cost-v3.js picks it by a code in utm_content
+   and swaps the H1, adds a subtitle, swaps the price plate and the promises; everything else stays as on the default page */
+/* ad headlines are longer than the default one: 34px keeps most of them to two lines, so the button stays on the first screen */
+.lp3 .v3hero h1.v3h1w{font-size:34px;line-height:37px}
+.lp3 .v3hero .v3sub{margin:8px 0 0;font-size:15px;line-height:21px;font-weight:500;color:rgba(255,255,255,.84)}
+.lp3 .v3hero .v3pfree{margin:0;font:800 22px/28px var(--f-head);letter-spacing:-.01em;color:#fff}
+.lpq .q3hero .v3sub{margin-top:8px}
