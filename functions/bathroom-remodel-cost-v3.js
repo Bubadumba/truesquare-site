@@ -28,16 +28,16 @@ const P = {
 const H_PRICE = 'How Much Does a Bathroom Remodel <span class="grad-text">Cost?</span>';
 const S_PRICE = "Where you land depends on your bathroom, not on a sales pitch.";
 const AD = {
-  owner: { lpv: "owner", h1: 'Local Bathroom Remodel <span class="grad-text">Contractor</span>', sub: "Hi, I'm Serhii, the owner of TrueSquare Remodel.", price: "from", list: P.owner },
-  tub: { lpv: "tub", h1: 'Tub to Shower <span class="grad-text">Conversion</span>', sub: "We take the old tub out and build a tiled walk-in shower. Real tile, not a liner.", price: "free", list: P.tub, pick: "Tub to walk-in shower" },
+  owner: { noUnder: true, lpv: "owner", h1: 'Local Bathroom Remodel <span class="grad-text">Contractor</span>', sub: "Hi, I'm Serhii, the owner of TrueSquare Remodel.", price: "from", list: P.owner },
+  tub: { noUnder: true, lpv: "tub", h1: 'Tub to Shower <span class="grad-text">Conversion</span>', sub: "We take the old tub out and build a tiled walk-in shower. Real tile, not a liner.", price: "free", list: P.tub, pick: "Tub to walk-in shower" },
   price: { lpv: "price", h1: H_PRICE, sub: S_PRICE, price: "from", list: P.price },
   handnote: { lpv: "price-handnote", h1: H_PRICE, sub: S_PRICE, list: P.price },
   love: { lpv: "love" },
   newhouse: { lpv: "love", sub: "Just bought a house? Full bathroom remodels with a written price." },
   stuck: { lpv: "love-stuck", sub: "Bathroom stuck in 1995? You don't need a new house. You need a bathroom that works." },
-  hire: { lpv: "hire", h1: 'Before You Hire a <span class="grad-text">Bathroom Remodel Contractor</span>', sub: "Get an itemized written price within 5 hours. Every line. Yours to keep.", price: "from", list: P.hire },
-  cheapest: { lpv: "hire-cheapest", h1: 'Not the Cheapest. <span class="grad-text">Every Line in Writing.</span>', sub: "Cheap quotes are one line long. Then the extras start. With us, every line is in writing before anything starts.", list: P.hire },
-  included: { lpv: "hire-included", h1: 'What\'s in a <span class="grad-text">Full Bathroom Remodel?</span>', sub: "We send an itemized written price within 5 hours after your visit. Every line: demo, waterproofing, tile, plumbing, vanity and more.", price: "from", list: P.hire },
+  hire: { noUnder: true, lpv: "hire", h1: 'Before You Hire a <span class="grad-text">Bathroom Remodel Contractor</span>', sub: "Get an itemized written price within 5 hours. Every line. Yours to keep.", price: "from", list: P.hire },
+  cheapest: { noUnder: true, lpv: "hire-cheapest", h1: 'Not the Cheapest. <span class="grad-text">Every Line in Writing.</span>', sub: "Cheap quotes are one line long. Then the extras start. With us, every line is in writing before anything starts.", list: P.hire },
+  included: { noUnder: true, lpv: "hire-included", h1: 'What\'s in a <span class="grad-text">Full Bathroom Remodel?</span>', sub: "We send an itemized written price within 5 hours after your visit. Every line: demo, waterproofing, tile, plumbing, vanity and more.", price: "from", list: P.hire },
 };
 // first match wins: photo ads (§6) first, then video ads (§1), top to bottom, case-insensitive
 const CODES = [
@@ -125,6 +125,8 @@ export async function onRequest(context) {
           },
         });
       }
+      // owner 02.11 16:09: in A, B, E the promises already say "No decision at the visit", so the line under the V3 button goes
+      if (ad.noUnder) rw.on(".v3hero .v3under", { element(e) { e.remove(); } });
       if (ad.pick) {
         // two-step form opens on step 2 with this project chosen; "Change" brings the tiles back (lp.js reads the pressed tile)
         rw.on("form#lpForm", { element(e) { e.setAttribute("class", `${e.getAttribute("class") || ""} on2`.trim()); } })
