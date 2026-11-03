@@ -308,3 +308,5 @@
 .lp3 .v3hero .v3sub{margin:8px 0 0;font-size:15px;line-height:21px;font-weight:500;color:rgba(255,255,255,.84)}
 .lp3 .v3hero .v3pfree{margin:0;font:800 22px/28px var(--f-head);letter-spacing:-.01em;color:#fff}
 .lpq .q3hero .v3sub{margin-top:8px}
+/* city line (02.11 21:36): "Seattle area" or "<City>, WA", always one line */
+.lp3 .v3geo{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

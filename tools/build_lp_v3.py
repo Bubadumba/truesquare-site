@@ -432,7 +432,7 @@ def v3_page(variant="v3"):
     hero = f"""<section class="hero on-ink v2hero v3hero">
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
-    <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
+    <p class="v3geo" data-geo>Seattle area</p>
     <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price" data-lp-price>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
@@ -551,7 +551,7 @@ def v3_page(variant="v3"):
         hero = f"""<section class="hero on-ink v2hero v3hero q3hero" id="book">
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
-    <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
+    <p class="v3geo" data-geo>Seattle area</p>
     <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price" data-lp-price>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>

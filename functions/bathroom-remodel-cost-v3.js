@@ -1,8 +1,8 @@
 // Landing split on one ad URL (owner 29.10, council R4-R6): every new visitor gets V3 or Q, evenly, and keeps it (cookie).
 // QA: add ?v=v3 or ?v=q (plus &test=1 so BRM Stats marks the browser) to force a version; a forced visit sets no cookie.
 // If anything fails, the visitor gets the normal V3 page.
-// City line (owner 29.10): the line above the H1 says "Bathroom remodeling in <city>" when Cloudflare places the visitor's IP
-// in a city on the owner's map (same list as CITY_GROUPS in tools/build.py); otherwise it stays "in the Seattle area".
+// City line (owner 29.10, short form 02.11 21:36): the line above the H1 says "<City>, WA" when Cloudflare places the visitor's IP
+// in a city on the owner's map (same list as CITY_GROUPS in tools/build.py); otherwise it stays "Seattle area".
 // QA: ?geo=Tacoma shows how it looks for a city on the list.
 // W3 first screens (owner 02.11, TZ Реклама/ТЗ_САЙТ_W3_СТРАНИЦЫ_ПОД_ОБЪЯВЛЕНИЯ_2026-11-02.md): every W3 ad links here with
 // utm_content={{ad.name}}; a code inside the ad name picks the first screen (H1, subtitle, price plate, promises, tile picked
@@ -38,7 +38,9 @@ const AD = {
   love: { lpv: "love" },
   newhouse: { lpv: "love" },
   stuck: { lpv: "love-stuck", h1: 'Is Your Bathroom <span class="grad-text">Stuck in 1995?</span>', fs: 38 },
-  hire: { lpv: "hire", h1: 'Before You Hire a Bathroom <span class="grad-text">Remodel Contractor</span>', fs: 27, price: "from", list: P.hire },
+  hire: { lpv: "hire", h1: 'Before You Hire a <span class="grad-text">Contractor</span>', fs: 38, price: "from", list: P.hire }, // H1 owner 02.11 21:36
+  // TOUCH ad (owner 02.11 21:36): its text and headline are now about stress-free; base E, own H1, no subtitle
+  touch: { lpv: "hire-touch", h1: 'Stress-Free <span class="grad-text">Bathroom Remodel</span>', fs: 38, price: "from", list: P.hire },
   cheapest: { lpv: "hire-cheapest", h1: 'Not the Cheapest. <span class="grad-text">Every Line in Writing.</span>', fs: 36, list: P.hire },
   included: { lpv: "hire-included", h1: 'What\'s in a <span class="grad-text">Full Bathroom Remodel?</span>', fs: 31, price: "from", list: P.hire },
 };
@@ -50,7 +52,7 @@ const CODES = [
   ["TUB2SHOWER", "tub"], ["TUB_AV", "tub"],
   ["WHITEBOARD", "price"], ["PRICE_AV", "price"], ["SMALL5X8", "price"],
   ["NEWHOUSE", "newhouse"],
-  ["TOUCH", "hire"], ["HIRE_AV", "hire"], ["BUDGET", "hire"],
+  ["TOUCH", "touch"], ["HIRE_AV", "hire"], ["BUDGET", "hire"],
   ["DOOR", "love"], ["6HOMES", "love"], // own texts later [ЖДЁТ РЕШЕНИЯ]; for now the default first screen
 ];
 function findAd(s) {
@@ -105,7 +107,8 @@ export async function onRequest(context) {
     if (request.method !== "GET") return res;
     if (city) res.headers.set("X-TSR-City", city);
     const rw = new HTMLRewriter().on("body", { element(e) { e.setAttribute("data-lpv", lpv); } });
-    if (city) rw.on("[data-geo]", { element(e) { e.setInnerContent(`Bathroom remodeling in ${city}`); } });
+    // city line (owner 02.11 21:36): one line on a phone, "Seattle area" or "<City>, WA" (shown in capitals by the CSS)
+    if (city) rw.on("[data-geo]", { element(e) { e.setInnerContent(`${city}, WA`); } });
     if (ad) {
       rw.on("[data-lp-h1]", {
         element(e) {

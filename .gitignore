@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 .DS_Store
+# local tools (wrangler pages dev for QA); never commit
+.wrangler/
+node_modules/
