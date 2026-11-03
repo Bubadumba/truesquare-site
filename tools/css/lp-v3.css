@@ -294,8 +294,17 @@
 .lp3 .v3geo{margin:12px 0 -2px;font:700 13px/18px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#F8A08F}
 /* W3 (owner 02.11): one first screen per ad. functions/bathroom-remodel-cost-v3.js picks it by a code in utm_content
    and swaps the H1, adds a subtitle, swaps the price plate and the promises; everything else stays as on the default page */
-/* ad headlines are longer than the default one: 34px keeps most of them to two lines, so the button stays on the first screen */
-.lp3 .v3hero h1.v3h1w{font-size:34px;line-height:37px}
+/* short first screen (02.11 17:01): an ad H1 is at most two lines on a phone; the split function sets its size (--h1fs) */
+@media (max-width:959px){.lp3 .v3hero h1[data-fs]{font-size:var(--h1fs);line-height:var(--h1lh)}}
+.lp3 .v3hero .v3one{margin:14px 0 0;font:600 16px/22px var(--f-body);color:#fff}
+.lpq .q3hero .v3one{margin-top:10px}
+/* the promises that left the first screen: V3 under the photo, Q under the form */
+.lp3 .v3band .v3keep{margin:16px 0 0}
+.lp3 .v3band .v3keep li{font-size:15px;line-height:21px;font-weight:600;color:var(--ink);align-items:center}
+.lp3 .v3band .v3keep li b{font-weight:700}.lp3 .v3band .v3keep li .w5{font-weight:500}
+.lp3 .v3band .v3keepnote{margin:10px 0 0;font-size:14px;line-height:20px;color:var(--muted)}
+.lpq .q3hero .qprom.qkeep{margin-top:16px}
+.lpq .q3hero .qkeepnote{margin:8px 0 0;font-size:13px;line-height:18px;color:rgba(255,255,255,.62)}
 .lp3 .v3hero .v3sub{margin:8px 0 0;font-size:15px;line-height:21px;font-weight:500;color:rgba(255,255,255,.84)}
 .lp3 .v3hero .v3pfree{margin:0;font:800 22px/28px var(--f-head);letter-spacing:-.01em;color:#fff}
 .lpq .q3hero .v3sub{margin-top:8px}

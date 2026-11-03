@@ -17,27 +17,30 @@ const CITIES = ["Seattle", "Bellevue", "Kirkland", "Redmond", "Sammamish", "Issa
   "Olympia", "Lacey", "Tumwater", "Bremerton", "Port Orchard", "Shelton"];
 const findCity = (name) => CITIES.find((c) => c.toLowerCase() === String(name || "").trim().toLowerCase()) || "";
 
-// ---- W3 first screens. Texts word for word from the TZ (§2, §6). price: "from" = from $9,690 plate, "free" = no price
-// (tub to shower: no price next to tub / walk-in, decision 31.10), missing = the plate stays as on the default page (the range).
+// ---- W3 first screens. Texts from the TZ (§2, §6); short first screen (owner 02.11 17:01): rating, city line, H1 (max 2 lines
+// on a 390 px phone, fs = font size for that), price + one small line, one promise line, button. The promises that left the
+// first screen are listed in the first block below it ([data-lp-list]). price: "from" = from $9,690, "none" = no price block
+// (tub to shower: no price next to tub / walk-in, decision 31.10), missing = the range as on the default page.
 const P = {
   owner: ["Free in-home visit with Serhii, the owner.", "Itemized written price within 5 hours after your visit.", "No pressure. No decision at the visit."],
   tub: ["Free in-home visit with Serhii, the owner.", "No decision at the visit."],
   price: ["We measure first. No guessing over the phone.", "Itemized written price within 5 hours after your visit.", "The price is yours to keep and compare."],
   hire: ["Free in-home visit with Serhii, the owner.", "Nothing extra without your written OK.", "No pressure. No decision at the visit."],
 };
-const H_PRICE = 'How Much Does a Bathroom Remodel <span class="grad-text">Cost?</span>';
-const S_PRICE = "Where you land depends on your bathroom, not on a sales pitch.";
+// the gradient part of an H1 is its own line (site style), so each H1 is "white line / gradient line"; fs is the largest size
+// at which both lines fit in 326 px (24 px spare on a 390 px phone), measured 02.11
+const H_PRICE = 'How Much Does a <span class="grad-text">Bathroom Remodel Cost?</span>';
 const AD = {
-  owner: { noUnder: true, lpv: "owner", h1: 'Local Bathroom Remodel <span class="grad-text">Contractor</span>', sub: "Hi, I'm Serhii, the owner of TrueSquare Remodel.", price: "from", list: P.owner },
-  tub: { noUnder: true, lpv: "tub", h1: 'Tub to Shower <span class="grad-text">Conversion</span>', sub: "We take the old tub out and build a tiled walk-in shower. Real tile, not a liner.", price: "free", list: P.tub, pick: "Tub to walk-in shower" },
-  price: { lpv: "price", h1: H_PRICE, sub: S_PRICE, price: "from", list: P.price },
-  handnote: { lpv: "price-handnote", h1: H_PRICE, sub: S_PRICE, list: P.price },
+  owner: { lpv: "owner", h1: 'Local Bathroom <span class="grad-text">Remodel Contractor</span>', fs: 36, sub: "Hi, I'm Serhii, the owner.", price: "from", list: P.owner },
+  tub: { lpv: "tub", h1: 'Tub to Shower <span class="grad-text">Conversion</span>', fs: 38, price: "none", list: P.tub, pick: "Tub to walk-in shower" },
+  price: { lpv: "price", h1: H_PRICE, fs: 30, price: "from", list: P.price },
+  handnote: { lpv: "price-handnote", h1: H_PRICE, fs: 30, list: P.price },
   love: { lpv: "love" },
-  newhouse: { lpv: "love", sub: "Just bought a house? Full bathroom remodels with a written price." },
-  stuck: { lpv: "love-stuck", sub: "Bathroom stuck in 1995? You don't need a new house. You need a bathroom that works." },
-  hire: { noUnder: true, lpv: "hire", h1: 'Before You Hire a <span class="grad-text">Bathroom Remodel Contractor</span>', sub: "Get an itemized written price within 5 hours. Every line. Yours to keep.", price: "from", list: P.hire },
-  cheapest: { noUnder: true, lpv: "hire-cheapest", h1: 'Not the Cheapest. <span class="grad-text">Every Line in Writing.</span>', sub: "Cheap quotes are one line long. Then the extras start. With us, every line is in writing before anything starts.", list: P.hire },
-  included: { noUnder: true, lpv: "hire-included", h1: 'What\'s in a <span class="grad-text">Full Bathroom Remodel?</span>', sub: "We send an itemized written price within 5 hours after your visit. Every line: demo, waterproofing, tile, plumbing, vanity and more.", price: "from", list: P.hire },
+  newhouse: { lpv: "love" },
+  stuck: { lpv: "love-stuck", h1: 'Is Your Bathroom <span class="grad-text">Stuck in 1995?</span>', fs: 38 },
+  hire: { lpv: "hire", h1: 'Before You Hire a Bathroom <span class="grad-text">Remodel Contractor</span>', fs: 27, price: "from", list: P.hire },
+  cheapest: { lpv: "hire-cheapest", h1: 'Not the Cheapest. <span class="grad-text">Every Line in Writing.</span>', fs: 36, list: P.hire },
+  included: { lpv: "hire-included", h1: 'What\'s in a <span class="grad-text">Full Bathroom Remodel?</span>', fs: 31, price: "from", list: P.hire },
 };
 // first match wins: photo ads (§6) first, then video ads (§1), top to bottom, case-insensitive
 const CODES = [
@@ -60,10 +63,9 @@ function pickAd(params) {
   const a = (params.get("ad") || "").trim().toLowerCase();
   return (a && ["owner", "tub", "price", "love", "hire"].includes(a) ? AD[a] : findAd(a)) || findAd(params.get("utm_content"));
 }
-// owner 02.11 15:38: no "+ tax" on the site (ads keep it)
+// owner 02.11 15:38: no "+ tax" on the site (ads keep it); 17:01: no label above the price, one small line under it
 const PLATE = {
-  from: '<p class="v3plab">Bathroom remodels</p><p class="v3prow"><b class="v3pnum grad-text nw">from $9,690</b></p><p class="v3pnote">Full remodels $16,000–$28,500 · Price depends on scope.</p>',
-  free: '<p class="v3pfree"><span class="grad-text">Free visit</span> · Itemized written price within 5 hours</p>',
+  from: '<p class="v3prow"><b class="v3pnum grad-text nw">from $9,690</b></p><p class="v3pnote">Full remodels $16,000–$28,500</p>',
 };
 const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
@@ -103,18 +105,16 @@ export async function onRequest(context) {
     if (request.method !== "GET") return res;
     if (city) res.headers.set("X-TSR-City", city);
     const rw = new HTMLRewriter().on("body", { element(e) { e.setAttribute("data-lpv", lpv); } });
-    if (city) {
-      rw.on("[data-geo]", { element(e) { e.setInnerContent(`Bathroom remodeling in ${city}`); } })
-        .on("[data-geo-lab]", { element(e) { if (city !== "Seattle") e.setInnerContent("Full bathroom remodels"); } });
-    }
+    if (city) rw.on("[data-geo]", { element(e) { e.setInnerContent(`Bathroom remodeling in ${city}`); } });
     if (ad) {
       rw.on("[data-lp-h1]", {
         element(e) {
-          if (ad.h1) { e.setInnerContent(ad.h1, { html: true }); e.setAttribute("class", "v3h1w"); }
+          if (ad.h1) { e.setInnerContent(ad.h1, { html: true }); e.setAttribute("style", `--h1fs:${ad.fs}px;--h1lh:${Math.round(ad.fs * 1.08)}px`); e.setAttribute("data-fs", ""); }
           if (ad.sub) e.after(`<p class="v3sub">${esc(ad.sub)}</p>`, { html: true });
         },
       });
-      if (ad.price) rw.on("[data-lp-price]", { element(e) { e.setInnerContent(PLATE[ad.price], { html: true }); } });
+      if (ad.price === "none") rw.on("[data-lp-price], [data-lp-pnote]", { element(e) { e.remove(); } });
+      else if (ad.price) rw.on("[data-lp-price]", { element(e) { e.setInnerContent(PLATE[ad.price], { html: true }); } });
       if (ad.list) {
         rw.on("[data-lp-list]", {
           element(e) {
@@ -125,8 +125,6 @@ export async function onRequest(context) {
           },
         });
       }
-      // owner 02.11 16:09: in A, B, E the promises already say "No decision at the visit", so the line under the V3 button goes
-      if (ad.noUnder) rw.on(".v3hero .v3under", { element(e) { e.remove(); } });
       if (ad.pick) {
         // two-step form opens on step 2 with this project chosen; "Change" brings the tiles back (lp.js reads the pressed tile)
         rw.on("form#lpForm", { element(e) { e.setAttribute("class", `${e.getAttribute("class") || ""} on2`.trim()); } })

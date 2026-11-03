@@ -426,7 +426,8 @@ def v2_page():
 def v3_page(variant="v3"):
     # owner 02.11 15:38: no "+ tax" / "+ WA sales tax" on this landing (V3 and Q); ads keep "+ tax"
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
-    # first screen v3c (28.10, two councils, owner OK 11:29): 4 text levels, price as its own line, 3 one-line promises
+    # first screen v3c (28.10, two councils, owner OK 11:29); short version 02.11 17:01: rating, city, H1, price + one line,
+    # one promise line, button; the three promises and the full price note move to the first block below the first screen
     top = RANGE.split("–")[-1]
     hero = f"""<section class="hero on-ink v2hero v3hero">
   <div class="wrap">
@@ -434,21 +435,21 @@ def v3_page(variant="v3"):
     <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
     <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price" data-lp-price>
-      <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
-      <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
+      <p class="v3pnote">Price depends on scope.</p>
     </div>
-    <ul class="hlist v3list" data-lp-list="tick">
-      {li("Written price within 5 hours after your visit")}
-      {li("No extra work without your written OK")}
-      {li('<span><b>One contact:</b> <span class="w5">Serhii, start to finish</span></span>')}
-    </ul>
+    <p class="v3one">Free visit, then a written price in 5 hours</p>
     <div class="hcta"><a class="btn block" href="#book" data-cta="hero">Get My Written Price <span class="arr">→</span></a></div>
-    <p class="under v3under">Free visit first. No decision at the visit.</p>
   </div>
 </section>"""
     band = f"""<section class="v3band"><div class="wrap">
   <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13-band.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="760" height="388" fetchpriority="high"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
+  <ul class="hlist v3keep" data-lp-list="tick">
+    {li("Written price within 5 hours after your visit")}
+    {li("No extra work without your written OK")}
+    {li('<span><b>One contact:</b> <span class="w5">Serhii, start to finish</span></span>')}
+  </ul>
+  <p class="v3keepnote" data-lp-pnote>Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
   <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
 </div></section>"""
     # safe package 30.10 (#1, council R8 6-1): the form intro is only FREE VISIT / Get Your Written Price / Prefer to talk? Call
@@ -553,15 +554,16 @@ def v3_page(variant="v3"):
     <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
     <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
     <div class="v3price" data-lp-price>
-      <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
       <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
-      <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
+      <p class="v3pnote">Price depends on scope.</p>
     </div>
-    <ul class="qprom" data-lp-list="plain">
+    <p class="v3one">Free visit, then a written price in 5 hours</p>
+    {qform}
+    <ul class="qprom qkeep" data-lp-list="plain">
       <li>Free in-home visit with Serhii, the owner.</li>
       <li>Itemized written price within 5 hours after your visit.</li>
     </ul>
-    {qform}
+    <p class="qkeepnote" data-lp-pnote>Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
     <p class="qlic">WA Registered Contractor · <b>{LNI}</b> · 1-year written workmanship warranty</p>
   </div>
 </section>"""
