@@ -323,3 +323,5 @@
 .sheet.isdone .sheet-head{position:absolute;top:0;right:0;margin:0;padding:calc(10px + env(safe-area-inset-top,0px)) 12px 0 0;background:transparent;border:0}
 .sheet.isdone .sheet-title{display:none}
 .sheet.isdone .sheet-body{margin-top:0}
+/* speed pass 03.11: <picture> wrappers (AVIF/WebP) must not change the layout of the img inside */
+.lp picture{display:contents}
