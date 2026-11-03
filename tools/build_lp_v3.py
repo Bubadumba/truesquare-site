@@ -117,7 +117,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 /* analytics + shared behavior load after the page has painted (keeps LCP fast); speed pass 03.11: GTM, Pixel and Clarity start on the
    first scroll / tap or 4 s after load at the latest (site.js reads TSR_TAGS_WAIT). The form script (lp.js) and BRM Stats are not delayed. */
 window.TSR_TAGS_WAIT=4000;
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=12';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=13';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
