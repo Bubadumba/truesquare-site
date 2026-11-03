@@ -310,3 +310,16 @@
 .lpq .q3hero .v3sub{margin-top:8px}
 /* city line (02.11 21:36): "Seattle area" or "<City>, WA", always one line */
 .lp3 .v3geo{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* minimal thank-you (owner 02.11 23:22): small check, one-line title, one line, grey number line, one button.
+   In the pop-up the dark title bar goes, only the X stays in the corner, and the card sits in the middle */
+.lp3 .v3done .dcheck{width:40px;height:40px;margin-bottom:12px}
+.lp3 .v3done .dcheck svg{width:20px;height:20px}
+.lp3 .v3done .big{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp3 .v3done .dwhen{margin-top:8px}
+.lp3 .v3done .dnum{margin-top:8px;font-size:14px;line-height:20px;color:var(--muted)}
+.lp3 .v3done .dnum b{color:inherit;font-weight:600}
+.lp3 .v3done #doneSave{margin-top:18px}
+.sheet.isdone .sheet-panel{display:flex;flex-direction:column;justify-content:center}
+.sheet.isdone .sheet-head{position:absolute;top:0;right:0;margin:0;padding:calc(10px + env(safe-area-inset-top,0px)) 12px 0 0;background:transparent;border:0}
+.sheet.isdone .sheet-title{display:none}
+.sheet.isdone .sheet-body{margin-top:0}

@@ -38,7 +38,7 @@ form.addEventListener('submit',function(e){
   if(msg){err.textContent=msg;err.hidden=false;if(sheet)track('form_error',{msg:msg});return;}
   err.hidden=true; sending=true;
   var fsrc=where(),fcta=fsrc==='modal'?(openCta||'modal'):'inline';
-  var parts=name.split(/\s+/),ctext=$('consentText').textContent.trim(); /* landings: no checkbox; consent = submitting with the line under the button (decision 23.10) */
+  var parts=name.split(/\s+/),ce=$('consentText')||$('fPhoneWhy'),ctext=ce?ce.textContent.trim():''; /* landings: no checkbox; consent = submitting with the line under the button (decision 23.10). V3/Q (02.11 23:22): no consent block, so the text sent is the line shown under the phone field */
   var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
   var p={full_name:name,first_name:parts[0],last_name:parts.slice(1).join(' '),phone:'+1'+ph,zip:zip.value,project_type:project,
     sms_consent:'yes',sms_consent_text:ctext,consent_text:ctext,marketing_consent:'no',
@@ -55,14 +55,16 @@ form.addEventListener('submit',function(e){
 /* V3 thank-you state (26.10): first name, the number we will call, and when (Seattle time; Mon-Sat 9 AM-7 PM) */
 function thanks(first,ph){
   if(!$('doneWhen'))return;
-  if(first)$('doneHi').textContent='Thanks, '+first.charAt(0).toUpperCase()+first.slice(1)+'! Your request is in.';
+  if(first)$('doneHi').textContent='Thanks, '+first.charAt(0).toUpperCase()+first.slice(1)+'!';
   if(ph&&ph.length===10){$('donePhone').textContent='('+ph.slice(0,3)+') '+ph.slice(3,6)+'-'+ph.slice(6);$('doneNum').hidden=false;}
   var when='shortly';
   try{var f=new Intl.DateTimeFormat('en-US',{timeZone:'America/Los_Angeles',weekday:'short',hour:'numeric',hourCycle:'h23'}).formatToParts(new Date()),wd='',h=12;
     f.forEach(function(x){if(x.type==='weekday')wd=x.value;if(x.type==='hour')h=parseInt(x.value,10);});
     if(wd==='Sun'||(wd==='Sat'&&h>=19))when='Monday morning';else if(h>=19)when='tomorrow morning';else if(h<9)when='this morning';}catch(x){}
   $('doneWhen').textContent='Serhii will call you '+when+' to set up your free visit.';
-  var t=$('sheetTitle');if(t&&sheet&&!sheet.hidden){t.innerHTML='Request <span class="grad-text">Received</span>';var w=d.querySelector('.sheet-who');if(w)w.hidden=true;}
+  /* minimal thank-you (02.11 23:22): the pop-up loses its dark title bar, only the X stays; on the page the card is scrolled fully into view */
+  if(sheet&&!sheet.hidden){sheet.classList.add('isdone');var w=d.querySelector('.sheet-who');if(w)w.hidden=true;if(panel)panel.scrollTop=0;}
+  else{var fd=$('formDone');if(fd){var r=fd.getBoundingClientRect();if(r.top<0||r.bottom>window.innerHeight)fd.scrollIntoView({block:r.height<window.innerHeight?'center':'start',behavior:'smooth'});}}
   var sv=$('doneSave');if(sv&&!sv.__t){sv.__t=1;sv.addEventListener('click',function(){track('save_contact',{});});}
 }
 /* V3 pop-up form sheet (26.10): every #book button opens the same form in a sheet; it closes only with the X */

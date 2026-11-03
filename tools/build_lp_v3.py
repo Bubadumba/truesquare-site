@@ -19,7 +19,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "14"  # cache version for lp.js (14 = lp_variant + W3 tile picked by the server, 02.11; 12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
+V = "15"  # cache version for lp.js (15 = consent text from the phone hint when there is no consent block + minimal thank-you, 02.11; 14 = lp_variant + W3 tile picked by the server, 02.11; 12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -205,7 +205,7 @@ WORK = f"""<section id="work"><div class="wrap">
 
 TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
 
-def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel", steps=False, phone_help="We'll call or text only about your visit."):
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel", steps=False, phone_help="We'll call or text only about your visit.", consent=True):
     # a tile is "value" or ("value", "small hint"); the value is what goes to GHL as project_type
     def _tile(t):
         v, hint = (t if isinstance(t, tuple) else (t, ""))
@@ -233,28 +233,21 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
       </fieldset>{chosen}
       <div class="fields">
         <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
-        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"><span class="why">{phone_help}</span></label>
+        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"><span class="why" id="fPhoneWhy">{phone_help}</span></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" enterkeyhint="send"></label>
                 <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
-        <p class="legal-mini" id="consentText">By tapping {submit}, you agree {consent_name} may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
+        {('<p class="legal-mini" id="consentText">By tapping ' + submit + ', you agree ' + consent_name + ' may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>') if consent else ''}
         <p class="next">No payment. No obligation.</p>
         {trust_in}
       </div>{trust_out}
     </div>
     <div class="done v3done" id="formDone" hidden>
       <div class="dcheck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-      <p class="big" id="doneHi">Thanks! Your request is in.</p>
+      <p class="big" id="doneHi">Thanks!</p>
       <p class="dwhen" id="doneWhen">Serhii will call you shortly to set up your free visit.</p>
-      <p class="dnum" id="doneNum" hidden>We'll call <b id="donePhone"></b>. Wrong number? Call or text <a href="tel:{PHONE_T}" class="nw">{PHONE}</a>.</p>
-      <ol class="dsteps">
-        <li><span class="n">1</span>Serhii calls to set a time</li>
-        <li><span class="n">2</span>Free visit: we discuss and measure your bathroom</li>
-        <li><span class="n">3</span>Your written price within 5 hours after the visit</li>
-      </ol>
-      <a class="btn block" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Our Number <span class="arr">↓</span></a>
-      <p class="dtip">So you know it's us when we call.</p>
-      <a class="dcall" href="tel:{PHONE_T}" data-cta="done-call">Or call now: <span class="nw">{PHONE}</span></a>
+      <p class="dnum" id="doneNum" hidden>We'll call <b id="donePhone"></b>. Wrong number? Text <a href="sms:{PHONE_T}" class="nw">{PHONE}</a>.</p>
+      <a class="btn block" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Serhii's Number <span class="arr">↓</span></a>
     </div>
   </form>
 </div></section>"""
@@ -456,7 +449,7 @@ def v3_page(variant="v3"):
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
                         lead="",
                         submit="Get My Written Price", who="",
-                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
+                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True, consent=False)  # owner 02.11 23:22: no consent block under the button
     # safe package 30.10 (#2): owner 29.10 07:18 — the real shower before/after looked weak; use a high-quality generated before/after instead,
     # shown as a drag slider; owner 29.10 15:42: no "Illustration" label on the image; the caption says "Example of a typical full remodel"
     # so it is not passed off as a specific client project; real crew photos follow under their own heading
@@ -546,7 +539,7 @@ def v3_page(variant="v3"):
         qform = form_section(show_lic=False, lead="", submit="Get My Written Price", who="", tile_help="Choose your project to request a free visit.",
                              phone_help="Serhii will call to arrange your free visit.",
                              tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"],
-                             phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
+                             phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True, consent=False)
         qform = _re.search(r'<form .*?</form>', qform, _re.S).group(0)
         hero = f"""<section class="hero on-ink v2hero v3hero q3hero" id="book">
   <div class="wrap">
