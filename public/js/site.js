@@ -26,7 +26,12 @@ window.tsrCapi=function(o){try{var c=d.cookie,g=function(n){var m=c.match(new Re
    Once per visit (sessionStorage, this tab): closing and reopening the form does not send it again. Pixel + /api/capi share one event_id, so Meta counts it once. Lead is unchanged. */
 window.tsrIC=function(angle,src){try{var k='tsr_ic_sent',s=!!window.__tsrIC;try{s=s||sessionStorage.getItem(k)==='1';}catch(e){}if(s)return;window.__tsrIC=1;try{sessionStorage.setItem(k,'1');}catch(e){}var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);window.__tsrICid=id;if(window.fbq)fbq('track','InitiateCheckout',{content_name:angle,content_category:src},{eventID:id});if(window.tsrCapi)tsrCapi({event_name:'InitiateCheckout',event_id:id,page_angle:angle,form_source:src,page_url:location.href.split('#')[0]});}catch(x){}};
 function loadTags(){tagJs.forEach(function(u){var j=d.createElement('script');j.async=true;j.src=u;d.head.appendChild(j);});}
-if(d.readyState==='complete')loadTags();else window.addEventListener('load',loadTags);
+/* speed pass 03.11: a page can set window.TSR_TAGS_WAIT (ms) to start GTM, Pixel and Clarity on the visitor's first scroll, tap or key
+   press, or after that many ms at the latest (V3 landing: 4000). Events sent before that wait in the dataLayer / fbq / clarity queues. */
+function startTags(){var w=window.TSR_TAGS_WAIT;if(!w){loadTags();return;}var done=false,ev=['scroll','pointerdown','touchstart','keydown'];
+function go(){if(done)return;done=true;ev.forEach(function(e){window.removeEventListener(e,go,true);});loadTags();}
+ev.forEach(function(e){window.addEventListener(e,go,{capture:true,passive:true});});setTimeout(go,w);}
+if(d.readyState==='complete')startTags();else window.addEventListener('load',startTags);
 
 /* per-ad hero line (home page only) */
 var Q=new URLSearchParams(location.search);
