@@ -1,3 +1,12 @@
 /truesquare-remodel.vcf
   Content-Type: text/vcard; charset=utf-8
   Content-Disposition: inline; filename="TrueSquare-Remodel.vcf"
+
+# speed pass 03.11: long browser and edge cache for static files (before: 4 h + revalidate on every visit).
+# Fonts never change. Images that change get a new name or ?v=. JS is versioned in the HTML (?v=).
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/img/*
+  Cache-Control: public, max-age=2592000
+/js/*
+  Cache-Control: public, max-age=86400

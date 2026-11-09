@@ -122,7 +122,7 @@ def hero(sub, under):
     <div class="htext">
       <p class="kicker">Seattle-area bathroom remodeling</p>
       <h1>Full Bathroom Remodels: <span class="grad-text">{RANGE}</span></h1>
-      <span class="scope">Smaller bathrooms fall at the lower end. Price depends on scope. Plus WA sales tax.</span>
+      <span class="scope">Smaller bathrooms fall at the lower end. Price depends on scope.</span>
       <p class="sub">{sub}</p>
       <div class="hcta">
         <a class="btn" href="#book" data-cta="hero">Request My Free Bathroom Visit <span class="arr">→</span></a>
@@ -150,7 +150,7 @@ FACTORS = f"""<section class="alt"><div class="wrap">
   </div>
   <div class="rangebox">
     <b>Full bathroom remodel: {RANGE}</b>
-    <small><span class="tax">Smaller bathrooms fall at the lower end. Price depends on scope. Plus WA sales tax.</span> Larger or more complex projects may exceed this range. This is our current price range, not a quote. Your exact price comes in writing after we see the room.</small>
+    <small><span class="tax">Smaller bathrooms fall at the lower end. Price depends on scope.</span> Larger or more complex projects may exceed this range. This is our current price range, not a quote. Your exact price comes in writing after we see the room.</small>
   </div>
 </div></section>"""
 
@@ -248,7 +248,7 @@ STEPS = """<section class="alt" id="process"><div class="wrap">
 </div></section>"""
 
 FAQ_ITEMS = [
-    ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}. Smaller bathrooms fall at the lower end. Larger or more complex projects may exceed this range. Price depends on scope. Plus WA sales tax. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
+    ("Can you give me a price before the visit?", f"Our full remodels range from {RANGE}. Smaller bathrooms fall at the lower end. Larger or more complex projects may exceed this range. Price depends on scope. An exact price needs a visit, because the layout and what's behind the walls change the number. You get it in writing within 5 hours after the visit."),
     ("What if you find damage behind the wall?", "We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
     ("How long does it take?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
     ("Is there a warranty?", "Yes. 1-year written workmanship warranty, plus the manufacturer warranties on fixtures and materials."),
@@ -271,7 +271,7 @@ FINAL = f"""<section class="alt final"><div class="wrap">
 
 def landing(path, angle, sub, under, title):
     body = "\n".join([hero(sub, under), FACTORS, WORK, form_section(), WRITTEN, OWNER, STEPS, FAQ, FINAL])
-    return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
+    return shell(path, title, f"Full bathroom remodels in the Seattle area: {RANGE}, scope dependent. Free visit, itemized written price within 5 hours.", angle, body, preload="/img/lp-hero.jpg")
 
 PAGES = {
     "bathroom-remodel-cost.html": landing(

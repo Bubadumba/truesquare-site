@@ -19,7 +19,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "13"  # cache version for lp.js (12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
+V = "15"  # cache version for lp.js (15 = consent text from the phone hint when there is no consent block + minimal thank-you, 02.11; 14 = lp_variant + W3 tile picked by the server, 02.11; 12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
@@ -56,7 +56,9 @@ def css_inline():
 
 def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_label="Get My Price", footer_html=None, variant=""):
     CSS = css_inline()
-    PRE = ""
+    # speed pass 03.11: the first-screen photo is the LCP on V3 since the short first screen; preload it first, AVIF only
+    PRE = (f'<link rel="preload" as="image" href="{preload}-760.avif" imagesrcset="{preload}-480.avif 480w, {preload}-760.avif 760w" '
+           f'imagesizes="{BAND_SIZES}" type="image/avif" fetchpriority="high">\n') if preload and "." not in preload else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -88,7 +90,7 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 
 <footer><div class="wrap lpf">
   <span><b>TrueSquare Remodel LLC</b> · WA Registered Contractor · <b>{LNI}</b>{'' if 'lp2' in body_class else ' · <span class="nw">Owner-led</span>'}</span>
-  <span><a href="tel:{PHONE_T}">{PHONE}</a> · info@truesquareremodel.com · Seattle, WA</span>
+  <span><a href="tel:{PHONE_T}">{PHONE}</a> · <!--email_off-->info@truesquareremodel.com<!--/email_off--> · Seattle, WA</span>
   <span class="links"><b style="color:#fff">Find us on:</b>{profiles.footer_links()}</span>
   <span class="links"><a href="/">About TrueSquare</a><a href="/privacy">Privacy Policy</a><a href="/terms">Terms of Service</a></span>
 </div></footer>
@@ -112,14 +114,25 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
 
 <script>
-/* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=11';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+/* analytics + shared behavior load after the page has painted (keeps LCP fast); speed pass 03.11: GTM, Pixel and Clarity start on the
+   first scroll / tap or 4 s after load at the latest (site.js reads TSR_TAGS_WAIT). The form script (lp.js) and BRM Stats are not delayed. */
+window.TSR_TAGS_WAIT=4000;
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=13';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
 </body>
 </html>
 """
+
+# speed pass 03.11: AVIF + WebP copies (made once with sharp, next to the JPG) in <picture>; the JPG stays as the fallback
+BAND_SIZES = "(min-width: 960px) 760px, calc(100vw - 40px)"
+def pic(src, alt, w, h, widths, sizes, attrs=""):
+    base = src.split("?")[0].rsplit(".", 1)[0]
+    def ss(ext): return ", ".join(f"{base}-{x}.{ext} {x}w" for x in widths)
+    return (f'<picture><source type="image/avif" srcset="{ss("avif")}" sizes="{sizes}">'
+            f'<source type="image/webp" srcset="{ss("webp")}" sizes="{sizes}">'
+            f'<img src="{src}" alt="{alt}" width="{w}" height="{h}"{attrs}></picture>')
 
 def stars():
     return '<span class="st" aria-hidden="true"><svg><use href="#star"/></svg></span>'
@@ -205,7 +218,7 @@ WORK = f"""<section id="work"><div class="wrap">
 
 TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
 
-def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel", steps=False, phone_help="We'll call or text only about your visit."):
+def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Price</span>', lead="Tell us what you're planning. Serhii will call to set up your free visit.", extra="", submit="Request My Free Visit", who="", tile_opts=None, tile_help="", phone_label="Mobile phone", consent_name="TrueSquare Remodel", steps=False, phone_help="We'll call or text only about your visit.", consent=True):
     # a tile is "value" or ("value", "small hint"); the value is what goes to GHL as project_type
     def _tile(t):
         v, hint = (t if isinstance(t, tuple) else (t, ""))
@@ -233,28 +246,21 @@ def form_section(show_lic=True, h2='Get Your <span class="grad-text">Written Pri
       </fieldset>{chosen}
       <div class="fields">
         <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
-        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"><span class="why">{phone_help}</span></label>
+        <label class="f" for="fPhone">{phone_label}<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"><span class="why" id="fPhoneWhy">{phone_help}</span></label>
         <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" enterkeyhint="send"></label>
                 <p class="err" id="fErr" hidden></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="form"><span id="fLabel">{submit}</span> <span class="arr">→</span></button>
-        <p class="legal-mini" id="consentText">By tapping {submit}, you agree {consent_name} may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>
+        {('<p class="legal-mini" id="consentText">By tapping ' + submit + ', you agree ' + consent_name + ' may call and text you about your request at the number you entered. Msg &amp; data rates may apply. Reply STOP to opt out. <a href="/privacy" target="_blank">Privacy Policy</a> · <a href="/terms" target="_blank">Terms</a></p>') if consent else ''}
         <p class="next">No payment. No obligation.</p>
         {trust_in}
       </div>{trust_out}
     </div>
     <div class="done v3done" id="formDone" hidden>
       <div class="dcheck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-      <p class="big" id="doneHi">Thanks! Your request is in.</p>
+      <p class="big" id="doneHi">Thanks!</p>
       <p class="dwhen" id="doneWhen">Serhii will call you shortly to set up your free visit.</p>
-      <p class="dnum" id="doneNum" hidden>We'll call <b id="donePhone"></b>. Wrong number? Call or text <a href="tel:{PHONE_T}" class="nw">{PHONE}</a>.</p>
-      <ol class="dsteps">
-        <li><span class="n">1</span>Serhii calls to set a time</li>
-        <li><span class="n">2</span>Free visit: we discuss and measure your bathroom</li>
-        <li><span class="n">3</span>Your written price within 5 hours after the visit</li>
-      </ol>
-      <a class="btn block" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Our Number <span class="arr">↓</span></a>
-      <p class="dtip">So you know it's us when we call.</p>
-      <a class="dcall" href="tel:{PHONE_T}" data-cta="done-call">Or call now: <span class="nw">{PHONE}</span></a>
+      <p class="dnum" id="doneNum" hidden>We'll call <b id="donePhone"></b>. Wrong number? Text <a href="sms:{PHONE_T}" class="nw">{PHONE}</a>.</p>
+      <a class="btn block" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Serhii's Number <span class="arr">↓</span></a>
     </div>
   </form>
 </div></section>"""
@@ -424,47 +430,49 @@ def v2_page():
 # ===== love-v3: final 3-council summit (26.10). Preview only, not in ads. =====
 # 26.10 Serhii: no "subcontractor" caption under V3 photos ("they are members of our team")
 def v3_page(variant="v3"):
+    # owner 02.11 15:38: no "+ tax" / "+ WA sales tax" on this landing (V3 and Q); ads keep "+ tax"
     def li(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
-    # first screen v3c (28.10, two councils, owner OK 11:29): 4 text levels, price as its own line, 3 one-line promises
+    # first screen v3c (28.10, two councils, owner OK 11:29); short version 02.11 17:01: rating, city, H1, price + one line,
+    # one promise line, button; the three promises and the full price note move to the first block below the first screen
     top = RANGE.split("–")[-1]
     hero = f"""<section class="hero on-ink v2hero v3hero">
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
-    <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
-    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
-    <div class="v3price">
-      <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
-      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
-      <p class="v3pnote">Price depends on scope; some projects may exceed {top}.</p>
+    <p class="v3geo" data-geo>Seattle area</p>
+    <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <div class="v3price" data-lp-price>
+      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
+      <p class="v3pnote">Price depends on scope.</p>
     </div>
-    <ul class="hlist v3list">
-      {li("Written price within 5 hours after your visit")}
-      {li("No extra work without your written OK")}
-      {li('<span><b>One contact:</b> <span class="w5">Serhii, start to finish</span></span>')}
-    </ul>
+    <p class="v3one">Free visit, then a written price in 5 hours</p>
     <div class="hcta"><a class="btn block" href="#book" data-cta="hero">Get My Written Price <span class="arr">→</span></a></div>
-    <p class="under v3under">Free visit first. No decision at the visit.</p>
   </div>
 </section>"""
     band = f"""<section class="v3band"><div class="wrap">
-  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg"><img src="/img/p/b13-band.jpg" alt="Remodeled bathroom with a double vanity and a large lit mirror" width="760" height="388" fetchpriority="high"><span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
+  <figure class="v2photo v3photo"><button class="ph" type="button" data-full="/img/p/b13.jpg">{pic("/img/p/b13-band.jpg", "Remodeled bathroom with a double vanity and a large lit mirror", 760, 388, [480, 760], BAND_SIZES, ' fetchpriority="high"')}<span class="zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5M11 8v6M8 11h6"/></svg></span></button></figure>
+  <ul class="hlist v3keep" data-lp-list="tick">
+    {li("Written price within 5 hours after your visit")}
+    {li("No extra work without your written OK")}
+    {li('<span><b>One contact:</b> <span class="w5">Serhii, start to finish</span></span>')}
+  </ul>
+  <p class="v3keepnote" data-lp-pnote>Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
   <div class="tline facts"><span>WA Registered Contractor · <b>{LNI}</b></span><span>1-year written workmanship warranty</span></div>
 </div></section>"""
     # safe package 30.10 (#1, council R8 6-1): the form intro is only FREE VISIT / Get Your Written Price / Prefer to talk? Call
     form = form_section(show_lic=False, h2='Get Your <span class="grad-text">Written Price</span>',
                         lead="",
                         submit="Get My Written Price", who="",
-                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
+                        tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"], phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True, consent=False)  # owner 02.11 23:22: no consent block under the button
     # safe package 30.10 (#2): owner 29.10 07:18 — the real shower before/after looked weak; use a high-quality generated before/after instead,
     # shown as a drag slider; owner 29.10 15:42: no "Illustration" label on the image; the caption says "Example of a typical full remodel"
     # so it is not passed off as a specific client project; real crew photos follow under their own heading
     def ph(full, img, alt, w, h):
-        return f'<button class="ph" type="button" data-full="{full}"><img src="{img}" alt="{alt}" loading="lazy" width="{w}" height="{h}"></button>'
+        return f'<button class="ph" type="button" data-full="{full}">{pic(img, alt, w, h, [w], "150px", ' loading="lazy"')}</button>'
     work = f"""<section class="v2work v3work"><div class="wrap">
   <div class="head"><p class="kicker">Before &amp; after</p><h2>From Dated <span class="grad-text">to Done.</span></h2></div>
   <figure class="v3cmp" style="--pos:40%">
-    <img class="v3cmp-a" src="/img/p/ill-after.jpg?v=2" alt="After: the same bathroom with a walk-in glass shower, vertical white tile, walnut floating vanity and a round black mirror" width="931" height="698" loading="lazy">
-    <div class="v3cmp-b"><img src="/img/p/ill-before.jpg?v=2" alt="Before: a dated bathroom with an almond tub-shower combo, oak vanity and brass fixtures" width="931" height="698" loading="lazy"></div>
+    {pic("/img/p/ill-after.jpg?v=2", "After: the same bathroom with a walk-in glass shower, vertical white tile, walnut floating vanity and a round black mirror", 931, 698, [700, 931], BAND_SIZES, ' class="v3cmp-a" loading="lazy"')}
+    <div class="v3cmp-b">{pic("/img/p/ill-before.jpg?v=2", "Before: a dated bathroom with an almond tub-shower combo, oak vanity and brass fixtures", 931, 698, [700, 931], BAND_SIZES, ' loading="lazy"')}</div>
     <span class="v3tag v3tag-b" aria-hidden="true">Before</span><span class="v3tag v3tag-a" aria-hidden="true">After</span>
     <span class="v3knob" aria-hidden="true"></span>
     <input type="range" min="0" max="100" value="40" aria-label="Drag to compare before and after" oninput="this.parentNode.style.setProperty('--pos',this.value+'%')">
@@ -496,9 +504,9 @@ def v3_page(variant="v3"):
   </div>
   <div class="v3mid"><a class="btn block" href="#book" data-cta="scope">Get My Written Price <span class="arr">→</span></a><p class="v3midunder">Free visit first. No decision at the visit.</p></div>
 </div></section>"""
-    owner = """<section class="owner on-ink v2owner"><div class="wrap">
+    owner = f"""<section class="owner on-ink v2owner"><div class="wrap">
   <div class="v2own">
-    <img src="/img/serhii-ts-wide.jpg" alt="Serhii, owner of TrueSquare Remodel" loading="lazy" width="744" height="408">
+    {pic("/img/serhii-ts-wide.jpg", "Serhii, owner of TrueSquare Remodel", 744, 408, [744], BAND_SIZES, ' loading="lazy"')}
     <div>
       <p class="kicker">Your contact</p>
       <h2>No Sales Reps. <span class="grad-text">Just Serhii.</span></h2>
@@ -518,7 +526,7 @@ def v3_page(variant="v3"):
 </div></section>""".replace("GOOGLE_URL", GOOGLE)
     faq_items = [
         ("Will the price jump once the walls are open?", "Only if we find hidden damage or you change the scope. We stop, show you photos, and give you a written price. Nothing happens without your written OK."),
-        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home, and WA sales tax is extra. Your written price follows within 5 hours after the free visit."),
+        ("Why can't you price it over the phone?", f"We need to see and measure the room first. The {RANGE} range is not a quote for your home. Your written price follows within 5 hours after the free visit."),
         ("Are you the one swinging the hammer?", "No. Our subcontractor crew does the construction. Serhii coordinates the project and is your phone/text contact."),
         ("Do I pay everything up front?", "No. You pay a deposit at signing, another payment after the rough-in inspection, and the final payment after the walkthrough."),
         ("How long will I be without a bathroom?", "Typically 1–3 weeks of construction, depending on scope and what we find. You get the start date in writing."),
@@ -544,23 +552,24 @@ def v3_page(variant="v3"):
         qform = form_section(show_lic=False, lead="", submit="Get My Written Price", who="", tile_help="Choose your project to request a free visit.",
                              phone_help="Serhii will call to arrange your free visit.",
                              tile_opts=["Full remodel, same layout", "Full remodel, new layout", "Tub to walk-in shower", "Shower remodel", ("Partial update", "Vanity, tile or fixtures"), "Not sure yet"],
-                             phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True)
+                             phone_label="Phone number", consent_name="TrueSquare Remodel LLC", steps=True, consent=False)
         qform = _re.search(r'<form .*?</form>', qform, _re.S).group(0)
         hero = f"""<section class="hero on-ink v2hero v3hero q3hero" id="book">
   <div class="wrap">
     <p class="v3rate v3row"><a href="{GOOGLE}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Google <span>(12)</span></a><i aria-hidden="true">·</i><a href="{THUMBTACK}" target="_blank" rel="noopener">{stars()}<b>5.0</b> Thumbtack <span>(24)</span></a></p>
-    <p class="v3geo" data-geo>Bathroom remodeling in the Seattle area</p>
-    <h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
-    <div class="v3price">
-      <p class="v3plab" data-geo-lab>Seattle-area full bathroom remodels</p>
-      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b> <span>+ WA sales tax</span></p>
-      <p class="v3pnote">Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
+    <p class="v3geo" data-geo>Seattle area</p>
+    <h1 data-lp-h1>Love the House. <span class="grad-text">Not the Bathroom?</span></h1>
+    <div class="v3price" data-lp-price>
+      <p class="v3prow"><b class="v3pnum grad-text nw">{RANGE}</b></p>
+      <p class="v3pnote">Price depends on scope.</p>
     </div>
-    <ul class="qprom">
+    <p class="v3one">Free visit, then a written price in 5 hours</p>
+    {qform}
+    <ul class="qprom qkeep" data-lp-list="plain">
       <li>Free in-home visit with Serhii, the owner.</li>
       <li>Itemized written price within 5 hours after your visit.</li>
     </ul>
-    {qform}
+    <p class="qkeepnote" data-lp-pnote>Price depends on scope; some projects may exceed {top}. Partial updates are quoted separately.</p>
     <p class="qlic">WA Registered Contractor · <b>{LNI}</b> · 1-year written workmanship warranty</p>
   </div>
 </section>"""
@@ -569,8 +578,9 @@ def v3_page(variant="v3"):
     else:
         body = "\n".join([hero, band, form, work, written, owner, faq, final])
     return shell("/bathroom-remodel-cost-v3", "Full Bathroom Remodels in Seattle: $16,000–$28,500 | TrueSquare",
-                 f"Full bathroom remodels in the Seattle area: {RANGE}, plus WA sales tax. Free visit, written price within 5 hours.",
-                 "love-v3", body, body_class=body_class, sticky_label="Get My Price", variant=variant)
+                 f"Full bathroom remodels in the Seattle area: {RANGE}. Free visit, written price within 5 hours.",
+                 "love-v3", body, body_class=body_class, sticky_label="Get My Price", variant=variant,
+                 preload="/img/p/b13-band" if variant == "v3" else None)
 
 # Only the V3 ad landing is built from this file (26.10 summit). Other landings: tools/build_lp.py.
 PAGES = {
