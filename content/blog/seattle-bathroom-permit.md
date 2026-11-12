@@ -52,7 +52,7 @@ The same page says installing kitchen cabinets and putting paneling or finishes 
 
 Yes. Public Health requires a permit to "install, relocate, or change a plumbing or gas piping system" ([Public Health Seattle & King County, checked November 2026](https://cd10-prod.kingcounty.gov/en/dept/dph/health-safety/environmental-health/plumbing-gas-piping/applications-and-permits)). Moving a toilet, a drain or a shower valve counts.
 
-Public Health, not SDCI, issues plumbing permits in Seattle. The same office covers Clyde Hill and unincorporated King County. Other cities in the county have their own rules.
+Public Health, not SDCI, issues plumbing permits in Seattle. The same office covers Clyde Hill and unincorporated King County. Other cities in the county have their own rules: see [who issues bathroom permits in Renton, Bellevue and King County](/blog/bathroom-permits-seattle-renton-bellevue/).
 
 A homeowner can apply for a homeowner's permit and do the plumbing personally. Public Health itself recommends hiring a professional plumber.
 
