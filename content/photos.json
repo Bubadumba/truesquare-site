@@ -191,7 +191,9 @@
     "heroOk": true,
     "source": "photo",
     "altDefault": "Walk-in shower with sliding glass door",
-    "usedIn": []
+    "usedIn": [
+      "bathroom-permits-seattle-renton-bellevue"
+    ]
   },
   {
     "id": "b14",
@@ -478,7 +480,9 @@
     "heroOk": true,
     "source": "photo",
     "altDefault": "Tub with marble-look tile surround",
-    "usedIn": []
+    "usedIn": [
+      "bathroom-permits-seattle-renton-bellevue"
+    ]
   },
   {
     "id": "k06",

@@ -32,9 +32,11 @@
   owner_inputs: ["which of these jurisdictions we have actually permitted in"]
   page_type: blog-reference
   priority: 1
-  status: approved
+  status: drafted
+  slug: bathroom-permits-seattle-renton-bellevue
+  drafted_on: 2026-11-12
   requires_project_city: null
-  notes: "SERP: official pages only, buried. Realistic: yes."
+  notes: "SERP: official pages only, buried. Realistic: yes. Shoreline left out: shorelinewa.gov returned 403 to every fetch, add it once its pages can be verified."
 
 - id: washington-remodel-sales-tax
   title: "Why your Seattle bathroom estimate has a 10.55% sales tax line"
