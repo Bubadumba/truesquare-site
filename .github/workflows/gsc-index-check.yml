@@ -1,0 +1,46 @@
+# Every day: ask Google Search Console (URL Inspection API, read only) whether the blog posts of the last 30 days
+# are indexed. A post older than 3 days that is not indexed opens (or updates) the issue "Blog post not indexed".
+# Does nothing until the secret GSC_SERVICE_ACCOUNT_JSON exists (see tools/gsc_index_check.py).
+name: GSC index check
+
+on:
+  schedule:
+    - cron: "17 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install google-auth requests
+      - name: Inspect recent posts
+        id: inspect
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE: ${{ vars.GSC_SITE }}
+        run: |
+          set +e
+          python3 tools/gsc_index_check.py --report /tmp/gsc-report.md
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          [ "$code" = 0 ] || [ "$code" = 3 ]
+      - name: Open or update the issue
+        if: steps.inspect.outputs.code == '3'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body="Google Search Console reports these blog posts as not indexed (checked $(date -u +%F)):
+
+          $(cat /tmp/gsc-report.md)
+
+          What to do: open Search Console, paste the URL in the top search bar and press Request indexing. Check that sitemap.xml is submitted."
+          n=$(gh issue list --state open --search '"Blog post not indexed" in:title' --json number --jq '.[0].number')
+          if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else gh issue create --title "Blog post not indexed" --body "$body"; fi
