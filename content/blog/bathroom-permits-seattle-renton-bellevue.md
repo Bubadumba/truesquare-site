@@ -53,7 +53,7 @@ Renton wants a building permit for a residential interior remodel, bathroom incl
 
 Plumbing, electrical and mechanical work each get their own permit. All three can be applied for in Renton's online permit portal. Renton's page lists no dollar threshold and no exemptions, so we would not assume a small bathroom needs no building permit.
 
-Renton also requires an asbestos survey of the work area before any renovation or demolition. The city cites Puget Sound Clean Air Agency and L&I rules. Plan the survey before demolition starts, because the city requires it first.
+Renton also requires an asbestos survey of the work area before any renovation or demolition. The city cites Puget Sound Clean Air Agency and L&I rules. Plan the survey before demolition starts, because those rules require it first.
 
 Review is the slow part. Renton quotes 2 to 3 weeks for an initial residential review and 1 to 2 weeks for revisions. Same-day permits exist for over-the-counter work. If the house is on septic and the remodel adds a bath, King County Environmental Health must approve it, and the letter goes in with your application.
 
@@ -79,7 +79,7 @@ Three points show up on more than one page.
 
 - Moving plumbing needs a plumbing permit. Public Health says so for Seattle and unincorporated King County, Bellevue says so for relocated fixtures, and Renton requires a separate plumbing permit.
 - A tub or shower replacement is not treated like a toilet swap. Bellevue and the regional tip sheet both say it needs a permit.
-- Interior finish work is on the tip sheet's list of work that typically needs no permit, which covers Bellevue and King County. Renton's page lists no exemptions. The tip sheet adds a warning: work still has to meet code even when no permit is needed.
+- Interior finish work is on the tip sheet's list of work that typically needs no permit, which covers Bellevue and King County (ask Bellevue about tile, flooring and fans first). Renton's page lists no exemptions. The tip sheet adds a warning: work still has to meet code even when no permit is needed.
 
 {{photo id="b22" caption="Tub with a marble-look tile surround." alt="Tub with a marble-look tile surround" size="half"}}
 
