@@ -54,7 +54,8 @@
 - Warranty: ⬜ FILL (write the exact written warranty terms here or the agent never describes them; the agent never writes "guarantee")
 
 ## Permits we have actually pulled (by city)
-- ⬜ FILL (city, which permits, who pulled them, how long the review took)
+- Owner statement (Serhii Tomilov, in chat, 2026-11-12): TrueSquare covers all permits for its jobs, including electrical and plumbing permits, and also pulls the permits for layout changes (перепланировка). The client does not have to pull them.
+- Use only this general statement. No city-by-city list, review times or permit fees from our own jobs: ⬜ FILL (city, which permits, who pulled them, how long the review took)
 
 ## Materials and brands we actually use
 - Tile: ⬜ FILL

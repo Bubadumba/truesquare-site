@@ -16,7 +16,9 @@
   owner_inputs: ["which permits our Seattle jobs pulled (no fee invention)", "photo of a posted permit card if any"]
   page_type: blog-pillar
   priority: 1
-  status: approved
+  status: drafted
+  slug: seattle-bathroom-permit
+  drafted_on: 2026-11-12
   requires_project_city: null
   notes: "SERP: CRD 2017 post, permitmint (inconsistent), Block, Board & Vellum. Official SDCI pages do not surface. Realistic: yes."
 
