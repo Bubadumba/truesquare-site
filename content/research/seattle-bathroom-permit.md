@@ -39,5 +39,5 @@ This article adds the Public Health Seattle & King County plumbing fee schedule 
 ## Images
 | slot | photo id | real/generated | candidates | tokens |
 |---|---|---|---|---|
-| hero | ai-seattle-bathroom-permit-hero | generated (candidate 1 of 3; 2 showed a valve piped straight into the drain and a rooftop through the window; 3 was acceptable but candidate 1 was cleaner) | 3 | input 690, output 4116, total 4806 |
+| hero | ai-seattle-bathroom-permit-hero | generated, 2nd round (round 1 rejected: both copper lines ran past the valve to the top plate, trees visible through the window, exiftool missing so no IPTC tag; round 2 kept candidate 1 of 3, IPTC written) | 6 | round 1 total 4806; round 2 input 807, output 4116, total 4923 |
 | body | b17 | real | n/a | n/a |

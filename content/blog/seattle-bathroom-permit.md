@@ -9,19 +9,19 @@ intent: permit-explainer
 targetQuery: "do I need a permit to remodel a bathroom in Seattle"
 sources:
   - { title: "Seattle SDCI: Do You Need a Permit?", url: "https://www.seattle.gov/sdci/permits/do-you-need-a-permit", accessed: 2026-11-12 }
-  - { title: "Seattle SDCI: Construction Permit, Subject-to-Field-Inspection", url: "https://www.seattle.gov/sdci/permits/permits-we-issue-(a-z)/construction-permit---subject-to-field-inspection", accessed: 2026-11-12 }
+  - { title: "Seattle SDCI: Construction Permit, Subject-to-Field-Inspection", url: "https://www.seattle.gov/sdci/permits/permits-we-issue-%28a-z%29/construction-permit%2D%2D%2Dsubject%2Dto%2Dfield%2Dinspection", accessed: 2026-11-12 }
   - { title: "Seattle SDCI: Electrical Permit", url: "https://www.seattle.gov/sdci/permits/permits-we-issue-%28a-z%29/electrical-permit", accessed: 2026-11-12 }
   - { title: "Public Health Seattle & King County: Plumbing and gas piping applications and permits", url: "https://cd10-prod.kingcounty.gov/en/dept/dph/health-safety/environmental-health/plumbing-gas-piping/applications-and-permits", accessed: 2026-11-12 }
   - { title: "Public Health Seattle & King County: Plumbing and Gas Piping fees, effective January 1, 2026", url: "https://cdn.kingcounty.gov/-/media/king-county/depts/dph/documents/health-safety/environmental-health/fees/plumbing-gas-piping-service-fees-through-2026.pdf", accessed: 2026-11-12 }
   - { title: "Seattle Building Connections: Changes coming to plumbing and gas permit fees", url: "https://buildingconnections.seattle.gov/2024/12/05/changes-coming-to-plumbing-gas-permit-fees/", accessed: 2026-11-12 }
-ownerFactsUsed: ["Permits we have actually pulled (by city)", "Process"]
+ownerFactsUsed: ["Permits we have actually pulled (by city)"]
 draft: false
 noindex: false
 ---
 
 Yes, if the remodel moves plumbing, touches wiring or alters walls. Up to three permits, from two agencies. The Seattle Department of Construction and Inspections (SDCI) issues the building and electrical permits. Public Health Seattle & King County issues the plumbing permit.
 
-A like-for-like swap of a vanity, a retile or fresh paint usually needs none. The line between those two cases is where most homeowners get surprised.
+Cabinets, paint and finishes over existing walls usually need none. For a retile or a fixture swap, ask first.
 
 ## Which permits does a Seattle bathroom remodel need?
 
@@ -46,7 +46,7 @@ Three things override that number. SDCI requires a permit for work on load-beari
 
 Add up your own scope before you assume you are under $6,000. Tile, a vanity, a toilet, a fan, and the labor to put them in: it adds up fast.
 
-The same page says installing kitchen cabinets and putting paneling or finishes over existing walls usually need no permit. It does not list tile, flooring or replaced fixtures, so a retile alone is a call to SDCI, not an assumption. SDCI's page lists a phone line for exactly that question.
+The same page says installing kitchen cabinets and putting paneling or finishes over existing walls usually need no permit. It does not list tile, flooring or replaced fixtures, so call SDCI before you start a retile: +1 206-684-8600.
 
 ## Does a plumbing change need a permit?
 
@@ -69,7 +69,7 @@ note: From the Public Health fee schedule effective January 1, 2026. Plan review
 rows:
   - { item: "Plumbing permit, base", low: "$137", high: "$137", note: "plus $27 per fixture" }
   - { item: "Re-inspection", low: "$137", high: "$137", note: "per re-inspection" }
-  - { item: "Permit renewal", low: "$68", high: "$68", note: "for an expired permit" }
+  - { item: "Permit renewal", low: "$68", high: "$68", note: "permit renewal" }
   - { item: "Already Built Construction permit", low: "$273", high: "$273", note: "plus $55 per fixture; fees already paid are subtracted" }
 :::
 
@@ -85,14 +85,14 @@ SDCI bases electrical fees on what is installed or altered, plus a technology fe
 
 ## What if you change the layout?
 
-A layout change usually triggers more than one permit at once. A moved drain brings the plumbing permit. A relocated light or outlet brings the electrical permit. Take out a wall that carries load, and the building permit applies whatever the cost.
+A layout change usually triggers more than one permit at once. A moved drain brings the plumbing permit, a relocated light or outlet brings the electrical permit, and taking out a wall that carries load brings the building permit whatever the cost.
 
-SDCI's Subject-to-Field-Inspection (STFI) permit may cover a smaller layout change. It lists "remodeling part of a house" among the qualifying examples, screening "takes a few days", and the permit is valid for 18 months from issue ([SDCI STFI page, checked November 2026](https://www.seattle.gov/sdci/permits/permits-we-issue-%28a-z%29/construction-permit%2D%2D%2Dsubject%2Dto%2Dfield%2Dinspection)).
+SDCI's Subject-to-Field-Inspection (STFI) permit may cover a smaller layout change. It lists "remodeling a portion of your house" among the qualifying examples, screening "takes a few days", and the permit is valid for 18 months from issue ([SDCI STFI page, checked November 2026](https://www.seattle.gov/sdci/permits/permits-we-issue-%28a-z%29/construction-permit%2D%2D%2Dsubject%2Dto%2Dfield%2Dinspection)).
 
 Projects above the STFI limits need a regular building permit. SDCI sets building fees by project value, plus a technology fee, and publishes a yearly Fee Estimator. We do not quote a building-permit number here because we have no current figure from SDCI to cite.
 
 :::callout owner
-We pull the permits for our jobs and handle the paperwork: plumbing and electrical permits, and the permits for a layout change. You do not have to file anything. The price in writing says what is covered.
+Every permit for our jobs is on us, including the plumbing and electrical permits, and we pull the permits for a layout change. You do not have to pull any of them.
 :::
 
 For the full scope of a remodel, see our [bathroom remodeling](/bathroom-remodeling) page.
@@ -109,11 +109,11 @@ That is the published fee difference, and it is only the plumbing side. The agen
 
 SDCI says STFI screening takes a few days, and many electrical permits issue the same day. Plan-reviewed permits take longer. SDCI publishes no single number on the pages we read, and Public Health gives no review time either. It only says inspections are requested through its Permit Center.
 
-Ask your contractor to put the permit steps in the schedule in writing. For the sales-tax line that sits next to these fees on an estimate, see [why your estimate has a sales tax line](/blog/sales-tax-remodeling-washington/).
+Ask your contractor to put the permit steps in the schedule in writing. Your estimate also carries a sales tax line, which is a separate rule: see [why your estimate has a sales tax line](/blog/sales-tax-remodeling-washington/).
 
 :::faq
 - q: Do I need a permit to replace a toilet or vanity in Seattle?
-  a: A like-for-like fixture swap usually does not change the plumbing system, but Public Health requires a permit to install, relocate or change it. If the supply or drain moves, you need one. If nothing moves, ask Public Health before you start.
+  a: Public Health requires a permit to install, relocate or change plumbing. If the supply or drain moves, you need one. If nothing moves, ask Public Health before you start.
 - q: Who issues a plumbing permit in Seattle?
   a: Public Health Seattle & King County issues and inspects plumbing permits in Seattle, Clyde Hill and unincorporated King County. SDCI issues the building and electrical permits. Other King County cities send you to their own building department.
 - q: Can I pull the permit myself?
