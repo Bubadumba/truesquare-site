@@ -86,7 +86,7 @@ Four checks. Do them on any estimate you hold, ours included.
 3. Look up that address on the DOR tool and compare the rate.
 4. Multiply the price of the work by the rate. That number should equal the tax line, and price plus tax should equal the total.
 
-If the numbers do not match, ask. A good contractor will walk you through it. For how we price the work itself, see our [pricing section](/#pricing). To get a written price with the tax line, call +1 206-222-2328 or email info@truesquareremodel.com.
+If the numbers do not match, ask. A good contractor will walk you through it. For how we price the work itself, see our [pricing section](/#pricing). Permit fees are a separate line from the tax: see [bathroom remodel permits in Seattle](/blog/seattle-bathroom-permit/). To get a written price with the tax line, call +1 206-222-2328 or email info@truesquareremodel.com.
 
 :::faq
 - q: Is labor taxed on a remodel in Washington?
