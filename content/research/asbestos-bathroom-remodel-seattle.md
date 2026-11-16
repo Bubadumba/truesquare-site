@@ -21,7 +21,7 @@ Floor: survey before work, certified people for removal. Gap: nobody explains th
 | Before any renovation, owners and contractors must check materials; accredited inspector such as AHERA Building Inspector; fine $600 a day for contractors and owners | WA L&I Asbestos | https://www.lni.wa.gov/safety-health/safety-topics/topics/asbestos | 2026-11-16 | "You can be fined $600 a day." | official |
 | Owners of a non-commercial home are exempt from general survey requirements but must pass information to workers they hire | same | same | 2026-11-16 | "exempt from general survey requirements" | official |
 | Contractors and workers must be trained and certified to work with asbestos | same | same | 2026-11-16 | "trained and certified to work with asbestos" | official |
-| Renton requires an asbestos survey of the work area before renovation | existing post bathroom-permits-seattle-renton-bellevue (source: rentonwa.gov, checked 2026-11-12) | https://rentonwa.gov/City-Services/Permit-Center/Residential-Interior-Remodels | 2026-11-12 | not re-fetched today | official |
+| Renton requires an asbestos survey of the work area before renovation | https://rentonwa.gov/City-Services/Permit-Center/Residential-Interior-Remodels | 2026-11-16 | re-verified by critic | official |
 
 Not used (could not verify today): $17,000 and $24,273 per day PSCAA penalties, 10-day notification wait for contractor jobs, PDF DocumentCenter/View/2324 (unreadable by the fetch tool).
 
@@ -37,3 +37,8 @@ This article adds a verified two-agency picture that competitors omit or blur: t
 | slot | id | type | candidates | tokens |
 |---|---|---|---|---|
 | hero | ai-asbestos-bathroom-remodel-seattle-hero | generated | 3 (picked 2) | 4806 total |
+
+| PSCAA homeowner page mentions notice of violation and monetary penalties, no amount | PSCAA Homeowner Renovation | same | 2026-11-16 | "a notice of violation and monetary penalties" | official |
+
+Owner facts: none used (change-order line is CONFIRM-only, removed after critic).
+Hero image: generated, IPTC not written (exiftool unavailable in this environment).
