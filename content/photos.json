@@ -667,5 +667,30 @@
     "usedIn": [
       "seattle-bathroom-permit"
     ]
+  },
+  {
+    "id": "ai-asbestos-bathroom-remodel-seattle-hero",
+    "file": "/img/blog/ai/asbestos-bathroom-remodel-seattle-hero.webp",
+    "shows": "Empty small bathroom with old beige patterned sheet vinyl flooring, one corner lifted at the baseboard, white alcove tub and toilet",
+    "room": "bath",
+    "city": null,
+    "materials": [],
+    "stage": "detail",
+    "pairWith": null,
+    "orientation": "landscape",
+    "width": 1536,
+    "height": 1024,
+    "date": "2026-11-16",
+    "clientConsent": true,
+    "heroOk": true,
+    "source": "ai",
+    "altDefault": "Old patterned sheet vinyl floor in a small bathroom with one corner lifted at the baseboard",
+    "prompt": "Scene: the floor of a small empty 5x8 foot bathroom in a 1960s Seattle house, seen from the doorway, old sheet vinyl flooring in a faded beige pattern with one corner lifted slightly at the edge by the wall, showing a gray paper-like backing underneath. Subject: the lifted corner of the sheet vinyl at the base of a painted baseboard, in the center third. Details: a white 60 inch alcove tub with a plain wall behind, painted drywall, a plain white toilet at the side with a supply line, flat gray daylight from a wood-framed window with rain streaks on the glass out of focus. Capture: real photograph, shot on an iPhone, flat overcast daylight from a window, eye level, candid, no retouching, slight natural lens distortion, realistic grout and caulk lines. Composition: landscape 3:2, straight verticals, one subject. Constraints: no people, no hands, no tools, no text, no letters, no numbers, no logos, no warning signs, no labels, no outside view, no mirror.",
+    "model": "gpt-image-2.5-flare",
+    "generatedOn": "2026-11-16",
+    "iptcWritten": false,
+    "usedIn": [
+      "asbestos-bathroom-remodel-seattle"
+    ]
   }
 ]

@@ -92,7 +92,9 @@
   owner_inputs: ["our actual survey workflow (who we hire; cost range only if a written quote exists)"]
   page_type: blog
   priority: 1
-  status: approved
+  status: drafted
+  slug: asbestos-bathroom-remodel-seattle
+  drafted_on: 2026-11-16
   requires_project_city: null
   notes: "SERP: SWCAA PDFs (wrong agency), CRD, Block. PSCAA does not rank. Realistic: yes."
 
