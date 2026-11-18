@@ -117,10 +117,11 @@ def shell(path, title, desc, angle, body, preload=None, body_class="lp", sticky_
 <script>
 /* analytics + shared behavior load after the page has painted (keeps LCP fast); speed pass 03.11: GTM, Pixel and Clarity start on the
    first scroll / tap or 4 s after load at the latest (site.js reads TSR_TAGS_WAIT). The form script (lp.js) and BRM Stats are not delayed.
-   17.11: the Meta Pixel is no longer delayed: its base code and PageView run from the <head> (tools/pixel.py). */
+   17.11: the Meta Pixel is no longer delayed: its base code and PageView run from the <head> (tools/pixel.py). The Pixel makes the
+   load event later on slow phones, so site.js + lp.js now start at DOMContentLoaded (the form works as early as before or earlier). */
 window.TSR_TAGS_WAIT=4000;
 (function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=14';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
-if(document.readyState==='complete'){{go();}}else addEventListener('load',go);}})();
+if(document.readyState!=='loading'){{go();}}else addEventListener('DOMContentLoaded',go);}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
 </body>
