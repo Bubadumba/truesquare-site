@@ -18,7 +18,8 @@ if(!PREVIEW){
 /* analytics: dataLayer and fbq queues start now; the tag scripts download after the page has loaded (speed pass 26.10) */
 window.dataLayer=window.dataLayer||[];var tagJs=[];
 if(GTM_ID){window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});tagJs.push('https://www.googletagmanager.com/gtm.js?id='+GTM_ID);}
-if(META_PIXEL_ID){!function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];}(window);fbq('init',META_PIXEL_ID);fbq('track','PageView');tagJs.push('https://connect.facebook.net/en_US/fbevents.js');}
+/* 17.11: the ad landings run the Pixel base code + PageView from the <head> (window.TSR_PIXEL_HEAD); then it is not set up or sent here again */
+if(META_PIXEL_ID&&!window.TSR_PIXEL_HEAD){!function(f){if(f.fbq)return;var n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];}(window);fbq('init',META_PIXEL_ID);fbq('track','PageView');tagJs.push('https://connect.facebook.net/en_US/fbevents.js');}
 if(CLARITY_ID){window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};tagJs.push('https://www.clarity.ms/tag/'+CLARITY_ID);}
 /* Meta Conversions API: the same Lead goes server-side via /api/capi (Cloudflare Pages Function) with the Pixel's event_id, so Meta counts it once */
 window.tsrCapi=function(o){try{var c=d.cookie,g=function(n){var m=c.match(new RegExp('(?:^|; )'+n+'=([^;]*)'));return m?decodeURIComponent(m[1]):'';},q=new URLSearchParams(location.search).get('fbclid');o.fbp=g('_fbp');o.fbc=g('_fbc')||(q?'fb.1.'+Date.now()+'.'+q:'');fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(o),keepalive:true}).catch(function(){});}catch(x){}};
@@ -26,7 +27,7 @@ window.tsrCapi=function(o){try{var c=d.cookie,g=function(n){var m=c.match(new Re
    Once per visit (sessionStorage, this tab): closing and reopening the form does not send it again. Pixel + /api/capi share one event_id, so Meta counts it once. Lead is unchanged. */
 window.tsrIC=function(angle,src){try{var k='tsr_ic_sent',s=!!window.__tsrIC;try{s=s||sessionStorage.getItem(k)==='1';}catch(e){}if(s)return;window.__tsrIC=1;try{sessionStorage.setItem(k,'1');}catch(e){}var id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);window.__tsrICid=id;if(window.fbq)fbq('track','InitiateCheckout',{content_name:angle,content_category:src},{eventID:id});if(window.tsrCapi)tsrCapi({event_name:'InitiateCheckout',event_id:id,page_angle:angle,form_source:src,page_url:location.href.split('#')[0]});}catch(x){}};
 function loadTags(){tagJs.forEach(function(u){var j=d.createElement('script');j.async=true;j.src=u;d.head.appendChild(j);});}
-/* speed pass 03.11: a page can set window.TSR_TAGS_WAIT (ms) to start GTM, Pixel and Clarity on the visitor's first scroll, tap or key
+/* speed pass 03.11: a page can set window.TSR_TAGS_WAIT (ms) to start GTM, Clarity (and the Pixel, unless it already runs from the <head>, 17.11) on the visitor's first scroll, tap or key
    press, or after that many ms at the latest (V3 landing: 4000). Events sent before that wait in the dataLayer / fbq / clarity queues.
    Only a scroll of the page itself counts: the photo strip (.v3swipe) snaps 20 px on its own at the first paint, which is not a visitor. */
 function startTags(){var w=window.TSR_TAGS_WAIT;if(!w){loadTags();return;}var done=false,ev=['scroll','pointerdown','touchstart','keydown'];

@@ -9,6 +9,7 @@ public/guarantee-terms.html. All noindex, none in sitemap.
 """
 import os, html
 import profiles  # profiles on other sites (owner 30.10)
+from pixel import HEAD_PIXEL  # Meta Pixel in <head> (owner 17.11)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUB = os.path.join(ROOT, "public")
@@ -64,7 +65,7 @@ def shell(path, title, desc, angle, body, preload=None):
 
 <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
 <style>{CSS}</style>
-</head>
+{HEAD_PIXEL}</head>
 <body class="lp" data-page="lp-{angle}" data-angle="{angle}">
 {SVG_DEFS}
 
@@ -103,10 +104,11 @@ def shell(path, title, desc, angle, body, preload=None):
 <div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><button type="button" id="lbClose" aria-label="Close">×</button></div>
 
 <script>
-/* analytics + shared behavior load after the page has painted (keeps LCP fast) */
-(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=11';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
+/* analytics + shared behavior load after the page has painted (keeps LCP fast); the Meta Pixel runs from the <head> (17.11, tools/pixel.py);
+   the Pixel makes the load event later, so fonts + site.js + lp.js start at DOMContentLoaded */
+(function(){{function go(){{var a=document.createElement('script');a.src='/js/site.js?v=14';a.onload=function(){{var b=document.createElement('script');b.src='/js/lp.js?v={V}';document.body.appendChild(b);}};document.body.appendChild(a);}}
 function fonts(){{var l=document.createElement('link');l.rel='stylesheet';l.href='{FONTS}';document.head.appendChild(l);}}
-if(document.readyState==='complete'){{fonts();go();}}else addEventListener('load',function(){{fonts();go();}});}})();
+if(document.readyState!=='loading'){{fonts();go();}}else addEventListener('DOMContentLoaded',function(){{fonts();go();}});}})();
 </script>
 <script src="https://stats.bigresultsai.com/t.js?c=tsr" defer></script>
 </body>
