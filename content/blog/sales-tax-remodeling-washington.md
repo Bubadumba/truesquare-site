@@ -32,7 +32,7 @@ The state's building rule says the same: the prime contractor collects the tax f
 
 Because the DOR presumes that a quoted price does not include sales tax unless the tax is separately itemized, and it says the words "tax included" are not enough to meet that rule ([DOR custom construction guide](https://dor.wa.gov/education/industry-guides/construction/custom-construction), checked October 2026).
 
-So our rule is simple. Washington retail sales tax goes on the estimate as a separate line, at the rate of the project address. You see the price of the work, then the tax, then the total.
+So our rule is simple. Washington retail sales tax goes on the estimate as a separate line, at the rate of the project address. You see the price of the work, then the tax, then the total. If you are weighing that total against resale, see [what a Seattle bathroom remodel recoups](/blog/bathroom-remodel-roi-seattle/).
 
 The same guide says progress bills should show the tax separately too. If a contractor bills in stages, each bill needs its own tax line.
 

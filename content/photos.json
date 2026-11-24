@@ -96,7 +96,9 @@
     "heroOk": true,
     "source": "photo",
     "altDefault": "Wood vanity, round mirror and marble-look floor",
-    "usedIn": []
+    "usedIn": [
+      "bathroom-remodel-roi-seattle"
+    ]
   },
   {
     "id": "ba02",
@@ -326,7 +328,9 @@
     "heroOk": true,
     "source": "photo",
     "altDefault": "Green subway tile tub surround",
-    "usedIn": []
+    "usedIn": [
+      "bathroom-remodel-roi-seattle"
+    ]
   },
   {
     "id": "b04",
