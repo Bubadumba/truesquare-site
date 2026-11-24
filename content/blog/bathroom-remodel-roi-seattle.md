@@ -10,6 +10,7 @@ targetQuery: "bathroom remodel roi seattle"
 sources:
   - { title: "JLC Cost vs Value 2025: Seattle, Washington", url: "https://www.jlconline.com/cost-vs-value/2025/seattle-wa/", accessed: 2026-11-24 }
   - { title: "JLC Cost vs Value 2025: Bath Remodel, Midrange", url: "https://www.jlconline.com/cost-vs-value/bath-remodel-midrange/", accessed: 2026-11-24 }
+  - { title: "JLC Cost vs Value 2024: Seattle, Washington", url: "https://www.jlconline.com/cost-vs-value/2024/pacific/seattle-wa/", accessed: 2026-11-24 }
   - { title: "JLC Cost vs Value 2025: Methodology", url: "https://www.jlconline.com/cost-vs-value/2025/methodology", accessed: 2026-11-24 }
 ownerFactsUsed: ["Company"]
 draft: false
@@ -18,13 +19,13 @@ noindex: false
 
 Partly. In the 2025 Cost vs Value report, a midrange bathroom remodel in Seattle is estimated to bring back 46.8% of what it costs when you sell. The Pacific region average for the same project is 91%. Seattle is the expensive end of that region, and the report's own figures show it.
 
-We read the report's Seattle page, its midrange bath page and its methodology page in November 2026. The 2025 edition is the newest we could read. Below is what the numbers say, how they were produced, and what we would do with them if the bathroom were ours.
+We read the report's Seattle page, its midrange bath page and its methodology page in November 2026. The 2025 edition is the newest we could read. Below: the Seattle row, how the figures are produced, and what we would do with them if the bathroom were ours.
 
 ## How much of a bathroom remodel do you get back in Seattle?
 
 For the midrange project, 46.8%. The report puts the Seattle job cost at $36,146 and the resale value at $16,933 ([JLC Cost vs Value 2025, Seattle, checked November 2026](https://www.jlconline.com/cost-vs-value/2025/seattle-wa/)). Our arithmetic: that leaves about $19,200 you do not get back at sale.
 
-That is a modeled project in a modeled house, not a quote. It is not what TrueSquare charges, and your price depends on your bathroom.
+That is a modeled project in a modeled house. It is a report figure and a different thing from a quote, and your price depends on your bathroom.
 
 | Project (2025 report) | Seattle job cost | Seattle resale value | Seattle recouped | Pacific recouped |
 |:-|:-|:-|:-|:-|
@@ -38,19 +39,21 @@ Source for every cell: [JLC Cost vs Value 2025, Seattle page, checked November 2
 
 ## Why is Seattle 46.8% when the Pacific region shows 91%?
 
-Two inputs differ, and they push in opposite directions. Seattle's job cost is $36,146 against $27,710 for the Pacific region, about 30% higher. Seattle's resale value is $16,933 against $25,217, about 33% lower. Same project, higher cost, lower payback.
+Two inputs differ, and they push in opposite directions. Seattle's job cost is $36,146 against $27,710 for the Pacific region, about 30% higher. Seattle's resale value is $16,933 against $25,217, about 33% lower. The cost is higher and the payback is lower.
 
-The report pages we read do not explain the gap. We will not guess a cause. What we can say is that the Pacific figure is an average over many markets, and Seattle is one market. A regional 91% tells you little about a Seattle house.
+The report pages we read do not explain the gap, and we will not guess a cause. What we can say is that the Pacific figure is an average over many markets, and Seattle is one market. A regional 91% tells you little about a Seattle house.
 
 Our advice: if a blog, an agent or a contractor quotes you 91% for a Seattle bathroom, ask which market it came from.
 
 ## Who decides the resale value in this report?
 
-Realtors do, by estimate. The methodology page says the resale figures come from an online survey of more than 6,000 Realtors run by Zonda with the National Association of Realtors' research arm. They were asked what each project adds to a home's sale price ([JLC methodology, checked November 2026](https://www.jlconline.com/cost-vs-value/2025/methodology)).
+Realtors do, by estimate. The methodology page says the resale figures come from an online survey of more than 6,000 Realtors run by Zonda in cooperation with Realtors Property Resource, a National Association of Realtors company. They were asked what each project adds to a home's sale price ([JLC methodology, checked November 2026](https://www.jlconline.com/cost-vs-value/2025/methodology)).
 
-So the resale value is an opinion about a sale price, not a record of sales. The job cost is separate: it comes from Verisk's estimating software for each of the 28 projects, with a national price index behind it (same methodology page).
+So the resale value is an opinion about a sale price, and no sales records sit behind it. The job cost is separate: it comes from Verisk's estimating software for each of the 28 projects, with a price index for each project category behind it (same methodology page).
 
-Both sides are estimates. Treat 46.8% as a direction, not a promise.
+Both sides are estimates. Treat 46.8% as a rough guide.
+
+One more thing: the figure moves from year to year. The 2024 edition showed a Seattle midrange job cost of $32,758, a resale value of $26,427 and 80.7% recouped ([JLC Cost vs Value 2024, Seattle, checked November 2026](https://www.jlconline.com/cost-vs-value/2024/pacific/seattle-wa/)). Between the two editions the Seattle resale estimate fell by about 36% (our arithmetic) while the cost rose by about 10%. The pages we read do not explain the swing, and the two editions may not describe an identical scope. One survey year is a weak basis for a big decision.
 
 {{cta}}
 
@@ -74,9 +77,9 @@ Our read: the money is least well spent on finish level you will not use. Tile y
 
 If you plan to live in the house, yes, and resale math should not drive the decision. A leaking shower, failed waterproofing or a layout that does not work for you are reasons that no percentage can override.
 
-If you plan to sell soon and the bathroom works, no. A full remodel of a working bathroom is a poor bet at 46.8%. Spend on repairs, not on a remodel.
+If you plan to sell soon and the bathroom works, no. A full remodel of a working bathroom returned 46.8% in the 2025 edition and 80.7% in 2024, and neither figure is a sure thing. Spend on repairs instead.
 
-The middle case is an old, tired bathroom in a house you will sell in a few years. Get a written price, then compare it with the 46.8% on your own number. Serhii Tomilov measures every project himself and writes every price, so you decide with a number for your house instead of a regional average.
+The middle case is an old, tired bathroom in a house you will sell in a few years. Get a written price, then compare it with the 46.8% on your own number. Serhii Tomilov measures every project himself and writes every price, so you decide with a number for your house instead of a regional average ([how we price a bathroom](/#pricing)).
 
 :::faq
 - q: What does cost recouped mean?
