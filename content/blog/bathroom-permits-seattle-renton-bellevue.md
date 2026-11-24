@@ -53,7 +53,7 @@ Renton wants a building permit for a residential interior remodel, bathroom incl
 
 Plumbing, electrical and mechanical work each get their own permit. All three can be applied for in Renton's online permit portal. Renton's page lists no dollar threshold and no exemptions, so we would not assume a small bathroom needs no building permit.
 
-Renton also requires an asbestos survey of the work area before any renovation or demolition. The city cites Puget Sound Clean Air Agency and L&I rules. Plan the survey before demolition starts, because those rules require it first.
+Renton also requires an asbestos survey of the work area before any renovation or demolition. The city cites Puget Sound Clean Air Agency and L&I rules. Plan the survey before demolition starts, because those rules require it first. We explain what the two agencies require in [asbestos in a Seattle bathroom remodel](/blog/asbestos-bathroom-remodel-seattle/).
 
 Review is the slow part. Renton quotes 2 to 3 weeks for an initial residential review and 1 to 2 weeks for revisions. Same-day permits exist for over-the-counter work. If the house is on septic and the remodel adds a bath, King County Environmental Health must approve it, and the letter goes in with your application.
 
