@@ -1,6 +1,6 @@
 ---
-title: "Does a bathroom remodel add value in Seattle? The 2025 numbers"
-description: "Cost vs Value 2025 says a midrange bathroom remodel in Seattle recoups 46.8% at resale, against 91% for the Pacific region. Here is why the gap is so wide."
+title: "Does a bathroom remodel add value in Seattle in 2026?"
+description: "The newest Cost vs Value data (2025 edition) says a midrange Seattle bathroom remodel recoups 46.8% at resale, against 91% for the Pacific region."
 pubDate: 2026-11-24
 heroPhoto: b19
 tags: [cost, resale, seattle, planning]
@@ -17,7 +17,7 @@ draft: false
 noindex: false
 ---
 
-Partly. In the 2025 Cost vs Value report, a midrange bathroom remodel in Seattle is estimated to bring back 46.8% of what it costs when you sell. The Pacific region average for the same project is 91%. Seattle is the expensive end of that region, and the report's own figures show it.
+Partly. In 2026 the newest data is still the 2025 Cost vs Value report, and in it a midrange bathroom remodel in Seattle is estimated to bring back 46.8% of what it costs when you sell. The Pacific region average for the same project is 91%. Seattle is the expensive end of that region, and the report's own figures show it.
 
 We read the report's Seattle page, its midrange bath page and its methodology page in November 2026. The 2025 edition is the newest we could read. Below: the Seattle row, how the figures are produced, and what we would do with them if the bathroom were ours.
 
