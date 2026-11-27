@@ -31,13 +31,12 @@ def _blog_css():
 
 BLOG_CSS_TAG = "<style>" + _blog_css() + "</style>"
 PER_PAGE = 10
-REVIEWED_BY = "Reviewed by Serhii Tomilov, TrueSquare Remodel LLC, WA L&amp;I # TRUESRL759QK"
+PUBLISHED_BY = "TrueSquare Remodel LLC, WA L&amp;I # TRUESRL759QK"
 HOW_WE_WRITE = (
     "Every guide on this site is written for homeowners in Seattle and nearby cities. Prices come from our own "
     "estimates and written subcontractor quotes, not from national averages. Permit, tax and code facts are checked "
-    "against the official city, county and state pages we link to, with the month we checked them. Drafts are prepared "
-    "with AI tools from our job notes and sources, then read, corrected and approved by Serhii Tomilov before they are "
-    "published. If you find a mistake, email info@truesquareremodel.com."
+    "against the official city, county and state pages we link to, with the month we checked them. Every guide lists "
+    "its sources. If you find a mistake, email info@truesquareremodel.com."
 )
 
 
@@ -111,7 +110,7 @@ def render_post(post, published, photos):
 <article class="prose blogpost">
 <figure class="bhero"{src_attr}><img src="{bc.esc(hero["file"])}" width="{hero["width"]}" height="{hero["height"]}" alt="{bc.esc(hero_alt)}" fetchpriority="high" decoding="async"></figure>
 {body_html}
-<div class="box reviewed"><p><b>{REVIEWED_BY}</b></p><p><a href="/about">About Serhii</a></p></div>
+<div class="box reviewed"><p><b>{PUBLISHED_BY}</b></p><p><a href="/about">About TrueSquare Remodel</a></p></div>
 </article>
 </div></section>
 {related_posts(post, published, photos)}
@@ -123,7 +122,7 @@ def render_post(post, published, photos):
                   '<link rel="alternate" type="application/rss+xml" title="TrueSquare Remodel blog" href="/blog/rss.xml">')
     ld = {"@type": "BlogPosting", "@id": url + "#article", "headline": m["title"], "description": m["description"],
           "datePublished": bc.seattle_iso(pub), "dateModified": bc.seattle_iso(upd or pub),
-          "author": {"@type": "Person", "@id": build.SITE + "/about#person", "name": "Serhii Tomilov", "url": build.SITE + "/about"},
+          "author": {"@id": build.BIZ_ID},
           "publisher": {"@id": build.BIZ_ID}, "image": [build.SITE + hero["file"]],
           "mainEntityOfPage": {"@id": url + "#webpage"}, "inLanguage": "en-US"}
     return build.page(path, m["title"], m["description"], body, ld_extra=[ld], crumbs=trail, page_id="blog",
@@ -149,7 +148,7 @@ def render_index(published, photos, page_no, total_pages):
 <section><div class="wrap">
   {empty}<div class="rel bindex">{cards}</div>
   {pager}
-  <p class="bnote">Every guide is checked by the owner before it goes up. <a href="/how-we-write/">How we write these guides</a>.</p>
+  <p class="bnote">Every guide links its sources. <a href="/how-we-write/">How we write these guides</a>.</p>
 </div></section>
 {build.book()}"""
     head_extra = BLOG_CSS_TAG + '\n<link rel="alternate" type="application/rss+xml" title="TrueSquare Remodel blog" href="/blog/rss.xml">'
@@ -188,7 +187,7 @@ def render_how_we_write():
 <p>Questions about a specific guide? <a href="/#book">Request a free visit</a> or call <a href="tel:{build.PHONE_T}">{build.PHONE}</a>.</p>
 </div></section>"""
     return path, build.page(path, "How We Write These Guides | TrueSquare Remodel",
-                            "How TrueSquare Remodel writes its bathroom remodeling guides: our own estimates and quotes, official permit and tax pages, and the owner's review before publishing.",
+                            "How TrueSquare Remodel writes its bathroom remodeling guides: our own estimates and quotes, and official permit and tax pages.",
                             body, crumbs=trail, page_id="how-we-write", head_extra=BLOG_CSS_TAG, body_class="blog")
 
 
