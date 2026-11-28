@@ -388,7 +388,9 @@
   owner_inputs: []
   page_type: blog
   priority: 3
-  status: proposed
+  status: drafted
+  slug: bathroom-remodel-roi-seattle
+  drafted_on: 2026-11-24
   requires_project_city: null
   notes: "Angi/NerdWallet 'is it worth it' sections rank. Long-tail."
 
