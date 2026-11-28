@@ -101,7 +101,7 @@ form.addEventListener('submit',function(e){
     lead_source:'Website - truesquareremodel.com',page_angle:ANGLE,page_variant:'calc',lp_variant:'calc',zip_in_area:inArea(zip.value),cta:'calc',form_source:'calc',
     calc_type:S.type,calc_size_key:S.size,calc_finish_key:S.finish,calc_extras_keys:chosenExtras().join(','),
     calc_project:L.type[S.type],calc_size:L.size[S.size],calc_size_assumed:(S.size==='U'||S.size==='SU')?'yes':'no',calc_finish:L.finish[S.finish],calc_extras:xs.join(', '),calc_start:S.start?L.start[S.start]:'',
-    calc_range:pr.text,calc_low:String(pr.lo),calc_high:String(pr.hi),calc_alt_range:alt?alt.text:'',calc_summary:sum,calc_session:SID,calc_version:'calc-v1.2',pricing_version:P.version,
+    calc_range:pr.text,calc_low:String(pr.lo),calc_high:String(pr.hi),calc_alt_range:alt?alt.text:'',calc_summary:[L.type[S.type],({S:'small size',M:'medium size',L:'large size',U:'size to be confirmed',SS:'standard shower size',SL:'larger shower',SU:'shower size to be confirmed'})[S.size],L.finish[S.finish].toLowerCase()+' finishes'].concat(xs.length?[xs.join(', ').toLowerCase()]:[]).join(', ')+'.',calc_session:SID,calc_version:'calc-v1.2',pricing_version:P.version,
     correction_of:correction?lead.id:'',
     utm_source:Q.get('utm_source')||'',utm_medium:Q.get('utm_medium')||'',utm_campaign:Q.get('utm_campaign')||'',utm_content:Q.get('utm_content')||'',utm_term:Q.get('utm_term')||'',
     fbclid:Q.get('fbclid')||'',page_url:location.href.split('#')[0],event_id:id,submitted_at:new Date().toISOString()};
