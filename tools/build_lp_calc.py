@@ -175,17 +175,17 @@ def opt(v, label, hint="", extra="", pic="", cls=""):
 
 # finish tiers: text = what the price includes [ЖДЁТ РЕШЕНИЯ Сергея: точные включения]; photos only after the owner approves them
 TIERS = {
-    "full": [("e", "Essential", "Simple tile, stock vanity, standard fixtures"), ("m", "Mid-range", "Porcelain tile, quartz top, upgraded fixtures"), ("p", "Premium", "Large-format tile, custom vanity, designer fixtures")],
-    "shower": [("e", "Essential", "Ceramic tile, standard valve, framed glass door"), ("m", "Mid-range", "Porcelain tile, recessed niche, frameless glass"), ("p", "Premium", "Large-format tile, rain shower head, frameless glass")],
+    "full": [("e", "Essential", "Subway tile, stock vanity, chrome fixtures, shower curtain"), ("m", "Mid-range", "Porcelain tile, quartz top, glass shower panel, upgraded fixtures"), ("p", "Premium", "Large-format tile, custom wood vanity, matte black fixtures, glass panel")],
+    "shower": [("e", "Essential", "Subway tile, chrome fixtures, framed sliding glass door"), ("m", "Mid-range", "Porcelain tile, recessed niche, frameless glass door"), ("p", "Premium", "Large-format tile, niche, rain head + handheld, frameless glass")],
 }
-TIER_IMG = os.path.join(PUB, "img", "calc")  # tier photos: /img/calc/{full|shower}-{e|m|p}-220.avif/.webp/.jpg (only when they exist)
+TIER_IMG = os.path.join(PUB, "img", "calc")  # tier photos: /img/calc/{full|shower}-{e|m|p}-330.avif/.webp/.jpg (330x248, 3x of the 110x82 tile) (only when they exist)
 
 def tier_pic(kind, k):
     base = f"/img/calc/{kind}-{k}"
-    if not os.path.exists(os.path.join(TIER_IMG, f"{kind}-{k}-220.jpg")):
+    if not os.path.exists(os.path.join(TIER_IMG, f"{kind}-{k}-330.jpg")):
         return ""
-    return (f'<span class="cqph"><picture><source type="image/avif" srcset="{base}-220.avif"><source type="image/webp" srcset="{base}-220.webp">'
-            f'<img src="{base}-220.jpg" alt="" width="110" height="82" loading="lazy" decoding="async"></picture><em>Example</em></span>')
+    return (f'<span class="cqph"><picture><source type="image/avif" srcset="{base}-330.avif"><source type="image/webp" srcset="{base}-330.webp">'
+            f'<img src="{base}-330.jpg" alt="" width="110" height="82" loading="lazy" decoding="async"></picture><em>Example</em></span>')
 
 def calc_block():
     tiers = ""
