@@ -172,7 +172,14 @@ def main():
             else:
                 E(f"only {words_total} words; minimum for intent {m.get('intent')} is {min_words}")
         if "Reviewed by" in body:
-            E("'Reviewed by' must not appear in the body; the layout prints it")
+            E("'Reviewed by' must not appear in the body; a review claim is false without a review")
+        pq = [w for w in re.findall(r"[a-z]{4,}", str(m.get("targetQuery", "")).lower()) if w not in ("with", "that", "does", "what", "from", "your", "about")]
+        if pq:
+            first = " ".join(re.split(r"\n##\s", body, maxsplit=1)[0].lower().split())
+            for label, hay in (("title", str(m.get("title", "")).lower()), ("description", str(m.get("description", "")).lower()), ("first paragraphs", first)):
+                miss = [w for w in pq if w not in hay]
+                if len(miss) > len(pq) // 2:
+                    W(f"keywords: the {label} lacks most words of targetQuery (missing: {', '.join(miss)})")
         if re.search(r"\$\s?\d|\d\s?%", body) and not (m.get("sources") or m.get("ownerFactsUsed")):
             E("the body has a $ amount or a % but sources and ownerFactsUsed are both empty")
 

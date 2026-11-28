@@ -1,5 +1,5 @@
 # Pipeline settings for the TrueSquare blog. The content agent reads this file at the start of every run.
-auto_publish: false            # the owner's merge is the publication step; never change this to true
+auto_publish: true             # owner decision 2026-11-27: a scheduled run publishes an article itself when every gate in the skill (Step 11) passes
 site_url: "https://truesquareremodel.com"
 blog_base: "/blog"
 max_articles_per_run: 3
