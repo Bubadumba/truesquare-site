@@ -11,9 +11,9 @@ var root=$('calc');if(!root)return;
    base = "from" price at Mid-range finish; finish multiplies the base; extras are added on top.
    shown range = base*finish + extras, rounded down to $500 ... that x 1.15, rounded up to $500. */
 var PRICES={
-  base:{full:{S:20000,M:24000,L:28500},tub:{S:12000,L:13500},shower:{S:10500,L:12000}},
-  finish:{full:{e:0.80,m:1,p:1.40},tub:{e:0.88,m:1,p:1.35},shower:{e:0.88,m:1,p:1.35}},
-  extras:{layout:6000,walkin:1500,curbless:3500,heat:{S:1500,M:1900,L:2400},double:2500,bench:900,grab:450},
+  base:{full:{S:21000,M:28500,L:38000},tub:{S:12000,L:14000},shower:{S:10500,L:12500}},
+  finish:{full:{e:0.765,m:1,p:1.40},tub:{e:0.88,m:1,p:1.35},shower:{e:0.88,m:1,p:1.35}},
+  extras:{layout:6000,walkin:2000,curbless:2500,heat:{S:1500,M:2000,L:2800},double:2500,bench:900,grab:450},
   spread:1.15
 };
 
