@@ -1,0 +1,9 @@
+{
+  "_note": "calc-v1 price table (owner OK 28.11 00:35: 'цены вроде окей'). Client prices in USD, all in (labor, materials, permits), before WA sales tax. The ONLY place these numbers live: tools/build_lp_calc.py copies them into the page and into functions/api/lead.js. Range = base x finish + extras, rounded down to $500 ... that x spread, rounded up to $500.",
+  "version": "2026-11-28",
+  "base": {"full": {"S": 21000, "M": 28500, "L": 38000}, "tub": {"S": 12000, "L": 14000}, "shower": {"S": 10500, "L": 12500}},
+  "finish": {"full": {"e": 0.765, "m": 1, "p": 1.40}, "tub": {"e": 0.88, "m": 1, "p": 1.35}, "shower": {"e": 0.88, "m": 1, "p": 1.35}},
+  "extras": {"layout": 6000, "walkin": 2000, "curbless": 2500, "heat": {"S": 1500, "M": 2000, "L": 2800}, "double": 2500, "bench": 900, "grab": 450},
+  "avail": {"layout": ["full"], "walkin": ["full"], "heat": ["full"], "double": ["full:M", "full:L"], "bench": ["full", "tub", "shower"], "curbless": ["full", "tub", "shower"], "grab": ["tub", "shower"]},
+  "spread": 1.15
+}

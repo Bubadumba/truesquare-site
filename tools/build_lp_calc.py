@@ -131,79 +131,133 @@ def stars():
 TRUST = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "partials", "trust.html"), encoding="utf-8").read().strip()  # rating badge + secure shield under every form
 def chk(t): return f'<li><span class="tick"><svg><use href="#chk"/></svg></span>{t}</li>'
 
-# ===== calc-v1: price calculator for Meta W23 (Shtab task 27.11, owner 27.11 23:04) =====
-# First screen = the bathroom picture + the first question. The price is texted, not shown before the phone (owner 27.11 23:04).
+# ===== calc-v1: price calculator for Meta W23 (Shtab task 27.11, owner 27.11 23:04; v2 after the 7-round council 28.11) =====
+# First screen = headline + the first question in a light card. Pictures sit ON the answers (icons, same-scale floor plans,
+# example photos), nothing depends on hover. The price is texted, not shown before the phone (owner 27.11 23:04).
+import json, re as _re
+PRICES = json.load(open(os.path.join(ROOT, "tools", "calc", "prices.json"), encoding="utf-8"))
+_LP = open(os.path.join(PUB, "js", "lp.js"), encoding="utf-8").read()
+AREA = _re.search(r"var AREA='([0-9,]+)'", _LP).group(1)  # service-area ZIPs: same list as lp.js (read-only)
 CONSENT = ("By tapping Text Me My Estimate, you agree TrueSquare Remodel LLC may text and call you about your request at the number "
            "you entered. Msg &amp; data rates may apply. Reply STOP to opt out.")
+INK, CORAL = "#20242A", "#B54735"
 
-def opt(v, label, hint="", extra=""):
-    return (f'<button type="button" class="cqopt" data-v="{v}" aria-pressed="false"{extra}><b>{label}</b>'
-            f'{("<small>" + hint + "</small>") if hint else ""}</button>')
+def _svg(body, vb="0 0 48 48", cls="cqico"):
+    return f'<svg class="{cls}" viewBox="{vb}" aria-hidden="true" fill="none" stroke="{INK}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{body}</svg>'
+
+ICONS = {
+    "full": _svg(f'<rect x="8" y="6" width="14" height="12" rx="2" stroke="{CORAL}"/><rect x="5" y="24" width="20" height="13" rx="2"/><path d="M5 28h20M8 37v4M22 37v4M15 24v-3h3"/>'
+                 '<rect x="30" y="13" width="12" height="9" rx="1.5"/><path d="M28.5 25h15c0 5.5-3.2 8.5-7.5 8.5s-7.5-3-7.5-8.5zM32.5 33.5l-.8 7.5h8.6l-.8-7.5"/>'),
+    "tub": _svg(f'<path d="M3 25h18v5a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z"/><path d="M6 35l-1 3M18 35l1 3M5 25v-8a3 3 0 0 1 6 0"/>'
+                f'<path d="M23.5 29h6M27 26l3 3-3 3" stroke="{CORAL}"/><rect x="33" y="9" width="12" height="31" rx="1"/><path d="M37 13h4M39 13v-3"/><path d="M37 18v3M41 18v3M39 21v3" stroke="{CORAL}"/>'),
+    "shower": _svg(f'<path d="M30 5v6h-6M19 13h10"/><path d="M20 17v3M24 17v4M28 17v3M22 23v3M26 23v3" stroke="{CORAL}"/><rect x="9" y="29" width="30" height="13" rx="1"/><path d="M9 35.5h30M19 29v13M29 29v13"/>'),
+    "unsure": _svg(f'<path d="M8 10h32a3 3 0 0 1 3 3v17a3 3 0 0 1-3 3H22l-8 7v-7H8a3 3 0 0 1-3-3V13a3 3 0 0 1 3-3z"/><path d="M20 18a4 4 0 1 1 5.5 3.7c-1 .5-1.5 1.2-1.5 2.3v.5" stroke="{CORAL}"/><circle cx="24" cy="28.5" r=".6" fill="{CORAL}" stroke="{CORAL}"/>'),
+}
+
+def plan(w_ft, h_ft, shower=False, unknown=False):
+    # top-down floor plan at ONE scale for every tile (4 px per ft, bottom-left aligned) so the size difference is real
+    k, W, H = 4.2, 58, 46
+    w, h = w_ft * k, h_ft * k
+    x0, y0 = 4, H - 2 - h
+    if unknown:
+        return _svg(f'<rect x="{x0}" y="{H-2-8*k*.8:.1f}" width="{8*k:.1f}" height="{8*k*.8:.1f}" rx="1.5" stroke-dasharray="3 3" stroke="#8B929A"/><text x="{x0+8*k/2:.1f}" y="{H-2-8*k*.4+5:.1f}" text-anchor="middle" font-size="15" font-weight="700" fill="{CORAL}" stroke="none">?</text>', f"0 0 {W} {H}", "cqplan")
+    if shower:
+        return _svg(f'<rect x="{x0}" y="{y0:.1f}" width="{w:.1f}" height="{h:.1f}" rx="1" stroke="{INK}"/><path d="M{x0} {y0+h:.1f}h{w:.1f}" stroke="{CORAL}" stroke-width="2.4"/><circle cx="{x0+w/2:.1f}" cy="{y0+h/2:.1f}" r="1.6" fill="{INK}" stroke="none"/>', f"0 0 {W} {H}", "cqplan")
+    tub_w = min(w - 2, 5 * k)
+    return _svg(f'<rect x="{x0}" y="{y0:.1f}" width="{w:.1f}" height="{h:.1f}" rx="1.2"/>'
+                f'<rect x="{x0+1:.1f}" y="{y0+1:.1f}" width="{tub_w:.1f}" height="{2.5*k:.1f}" rx="2" stroke="{CORAL}" stroke-width="1.6"/>'
+                f'<circle cx="{x0+w-6:.1f}" cy="{y0+h-7:.1f}" r="2.6" stroke-width="1.6"/><rect x="{x0+w-8.6:.1f}" y="{y0+h-3.4:.1f}" width="5.2" height="2" rx=".6" stroke-width="1.4"/>'
+                f'<rect x="{x0+1.5:.1f}" y="{y0+h-5:.1f}" width="9" height="3.6" rx="1" stroke-width="1.4"/>', f"0 0 {W} {H}", "cqplan")
+
+def opt(v, label, hint="", extra="", pic="", cls=""):
+    return (f'<button type="button" class="cqopt{(" " + cls) if cls else ""}" data-v="{v}" aria-pressed="false"{extra}>{pic}<span class="cqt"><b>{label}</b>'
+            f'{("<small>" + hint + "</small>") if hint else ""}</span><i class="cqchk" aria-hidden="true"></i></button>')
+
+# finish tiers: text = what the price includes [ЖДЁТ РЕШЕНИЯ Сергея: точные включения]; photos only after the owner approves them
+TIERS = {
+    "full": [("e", "Essential", "Simple tile, stock vanity, standard fixtures"), ("m", "Mid-range", "Porcelain tile, quartz top, upgraded fixtures"), ("p", "Premium", "Large-format tile, custom vanity, designer fixtures")],
+    "shower": [("e", "Essential", "Ceramic tile, standard valve, framed glass door"), ("m", "Mid-range", "Porcelain tile, recessed niche, frameless glass"), ("p", "Premium", "Large-format tile, rain shower head, frameless glass")],
+}
+TIER_IMG = os.path.join(PUB, "img", "calc")  # tier photos: /img/calc/{full|shower}-{e|m|p}-220.avif/.webp/.jpg (only when they exist)
+
+def tier_pic(kind, k):
+    base = f"/img/calc/{kind}-{k}"
+    if not os.path.exists(os.path.join(TIER_IMG, f"{kind}-{k}-220.jpg")):
+        return ""
+    return (f'<span class="cqph"><picture><source type="image/avif" srcset="{base}-220.avif"><source type="image/webp" srcset="{base}-220.webp">'
+            f'<img src="{base}-220.jpg" alt="" width="110" height="82" loading="lazy" decoding="async"></picture><em>Example</em></span>')
 
 def calc_block():
-    sw = lambda c: f'<i class="sw" style="background:{c}"></i>'
-    styles = {"modern": ("Modern", "#7A4E33,#1F1F1F,#FBFBFA"), "classic": ("Classic", "#2C3E57,#B9C1C9,#FFFFFF"),
-              "warm": ("Warm natural", "#C29567,#B98A3E,#E9D7C1"), "spa": ("Dark spa", "#4C5156,#C8A468,#D2BC9C")}
-    style_opts = "".join(opt(k, f'<span class="sws">{"".join(sw(c) for c in cs.split(","))}</span>{n}', extra=' data-k="style"') for k, (n, cs) in styles.items())
+    tiers = ""
+    for kind, rows in TIERS.items():
+        tiers += f'<span class="cqgrp" data-for="{"full" if kind == "full" else "shower"}">' + "".join(
+            opt(k, n, h, pic=tier_pic(kind, k), cls="cqrow") for k, n, h in rows) + "</span>"
+    has_photos = "cqhasph" if tier_pic("full", "m") else ""
+    prices = json.dumps({k: PRICES[k] for k in ("version", "base", "finish", "extras", "avail", "spread")}, separators=(",", ":"))
     return f"""<section class="hero on-ink cqhero" id="book"><div class="wrap">
-  <div class="calc" id="calc">
-    <div class="cqhead">
-      <h1>Bathroom Remodel <span class="grad-text">Price Calculator</span></h1>
-      <p class="cqsub">7 quick taps. Your price by text in 1 minute.</p>
-    </div>
-    <figure class="cqfig"><div class="cqviz" aria-hidden="true"></div><figcaption><span class="cqtag"></span><span class="cqill">Illustration</span></figcaption></figure>
+  <div class="cqtop">
+    <h1>What Will Your Bathroom <span class="grad-text">Remodel Cost?</span></h1>
+    <p class="cqsub">Seattle-area prices. Your price range by text within 1 minute of submitting.</p>
+    <p class="cqinc"><span>Labor, materials &amp; permits included</span><span>WA sales tax extra</span></p>
+  </div>
+  <div class="calc" id="calc" data-area="{AREA}">
+    <div class="cqnav"><button type="button" class="cqback" id="cqBack" hidden>← Back</button><span class="cqcount">Step <b id="cqNum">1</b> of 6</span><span class="cqbar"><i id="cqProg"></i></span></div>
     <p class="cqdebug" id="cqDebug" hidden></p>
-    <div class="cqnav hcta"><button type="button" class="cqback" id="cqBack" hidden>← Back</button><span class="cqcount">Step <b id="cqNum">1</b> of 7</span><span class="cqbar"><i id="cqProg"></i></span></div>
 
-    <fieldset class="cqstep" data-step="type"><legend tabindex="-1">What are you planning?</legend><div class="cqopts">
-      {opt("full", "Full bathroom remodel")}{opt("tub", "Tub to walk-in shower")}{opt("shower", "Shower remodel", "New tile and pan")}{opt("unsure", "Not sure yet")}
-    </div></fieldset>
+    <div class="cqstep" data-step="type"><h2 class="cqq" tabindex="-1">What are you planning?</h2><div class="cqopts cq2 cqtiles">
+      {opt("full", "Full bathroom remodel", pic=ICONS["full"])}{opt("tub", "Tub to walk-in shower", pic=ICONS["tub"])}{opt("shower", "Shower remodel", pic=ICONS["shower"])}{opt("unsure", "Not sure yet", pic=ICONS["unsure"])}
+    </div><p class="cqhint">Tap an option to continue</p></div>
 
-    <fieldset class="cqstep" data-step="size" hidden><legend tabindex="-1">How big is the bathroom?</legend><div class="cqopts">
-      <span data-for="full" class="cqgrp">{opt("S", "Small", "Up to 40 sq ft, about 5×8")}{opt("M", "Medium", "40–70 sq ft")}{opt("L", "Large", "70+ sq ft, primary bath")}{opt("U", "Not sure")}</span>
-      <span data-for="shower" class="cqgrp">{opt("SS", "Standard", "Fits the old 5 ft tub space")}{opt("SL", "Larger", "Bigger than 5 ft")}</span>
-    </div></fieldset>
+    <div class="cqstep" data-step="size" hidden>
+      <h2 class="cqq" tabindex="-1"><span data-for="full">How big is your bathroom?</span><span data-for="shower">How big is the shower area?</span></h2>
+      <div class="cqopts cq2 cqtiles cqsize">
+        <span class="cqgrp" data-for="full">{opt("S", "Small", "About 5 × 8 ft · typical hall bath", pic=plan(8, 5))}{opt("M", "Medium", "About 8 × 8 ft", pic=plan(8, 8))}{opt("L", "Large", "About 10 × 10 ft or larger", pic=plan(10, 10))}{opt("U", "Not sure", "We'll use an average size", pic=plan(0, 0, unknown=True))}</span>
+        <span class="cqgrp" data-for="shower">{opt("SS", "Standard", "About the size of a 5-ft tub", pic=plan(5, 2.6, shower=True))}{opt("SL", "Large", "Bigger than a 5-ft tub area", pic=plan(6.5, 3.6, shower=True))}{opt("SU", "Not sure", "We'll use a standard size", pic=plan(0, 0, unknown=True))}</span>
+      </div></div>
 
-    <fieldset class="cqstep" data-step="style" hidden><legend tabindex="-1">Which style do you like?</legend><div class="cqopts">{style_opts}</div></fieldset>
+    <div class="cqstep" data-step="finish" hidden><h2 class="cqq" tabindex="-1">Which finish level do you prefer?</h2><div class="cqopts cq1 {has_photos}">{tiers}</div>
+      <p class="cqhint">{"Illustrative examples. Actual materials and selections may vary." if has_photos else "Your choice of materials. You pick the exact items with Serhii later."}</p></div>
 
-    <fieldset class="cqstep" data-step="finish" hidden><legend tabindex="-1">Quality of materials?</legend><div class="cqopts cq1">
-      {opt("e", "Essential", "Simple tile, stock vanity")}{opt("m", "Mid-range", "Most popular. Porcelain tile, frameless glass")}{opt("p", "Premium", "Large tile, floating vanity, designer fixtures")}
-    </div></fieldset>
+    <div class="cqstep" data-step="extras" hidden><h2 class="cqq" tabindex="-1">Any additional upgrades? <small>Select all that apply</small></h2><div class="cqopts cq2 cqx">
+      {opt("walkin", "Walk-in shower instead of tub", extra=' data-x="walkin"')}{opt("layout", "Move plumbing fixtures", extra=' data-x="layout"')}{opt("heat", "Heated tile floor", extra=' data-x="heat"')}{opt("double", "Double-sink vanity", extra=' data-x="double"')}{opt("bench", "Built-in shower bench", extra=' data-x="bench"')}{opt("curbless", "Curbless shower entry", extra=' data-x="curbless"')}{opt("grab", "Grab bars", extra=' data-x="grab"')}
+    </div><button type="button" class="btn block cqnext" id="cqNext"><span id="cqNextL">No extras - Continue</span> <span class="arr">→</span></button>
+      <p class="cqhint">Selected upgrades are included in your estimate.</p></div>
 
-    <fieldset class="cqstep" data-step="extras" hidden><legend tabindex="-1">Anything extra? <small>Pick any or none</small></legend><div class="cqopts cqx">
-      {opt("walkin", "Walk-in shower instead of tub", extra=' data-x="walkin"')}{opt("layout", "Move toilet, shower or vanity", extra=' data-x="layout"')}{opt("heat", "Heated floor", extra=' data-x="heat"')}{opt("double", "Double vanity", extra=' data-x="double"')}{opt("bench", "Shower bench", extra=' data-x="bench"')}{opt("curbless", "No-step shower entry", extra=' data-x="curbless"')}{opt("grab", "Grab bars", extra=' data-x="grab"')}
-    </div><button type="button" class="btn block cqnext" id="cqNext"><span id="cqNextL">No extras, continue</span> <span class="arr">→</span></button></fieldset>
-
-    <fieldset class="cqstep" data-step="start" hidden><legend tabindex="-1">When do you want to start?</legend><div class="cqopts">
-      {opt("asap", "As soon as possible")}{opt("m1", "In 1–3 months")}{opt("m3", "In 3+ months")}{opt("look", "Just checking prices")}
-    </div></fieldset>
+    <div class="cqstep" data-step="start" hidden><h2 class="cqq" tabindex="-1">When would you like to start?</h2><div class="cqopts cq1">
+      {opt("m0", "Within the next month", cls="cqline")}{opt("m1", "In 1–3 months", cls="cqline")}{opt("m3", "More than 3 months from now", cls="cqline")}{opt("look", "Just researching prices", cls="cqline")}
+    </div><p class="cqhint">It's fine if you don't have a date in mind yet.</p></div>
 
     <form class="cqstep cqform" data-step="contact" id="cqForm" novalidate data-clarity-mask="True" hidden>
-      <h2 tabindex="-1">Your estimate is ready. <span class="grad-text">Where should we text it?</span></h2>
-      <p class="cqmin"><b>Your price arrives by text within 1 minute.</b></p>
+      <p class="cqsum"><span class="cqsuml">Your project</span><span id="cqSum"></span><button type="button" class="cqedit" id="cqEdit">Edit</button></p>
+      <h2 class="cqq" tabindex="-1">Your estimate is ready. <span class="cqacc">Where should we text your price range?</span></h2>
+      <p class="cqfol">Serhii, the owner, will follow up to answer questions. No obligation.</p>
+      <p class="cqfix" id="cqFixNote" hidden>Enter the correct mobile number and tap the button again.</p>
       <div class="fields">
-        <label class="f" for="fName">Full name<input class="t" id="fName" name="full_name" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
+        <label class="f" for="fName">First name<input class="t" id="fName" name="first_name" autocomplete="given-name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
         <label class="f" for="fPhone">Mobile number<input class="t" id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next"></label>
-        <label class="f" for="fZip">ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" enterkeyhint="send"></label>
-        <p class="err" id="fErr" hidden></p>
+        <label class="f" for="fZip">Project ZIP code<input class="t" id="fZip" name="zip" inputmode="numeric" pattern="[0-9]*" autocomplete="postal-code" maxlength="5" enterkeyhint="send"></label>
+        <p class="err" id="fErr" hidden role="alert"></p>
         <button class="btn block" type="submit" id="fSubmit" data-cta="calc"><span id="fLabel">Text Me My Estimate</span> <span class="arr">→</span></button>
+        <p class="cqfast">Usually arrives in under 1 minute.</p>
         <p class="legal-mini" id="consentText">{CONSENT} <a href="/privacy" target="_blank">Privacy</a> · <a href="/terms" target="_blank">Terms</a></p>
-        {TRUST}
       </div>
     </form>
 
     <div class="cqdone" id="cqDone" hidden>
       <div class="dcheck" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
       <p class="big" id="doneHi" tabindex="-1">Check your phone!</p>
-      <p class="dwhen">Your estimate is on its way by text to <b id="donePhone" class="nw"></b>.</p>
-      <p class="dnum">No text in 2 minutes? Text us at <a href="sms:{PHONE_T}" class="nw">{PHONE}</a>.</p>
-      <p class="dnext" id="doneWhen">Serhii will call you to confirm the details and set up a free visit.</p>
-      <a class="btn block" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Serhii's Number <span class="arr">↓</span></a>
+      <p class="dwhen">Your bathroom estimate is on its way.<br>We're texting it to <b id="donePhone" class="nw"></b>. <button type="button" class="cqedit" id="cqFix">Wrong number? Edit</button></p>
+      <p class="dnum">Usually arrives in under 1 minute.</p>
+      <p class="dnext" id="doneWhen">Serhii, the owner, will follow up to answer questions. No obligation.</p>
+      <div class="cqcta2"><a class="btn outline" href="sms:{PHONE_T}" data-cta="done-text">Text Us</a><a class="btn outline" href="tel:{PHONE_T}" data-cta="done-call">Call Us</a></div>
+      <p class="cqreveal" id="cqReveal" hidden>Didn't get the text? <button type="button" class="cqedit" id="cqRevealBtn">Show my estimate here</button></p>
+      <div class="cqshow" id="cqShow" hidden><p class="cqrange" id="cqShowRange"></p><p class="cqalt" id="cqShowAlt"></p><p>Labor, materials and permits included. WA sales tax extra. After a free visit, you get an itemized written price within 5 hours.</p></div>
+      <a class="cqsave" href="/truesquare-remodel.vcf" data-cta="save-contact" id="doneSave">Save Serhii's number ↓</a>
     </div>
-
-    <p class="cqlic"><span>{stars()}<b>5.0</b> Google (12) · Thumbtack (24)</span><span>Licensed &amp; Bonded · WA L&amp;I <b>{LNI}</b></span></p>
   </div>
-</div></section>"""
+  <p class="cqlic"><span>{stars()}<b>5.0</b> on Google (12)</span><span>Licensed &amp; Bonded · WA L&amp;I <b>{LNI}</b></span></p>
+</div></section>
+<script>window.TSR_CALC_PRICES={prices};</script>"""
 
 def calc_page():
     def ph(full, img, alt, w, h):
@@ -291,8 +345,19 @@ def calc_page():
 
 PAGES = {"bathroom-remodel-cost-calc.html": calc_page()}
 
+def write_lead_prices():
+    # keeps functions/api/lead.js on the same price table as the page (server-side recalculation)
+    p = os.path.join(ROOT, "functions", "api", "lead.js")
+    src = open(p, encoding="utf-8").read()
+    table = json.dumps({k: PRICES[k] for k in ("version", "base", "finish", "extras", "avail", "spread")}, separators=(",", ":"))
+    out = _re.sub(r"// PRICES-BEGIN\n.*?\n// PRICES-END", "// PRICES-BEGIN\nconst P = " + table + ";\n// PRICES-END", src, flags=_re.S)
+    if out != src:
+        open(p, "w", encoding="utf-8").write(out)
+        print("wrote functions/api/lead.js prices")
+
 if __name__ == "__main__":
     import sys
+    write_lead_prices()
     only = sys.argv[1:]
     for name, s in PAGES.items():
         if only and name not in only:
