@@ -93,7 +93,8 @@ form.addEventListener('submit',function(e){
   var correction=!!lead; /* "Wrong number? Edit" after a successful submit: same answers, new number, no second Meta Lead */
   var pr=price(),alt=altPrice(),xs=chosenExtras().map(function(n){return L.extras[n];});
   var parts=name.split(/\s+/),first=parts[0].charAt(0).toUpperCase()+parts[0].slice(1),ct=$('consentText').textContent.trim();
-  var id=(lead&&lead.id&&!correction)?lead.id:'tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+  if(!form.__id)form.__id='tsr-'+Date.now()+'-'+Math.random().toString(36).slice(2,8); /* one ID per attempt series: a retry after an unknown outcome reuses it, so /api/lead can drop the duplicate */
+  var id=form.__id;
   var sum=[L.type[S.type],L.size[S.size],L.finish[S.finish]+' finishes'].concat(xs.length?['+ '+xs.join(', ')]:[]).concat(S.start?['Start: '+L.start[S.start]]:[]).join(' · ')+' · Estimate '+pr.text+(alt?' (tub-to-shower option '+alt.text+')':'');
   var p={full_name:name,first_name:first,last_name:parts.slice(1).join(' '),phone:'+1'+ph,zip:zip.value,project_type:sum,
     sms_consent:'yes',sms_consent_text:ct,consent_text:ct,marketing_consent:'no',
@@ -111,7 +112,7 @@ form.addEventListener('submit',function(e){
     err.innerHTML=(unknown?"We couldn't confirm your request went through. Please try again, or ":"We couldn't send your request. Please try again, or ")+'call or text <a href="tel:+12062222328" style="color:inherit;font-weight:700">(206) 222-2328</a>.';err.hidden=false;}
   function ok(){
     sending=false;btn.disabled=false;lab.textContent=label;
-    var wasCorrection=correction;lead={id:wasCorrection?lead.id:id,range:pr.text,alt:alt?alt.text:'',t:Date.now()};
+    form.__id='';var wasCorrection=correction;lead={id:wasCorrection?lead.id:id,range:pr.text,alt:alt?alt.text:'',t:Date.now()};
     steps.contact.hidden=true;$('cqDone').hidden=false;root.classList.add('is-done');var hh=d.querySelector('.cqhero');if(hh)hh.classList.remove('on-contact');
     $('doneHi').textContent='Check your phone, '+first+'!';$('donePhone').textContent=fmt(ph);
     $('doneWhen').textContent=followLine();

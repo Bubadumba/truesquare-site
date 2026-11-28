@@ -20,7 +20,7 @@ PHONE_T, PHONE = "+12062222328", "(206) 222-2328"
 LNI = "TRUESRL759QK"
 GOOGLE = "https://www.google.com/maps?cid=7556474326958598816"
 THUMBTACK = "https://www.thumbtack.com/wa/seattle/bathroom-remodeling/truesquare-remodel-llc/service/562919809761304593"
-V = "1"  # cache version for calc.js (1 = first version 27.11). Old note copied from V3: lp.js (15 = consent text from the phone hint when there is no consent block + minimal thank-you, 02.11; 14 = lp_variant + W3 tile picked by the server, 02.11; 12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
+V = "2"  # cache version for calc.js (2 = council redesign 28.11; 1 = first version 27.11). Old note copied from V3: lp.js (15 = consent text from the phone hint when there is no consent block + minimal thank-you, 02.11; 14 = lp_variant + W3 tile picked by the server, 02.11; 12 = landing split variant on every event, 29.10; 11 = form_source + Clarity + CAPI)
 RANGE = "$16,000–$28,500"
 CAPTION = os.environ.get("TSR_CAP", "a")  # crew-photo caption variant for preview: a | b [ЖДЁТ РЕШЕНИЯ]
 CAPTIONS = {
